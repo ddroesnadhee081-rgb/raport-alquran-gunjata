@@ -2217,12 +2217,37 @@ service cloud.firestore {
         function handleLocalLogo(e) {
             const file = e.target.files[0];
             if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function (evt) {
-                APP_STATE.setting.logo = evt.target.result;
+            compressImageFile(file, 300, 300, 0.85, (dataUrl) => {
+                APP_STATE.setting.logo = dataUrl;
                 saveDatabase();
                 renderLogo();
-                showToast("Logo Diperbarui", "Logo instansi berhasil disimpan.");
+                showToast("Logo Diperbarui", "Logo instansi berhasil disimpan & dikompresi optimal.");
+            });
+        }
+
+        function compressImageFile(file, maxWidth, maxHeight, quality, callback) {
+            const reader = new FileReader();
+            reader.onload = function (evt) {
+                const img = new Image();
+                img.onload = function () {
+                    let width = img.width;
+                    let height = img.height;
+                    if (width > maxWidth || height > maxHeight) {
+                        const ratio = Math.min(maxWidth / width, maxHeight / height);
+                        width = Math.round(width * ratio);
+                        height = Math.round(height * ratio);
+                    }
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    const outputType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+                    const compressed = canvas.toDataURL(outputType, quality);
+                    callback(compressed.length < evt.target.result.length ? compressed : evt.target.result);
+                };
+                img.onerror = () => callback(evt.target.result);
+                img.src = evt.target.result;
             };
             reader.readAsDataURL(file);
         }
@@ -2307,15 +2332,13 @@ service cloud.firestore {
         function handleLocalLoginBg(e) {
             const file = e.target.files[0];
             if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function (evt) {
+            compressImageFile(file, 1024, 768, 0.72, (dataUrl) => {
                 if (!APP_STATE.setting) APP_STATE.setting = {};
-                APP_STATE.setting.loginBg = evt.target.result;
+                APP_STATE.setting.loginBg = dataUrl;
                 saveDatabase();
                 renderLoginBg();
-                showToast("Background Disimpan", "Gambar background halaman login berhasil diperbarui.");
-            };
-            reader.readAsDataURL(file);
+                showToast("Background Disimpan", "Gambar background login berhasil diperbarui.");
+            });
         }
 
         function handleInputUrlLoginBg(url) {
@@ -3993,8 +4016,16 @@ service cloud.firestore {
                 const cfg = JSON.parse(localStorage.getItem(FIREBASE_CONFIG_KEY) || '{}');
                 const docRef = doc(fbDb, 'raport_tpq', cfg.docId || 'tpq_gunung_jati');
 
-                // Bersihkan payload dari nilai undefined
+                // Bersihkan payload & pastikan properti setting aman dari batas ukuran field Firestore
                 const cleanPayload = JSON.parse(JSON.stringify(APP_STATE));
+                if (cleanPayload.setting) {
+                    if (typeof cleanPayload.setting.logo === 'string' && cleanPayload.setting.logo.length > 350000) {
+                        cleanPayload.setting.logo = null;
+                    }
+                    if (typeof cleanPayload.setting.loginBg === 'string' && cleanPayload.setting.loginBg.length > 450000) {
+                        cleanPayload.setting.loginBg = null;
+                    }
+                }
 
                 const timeoutPromise = new Promise((_, reject) => {
                     setTimeout(() => {
