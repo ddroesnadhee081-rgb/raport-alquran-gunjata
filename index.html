@@ -815,7 +815,7 @@
                 <div class="w-8"></div>
             </div>
 
-            <div class="max-w-6xl mx-auto pb-20 w-full flex-1">
+            <div id="main-content-wrapper" class="max-w-6xl mx-auto pb-20 w-full flex-1 transition-all duration-200">
                 <!-- 0. DASHBOARD -->
                 <section id="sec-dashboard" class="space-y-6">
                     <div
@@ -1043,31 +1043,29 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 2xl:grid-cols-2 gap-6">
                             <!-- PANEL 1: PILIH DARI KELAS -->
                             <div
                                 class="bg-white rounded-[1.25rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] overflow-hidden flex flex-col">
                                 <div
-                                    class="p-4 border-b border-slate-100 bg-emerald-50/40 flex flex-wrap items-center justify-between gap-2">
+                                    class="p-4 border-b border-slate-100 bg-emerald-50/40 flex flex-wrap items-center justify-between gap-3">
                                     <div>
                                         <h3
                                             class="font-bold text-xs uppercase tracking-wider text-emerald-900 flex items-center gap-1.5">
-                                            <i class="ph-bold ph-user-plus text-emerald-600"></i> Pilih Santri dari
+                                            <i class="ph-bold ph-user-plus text-emerald-600 text-base"></i> Pilih Santri dari
                                             Kelas
                                         </h3>
-                                        <p class="text-[10px] text-slate-500">Centang santri yang akan dimasukkan ke
-                                            level Anda.</p>
+                                        <p class="text-[11px] text-slate-500 mt-0.5">Centang santri atau klik tombol Masukkan di sebelah kanan.</p>
                                     </div>
                                     <div class="flex items-center gap-2">
                                         <select id="guru-select-kelas-source" onchange="renderGuruPlottingSources()"
-                                            class="px-3 py-1.5 text-xs font-bold border border-slate-200 rounded-lg outline-none bg-white text-slate-700 focus:ring-2 focus:ring-emerald-500">
+                                            class="px-3.5 py-2 text-xs font-bold border border-slate-200 rounded-xl outline-none bg-white text-slate-700 focus:ring-2 focus:ring-emerald-500">
                                             <option value="ALL">Semua Kelas</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div
-                                    class="p-3 border-b border-slate-100 bg-slate-50 flex items-center justify-between gap-2">
+                                    class="px-4 py-3 border-b border-slate-100 bg-slate-50 flex flex-wrap items-center justify-between gap-2">
                                     <label
                                         class="flex items-center gap-2 text-xs font-semibold text-slate-700 cursor-pointer">
                                         <input type="checkbox" id="check-select-all-source"
@@ -1076,20 +1074,20 @@
                                         <span>Pilih Semua yang Tampil</span>
                                     </label>
                                     <button type="button" onclick="handleBulkAssignLevel()"
-                                        class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-xs rounded-lg transition shadow-sm flex items-center gap-1.5">
-                                        <i class="ph-bold ph-plus-circle"></i> Masukkan Terpilih
+                                        class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-xs rounded-xl transition shadow-sm flex items-center gap-1.5">
+                                        <i class="ph-bold ph-plus-circle text-sm"></i> Masukkan Terpilih
                                     </button>
                                 </div>
-                                <div class="overflow-x-auto flex-1 max-h-[460px]">
+                                <div class="overflow-x-auto flex-1 max-h-[480px]">
                                     <table class="w-full text-left text-xs">
                                         <thead
                                             class="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-100 sticky top-0 z-10">
                                             <tr>
-                                                <th class="py-2.5 px-2.5 w-8 text-center">Pilih</th>
-                                                <th class="py-2.5 px-2">Nama Santri</th>
-                                                <th class="py-2.5 px-2 text-center w-14">Kelas</th>
-                                                <th class="py-2.5 px-2 w-24">Level</th>
-                                                <th class="py-2.5 px-2.5 text-right w-24">Aksi</th>
+                                                <th class="py-3 px-3 w-10 text-center">Pilih</th>
+                                                <th class="py-3 px-3">Nama Santri</th>
+                                                <th class="py-3 px-3 text-center w-16">Kelas</th>
+                                                <th class="py-3 px-3 w-28">Level</th>
+                                                <th class="py-3 px-3 text-right w-28">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="table-guru-source-body" class="divide-y divide-slate-100"></tbody>
@@ -1101,31 +1099,31 @@
                             <div
                                 class="bg-white rounded-[1.25rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] overflow-hidden flex flex-col">
                                 <div
-                                    class="p-4 border-b border-slate-100 bg-blue-50/40 flex flex-wrap items-center justify-between gap-2">
+                                    class="p-4 border-b border-slate-100 bg-blue-50/40 flex flex-wrap items-center justify-between gap-3">
                                     <div>
                                         <h3
                                             class="font-bold text-xs uppercase tracking-wider text-blue-900 flex items-center gap-1.5">
-                                            <i class="ph-bold ph-users-three text-blue-600"></i> Santri Binaan Saya
+                                            <i class="ph-bold ph-users-three text-blue-600 text-base"></i> Santri Binaan Saya
                                         </h3>
-                                        <p class="text-[10px] text-slate-500">Santri yang saat ini sudah masuk ke
+                                        <p class="text-[11px] text-slate-500 mt-0.5">Santri yang saat ini sudah masuk ke
                                             kelompok Anda.</p>
                                     </div>
                                     <div class="flex items-center gap-2">
                                         <select id="guru-filter-binaan-kelas" onchange="renderGuruBinaanTable()"
-                                            class="px-3 py-1.5 text-xs font-bold border border-slate-200 rounded-lg outline-none bg-white text-slate-700 focus:ring-2 focus:ring-blue-500">
+                                            class="px-3.5 py-2 text-xs font-bold border border-slate-200 rounded-xl outline-none bg-white text-slate-700 focus:ring-2 focus:ring-blue-500">
                                             <option value="ALL">Semua Kelas</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="overflow-x-auto flex-1 max-h-[500px]">
+                                <div class="overflow-x-auto flex-1 max-h-[530px]">
                                     <table class="w-full text-left text-xs">
                                         <thead
                                             class="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-100 sticky top-0 z-10">
                                             <tr>
-                                                <th class="py-2.5 px-2 w-8 text-center">No</th>
-                                                <th class="py-2.5 px-2">Nama Santri &amp; NIS</th>
-                                                <th class="py-2.5 px-2 text-center w-14">Kelas</th>
-                                                <th class="py-2.5 px-2.5 text-right">Aksi</th>
+                                                <th class="py-3 px-3 w-10 text-center">No</th>
+                                                <th class="py-3 px-3">Nama Santri &amp; NIS</th>
+                                                <th class="py-3 px-3 text-center w-16">Kelas</th>
+                                                <th class="py-3 px-3 text-right w-44">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="table-guru-binaan-body" class="divide-y divide-slate-100"></tbody>
@@ -2581,6 +2579,18 @@ service cloud.firestore {
             const targetSection = document.getElementById(`sec-${targetId}`);
             if (targetSection) targetSection.classList.remove('hidden');
 
+            // Lebarkan area kerja penuh saat Guru membuka Data Siswa (Plotting Santri) agar semua tombol terlihat utuh
+            const mainWrapper = document.getElementById('main-content-wrapper');
+            if (mainWrapper) {
+                if (targetId === 'data-siswa' && currentUser && currentUser.role !== 'admin') {
+                    mainWrapper.classList.remove('max-w-6xl');
+                    mainWrapper.classList.add('max-w-full');
+                } else {
+                    mainWrapper.classList.remove('max-w-full');
+                    mainWrapper.classList.add('max-w-6xl');
+                }
+            }
+
             const navBtns = document.querySelectorAll('.nav-btn');
             navBtns.forEach(btn => {
                 if (btn.getAttribute('data-target') === targetId) {
@@ -2755,14 +2765,14 @@ service cloud.firestore {
                     : `<span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 whitespace-nowrap">${s.level}</span>`;
 
                 tr.innerHTML = `
-                    <td class="py-2.5 px-2.5 text-center">
+                    <td class="py-3 px-3 text-center">
                         <input type="checkbox" value="${s.id}" class="check-source-siswa w-4 h-4 text-emerald-600 rounded border-gray-300 focus:ring-emerald-500 cursor-pointer">
                     </td>
-                    <td class="py-2.5 px-2 font-bold text-slate-800 leading-snug">${s.nama}</td>
-                    <td class="py-2.5 px-2 text-center font-semibold text-slate-700 whitespace-nowrap">${s.kelas}</td>
-                    <td class="py-2.5 px-2">${statusBadge}</td>
-                    <td class="py-2.5 px-2.5 text-right whitespace-nowrap">
-                        <button type="button" onclick="assignSiswaToLevel('${s.id}')" class="px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-[11px] font-bold rounded-lg transition shadow-xs inline-flex items-center gap-1">
+                    <td class="py-3 px-3 font-bold text-slate-800 leading-snug">${s.nama}</td>
+                    <td class="py-3 px-3 text-center font-semibold text-slate-700 whitespace-nowrap">${s.kelas}</td>
+                    <td class="py-3 px-3">${statusBadge}</td>
+                    <td class="py-3 px-3 text-right whitespace-nowrap">
+                        <button type="button" onclick="assignSiswaToLevel('${s.id}')" class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-bold rounded-lg transition shadow-xs inline-flex items-center gap-1.5">
                             <i class="ph-bold ph-plus"></i> Masukkan
                         </button>
                     </td>
@@ -2858,18 +2868,18 @@ service cloud.firestore {
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-slate-50 transition";
                 tr.innerHTML = `
-                    <td class="py-2.5 px-2 text-center font-bold text-slate-400">${idx + 1}</td>
-                    <td class="py-2.5 px-2">
+                    <td class="py-3 px-3 text-center font-bold text-slate-400">${idx + 1}</td>
+                    <td class="py-3 px-3">
                         <div class="font-bold text-slate-800 leading-snug">${s.nama}</div>
-                        <div class="text-[10px] text-slate-400 font-mono">NIS: ${s.nis || '-'}</div>
+                        <div class="text-[11px] text-slate-400 font-mono mt-0.5">NIS: ${s.nis || '-'}</div>
                     </td>
-                    <td class="py-2.5 px-2 text-center font-semibold text-slate-700 whitespace-nowrap">${s.kelas}</td>
-                    <td class="py-2.5 px-2.5 text-right whitespace-nowrap">
-                        <div class="inline-flex items-center gap-1.5">
-                            <button type="button" onclick="editSiswaGuru('${s.id}')" class="px-2.5 py-1 bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 text-[11px] font-semibold rounded-lg transition inline-flex items-center gap-1" title="Edit Nama/NIS/NISN">
+                    <td class="py-3 px-3 text-center font-semibold text-slate-700 whitespace-nowrap">${s.kelas}</td>
+                    <td class="py-3 px-3 text-right whitespace-nowrap">
+                        <div class="inline-flex items-center gap-2">
+                            <button type="button" onclick="editSiswaGuru('${s.id}')" class="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 text-xs font-semibold rounded-lg transition inline-flex items-center gap-1" title="Edit Nama/NIS/NISN">
                                 <i class="ph-bold ph-pencil-simple"></i> Edit
                             </button>
-                            <button type="button" onclick="keluarkanSiswaDariLevel('${s.id}')" class="px-2.5 py-1 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-[11px] font-semibold rounded-lg transition inline-flex items-center gap-1" title="Keluarkan dari level">
+                            <button type="button" onclick="keluarkanSiswaDariLevel('${s.id}')" class="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-semibold rounded-lg transition inline-flex items-center gap-1" title="Keluarkan dari level">
                                 <i class="ph-bold ph-x-circle"></i> Keluarkan
                             </button>
                         </div>
@@ -3107,6 +3117,502 @@ service cloud.firestore {
                 renderTableSiswa();
                 tutupModalSiswaGuru();
                 showToast("Siswa Ditambahkan", `${nama} (${kelas}) berhasil didaftarkan dan masuk ke kelompok binaan ${level}.`);
+            }
+        }
+
+        function handleSimpanSiswa(e) {
+            e.preventDefault();
+            const id = document.getElementById('siswa-id').value;
+            const nama = document.getElementById('siswa-nama').value.trim();
+            const nis = document.getElementById('siswa-nis').value.trim();
+            const nisn = document.getElementById('siswa-nisn').value.trim();
+            const kelas = document.getElementById('siswa-kelas').value.trim().toUpperCase();
+            const levelEl = document.getElementById('siswa-level');
+            const level = (levelEl && levelEl.value) ? levelEl.value : "Belum Ditentukan";
+
+            if (id) {
+                const idx = APP_STATE.siswa.findIndex(s => s.id === id);
+                if (idx !== -1) {
+                    APP_STATE.siswa[idx] = { id, nama, nis, nisn, kelas, level };
+                    showToast("Berhasil", "Data siswa diperbarui.");
+                }
+            } else {
+                const newId = 'S' + Date.now().toString().slice(-4) + Math.floor(Math.random() * 90 + 10);
+                APP_STATE.siswa.push({ id: newId, nama, nis, nisn, kelas, level });
+                showToast("Berhasil", "Siswa baru ditambahkan.");
+            }
+
+            batalEditSiswa();
+            saveDatabase();
+            renderTableSiswa();
+        }
+
+        function editSiswa(id) {
+            const s = (APP_STATE.siswa || []).find(item => item.id === id);
+            if (!s) return;
+            document.getElementById('siswa-id').value = s.id;
+            document.getElementById('siswa-nama').value = s.nama;
+            document.getElementById('siswa-nis').value = s.nis;
+            document.getElementById('siswa-nisn').value = s.nisn || '';
+            document.getElementById('siswa-kelas').value = s.kelas;
+            const levelEl = document.getElementById('siswa-level');
+            if (levelEl) levelEl.value = s.level || "Belum Ditentukan";
+
+            document.getElementById('form-siswa-title').innerHTML = '<i class="ph-bold ph-pencil-simple text-emerald-600"></i> Edit Data Siswa';
+        }
+
+        function batalEditSiswa() {
+            document.getElementById('siswa-id').value = '';
+            document.getElementById('siswa-nama').value = '';
+            document.getElementById('siswa-nis').value = '';
+            document.getElementById('siswa-nisn').value = '';
+            document.getElementById('siswa-kelas').value = '';
+            const levelEl = document.getElementById('siswa-level');
+            if (levelEl) levelEl.value = "Belum Ditentukan";
+            document.getElementById('form-siswa-title').innerHTML = '<i class="ph-bold ph-user-plus text-emerald-600"></i> Tambah Siswa Baru';
+        }
+
+        function hapusSiswa(id) {
+            showConfirm("Hapus Siswa", "Yakin ingin menghapus data siswa ini beserta rekam nilainya?", () => {
+                APP_STATE.siswa = (APP_STATE.siswa || []).filter(s => s.id !== id);
+                if (APP_STATE.nilai && APP_STATE.nilai[id]) {
+                    delete APP_STATE.nilai[id];
+                }
+                saveDatabase();
+                renderTableSiswa();
+                showToast("Dihapus", "Data siswa telah dihapus.");
+            });
+        }
+
+        function downloadTemplateExcel() {
+            const xml = `<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Center"/>
+   <Borders/>
+   <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="Header">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#000000"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#000000"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#000000"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#FFFFFF" ss:Bold="1"/>
+   <Interior ss:Color="#059669" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="TextLeft">
+   <Alignment ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
+   </Borders>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="TextCenter">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
+   </Borders>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Master Siswa">
+  <Table ss:DefaultColumnWidth="100">
+   <Column ss:Width="220"/>
+   <Column ss:Width="80"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="130"/>
+   <Row ss:Height="26">
+    <Cell ss:StyleID="Header"><Data ss:Type="String">Nama</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">Kelas</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">NIS</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">NISN</Data></Cell>
+   </Row>
+   <Row ss:Height="22">
+    <Cell ss:StyleID="TextLeft"><Data ss:Type="String">Ahmad Fauzi</Data></Cell>
+    <Cell ss:StyleID="TextCenter"><Data ss:Type="String">7A</Data></Cell>
+    <Cell ss:StyleID="TextCenter"><Data ss:Type="String">2425001</Data></Cell>
+    <Cell ss:StyleID="TextCenter"><Data ss:Type="String">0081234567</Data></Cell>
+   </Row>
+   <Row ss:Height="22">
+    <Cell ss:StyleID="TextLeft"><Data ss:Type="String">Aisyah Rahma</Data></Cell>
+    <Cell ss:StyleID="TextCenter"><Data ss:Type="String">7B</Data></Cell>
+    <Cell ss:StyleID="TextCenter"><Data ss:Type="String">2425002</Data></Cell>
+    <Cell ss:StyleID="TextCenter"><Data ss:Type="String">0081234568</Data></Cell>
+   </Row>
+   <Row ss:Height="22">
+    <Cell ss:StyleID="TextLeft"><Data ss:Type="String">Muhammad Rizky</Data></Cell>
+    <Cell ss:StyleID="TextCenter"><Data ss:Type="String">8A</Data></Cell>
+    <Cell ss:StyleID="TextCenter"><Data ss:Type="String">2425003</Data></Cell>
+    <Cell ss:StyleID="TextCenter"><Data ss:Type="String">0081234569</Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+</Workbook>`;
+
+            const blob = new Blob([xml], { type: 'application/vnd.ms-excel;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "template_master_siswa.xls";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadTemplateCSV(format = 'semicolon') {
+            const bom = "\uFEFF";
+            let csvContent = "";
+            let filename = "template_master_siswa.csv";
+
+            if (format === 'comma') {
+                csvContent = bom + "Nama,Kelas,NIS,NISN\r\nAhmad Fauzi,7A,2425001,0081234567\r\nAisyah Rahma,7B,2425002,0081234568\r\nMuhammad Rizky,8A,2425003,0081234569\r\n";
+                filename = "template_master_siswa_koma.csv";
+            } else {
+                csvContent = bom + "Nama;Kelas;NIS;NISN\r\nAhmad Fauzi;7A;2425001;0081234567\r\nAisyah Rahma;7B;2425002;0081234568\r\nMuhammad Rizky;8A;2425003;0081234569\r\n";
+                filename = "template_master_siswa_excel.csv";
+            }
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        function handleImportFile(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (evt) {
+                const text = evt.target.result || '';
+                let parsedRows = [];
+
+                if (text.includes('<Workbook') || text.includes('urn:schemas-microsoft-com:office:spreadsheet')) {
+                    const rowRegex = /<Row[^>]*>([\s\S]*?)<\/Row>/gi;
+                    let rowMatch;
+                    let headerIdx = { nama: -1, kelas: -1, nis: -1, nisn: -1, level: -1 };
+                    let isFirst = true;
+
+                    while ((rowMatch = rowRegex.exec(text)) !== null) {
+                        const rowContent = rowMatch[1];
+                        const cellRegex = /<Cell[^>]*>[\s\S]*?<Data[^>]*>([\s\S]*?)<\/Data>[\s\S]*?<\/Cell>/gi;
+                        const cells = [];
+                        let cellMatch;
+                        while ((cellMatch = cellRegex.exec(rowContent)) !== null) {
+                            cells.push(cellMatch[1].trim());
+                        }
+
+                        if (cells.length < 2) continue;
+
+                        if (isFirst) {
+                            cells.forEach((c, idx) => {
+                                const low = c.toLowerCase();
+                                if (low.includes('nama')) headerIdx.nama = idx;
+                                else if (low.includes('nisn')) headerIdx.nisn = idx;
+                                else if (low.includes('nis')) headerIdx.nis = idx;
+                                else if (low.includes('kelas') || low.includes('rombel')) headerIdx.kelas = idx;
+                                else if (low.includes('level')) headerIdx.level = idx;
+                            });
+                            isFirst = false;
+                            continue;
+                        }
+
+                        const namaVal = headerIdx.nama !== -1 ? cells[headerIdx.nama] : cells[0];
+                        if (!namaVal || namaVal.toLowerCase().includes('nama')) continue;
+
+                        const kelasVal = headerIdx.kelas !== -1 ? cells[headerIdx.kelas] : (cells[1] || '7A');
+                        const nisVal = headerIdx.nis !== -1 ? cells[headerIdx.nis] : (cells[2] || '-');
+                        const nisnVal = headerIdx.nisn !== -1 ? cells[headerIdx.nisn] : (cells[3] || '');
+                        const levelVal = headerIdx.level !== -1 ? cells[headerIdx.level] : (cells[4] || 'Belum Ditentukan');
+
+                        parsedRows.push({
+                            nama: namaVal,
+                            kelas: (kelasVal || '7A').toUpperCase(),
+                            nis: nisVal || '-',
+                            nisn: nisnVal || '',
+                            level: levelVal || 'Belum Ditentukan'
+                        });
+                    }
+                }
+
+                if (parsedRows.length === 0 && (text.includes('<table') || text.includes('<tr'))) {
+                    try {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(text, 'text/html');
+                        const trList = doc.querySelectorAll('tr');
+                        let headerIdx = { nama: -1, kelas: -1, nis: -1, nisn: -1, level: -1 };
+                        let hasHeader = false;
+
+                        trList.forEach((tr) => {
+                            const cells = Array.from(tr.querySelectorAll('th, td')).map(td => td.textContent.trim());
+                            if (cells.length < 2) return;
+
+                            if (!hasHeader) {
+                                cells.forEach((c, cIdx) => {
+                                    const low = c.toLowerCase();
+                                    if (low.includes('nama')) headerIdx.nama = cIdx;
+                                    else if (low.includes('nisn')) headerIdx.nisn = cIdx;
+                                    else if (low.includes('nis')) headerIdx.nis = cIdx;
+                                    else if (low.includes('kelas') || low.includes('rombel')) headerIdx.kelas = cIdx;
+                                    else if (low.includes('level')) headerIdx.level = cIdx;
+                                });
+                                if (headerIdx.nama !== -1) {
+                                    hasHeader = true;
+                                    return;
+                                }
+                            }
+
+                            const namaVal = headerIdx.nama !== -1 ? cells[headerIdx.nama] : cells[0];
+                            if (!namaVal || namaVal.toLowerCase().includes('nama')) return;
+
+                            const kelasVal = headerIdx.kelas !== -1 ? cells[headerIdx.kelas] : (cells[1] || '7A');
+                            const nisVal = headerIdx.nis !== -1 ? cells[headerIdx.nis] : (cells[2] || '-');
+                            const nisnVal = headerIdx.nisn !== -1 ? cells[headerIdx.nisn] : (cells[3] || '');
+                            const levelVal = headerIdx.level !== -1 ? cells[headerIdx.level] : (cells[4] || 'Belum Ditentukan');
+
+                            parsedRows.push({
+                                nama: namaVal,
+                                kelas: (kelasVal || '7A').toUpperCase(),
+                                nis: nisVal || '-',
+                                nisn: nisnVal || '',
+                                level: levelVal || 'Belum Ditentukan'
+                            });
+                        });
+                    } catch (err) { }
+                }
+
+                if (parsedRows.length === 0) {
+                    const rawLines = text.split(/\r\n|\n/).map(l => l.trim()).filter(l => l !== '');
+                    const lines = rawLines.filter(l => !l.toLowerCase().startsWith('sep='));
+                    if (lines.length >= 2) {
+                        const sampleHeader = lines[0];
+                        let delim = ',';
+                        if (sampleHeader.includes(';')) delim = ';';
+                        else if (sampleHeader.includes('\t')) delim = '\t';
+
+                        const headerCols = lines[0].split(delim).map(c => c.trim().replace(/^"|"$/g, '').toLowerCase());
+                        let headerIdx = { nama: -1, kelas: -1, nis: -1, nisn: -1, level: -1 };
+                        headerCols.forEach((c, idx) => {
+                            if (c.includes('nama')) headerIdx.nama = idx;
+                            else if (c.includes('nisn')) headerIdx.nisn = idx;
+                            else if (c.includes('nis')) headerIdx.nis = idx;
+                            else if (c.includes('kelas') || c.includes('rombel')) headerIdx.kelas = idx;
+                            else if (c.includes('level')) headerIdx.level = idx;
+                        });
+
+                        for (let i = 1; i < lines.length; i++) {
+                            const cols = lines[i].split(delim).map(c => c.trim().replace(/^"|"$/g, ''));
+                            if (cols.length >= 2 && cols[0]) {
+                                const namaVal = headerIdx.nama !== -1 ? cols[headerIdx.nama] : cols[0];
+                                if (!namaVal || namaVal.toLowerCase().includes('nama')) continue;
+
+                                const kelasVal = headerIdx.kelas !== -1 ? cols[headerIdx.kelas] : (cols[1] || '7A');
+                                const nisVal = headerIdx.nis !== -1 ? cols[headerIdx.nis] : (cols[2] || '-');
+                                const nisnVal = headerIdx.nisn !== -1 ? cols[headerIdx.nisn] : (cols[3] || '');
+                                const levelVal = headerIdx.level !== -1 ? cols[headerIdx.level] : (cols[4] || 'Belum Ditentukan');
+
+                                parsedRows.push({
+                                    nama: namaVal,
+                                    kelas: (kelasVal || '7A').toUpperCase(),
+                                    nis: nisVal || '-',
+                                    nisn: nisnVal || '',
+                                    level: levelVal || 'Belum Ditentukan'
+                                });
+                            }
+                        }
+                    }
+                }
+
+                if (parsedRows.length === 0) {
+                    showToast("Import Gagal", "File kosong atau format kolom tidak terbaca. Pastikan ada kolom Nama dan Kelas.", "error");
+                    e.target.value = '';
+                    return;
+                }
+
+                let imported = 0;
+                parsedRows.forEach((r, idx) => {
+                    const newId = 'S' + Date.now().toString().slice(-4) + Math.floor(Math.random() * 90 + 10) + idx;
+                    APP_STATE.siswa.push({
+                        id: newId,
+                        nama: r.nama,
+                        nis: r.nis,
+                        nisn: r.nisn,
+                        kelas: r.kelas,
+                        level: r.level
+                    });
+                    imported++;
+                });
+
+                saveDatabase();
+                renderTableSiswa();
+                showToast("Import Berhasil", `${imported} data santri berhasil diimpor.`);
+                e.target.value = '';
+            };
+            reader.readAsText(file);
+        }
+
+        window.handleImportCSV = handleImportFile;
+
+        // --- 2. INPUT NILAI ---
+        function populateSuratDataList() {
+            const dl = document.getElementById('list-surat-all');
+            if (!dl) return;
+            dl.innerHTML = '';
+            DAFTAR_SURAT.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s;
+                dl.appendChild(opt);
+            });
+        }
+
+        function prepareFormNilai() {
+            populateSuratDataList();
+            const isGuru = currentUser && currentUser.role === 'guru';
+            const filterKelasEl = document.getElementById('filter-kelas-nilai');
+            const descEl = document.getElementById('desc-input-nilai');
+
+            if (isGuru) {
+                if (filterKelasEl) filterKelasEl.classList.add('hidden');
+                if (descEl) descEl.textContent = `Menampilkan seluruh santri binaan Level ${currentUser.level} yang telah Anda pilih.`;
+            } else {
+                if (filterKelasEl) filterKelasEl.classList.remove('hidden');
+                if (descEl) descEl.textContent = 'Pilih santri untuk memperbarui capaian belajar.';
+                populateKelasSelect('filter-kelas-nilai', 'Semua Kelas', 'ALL');
+            }
+
+            updateSiswaNilaiDropdown('ALL');
+            const formContainer = document.getElementById('form-nilai-container');
+            formContainer.classList.add('hidden', 'opacity-0');
+        }
+
+        function filterSiswaNilaiByKelas(kelas) {
+            updateSiswaNilaiDropdown(kelas);
+            const formContainer = document.getElementById('form-nilai-container');
+            formContainer.classList.add('hidden', 'opacity-0');
+        }
+
+        function updateSiswaNilaiDropdown(kelasFilter = 'ALL') {
+            const select = document.getElementById('select-siswa-nilai');
+            if (!select) return;
+            const isGuru = currentUser && currentUser.role === 'guru';
+
+            let siswa = getAccessibleSiswa();
+            if (!isGuru && kelasFilter !== 'ALL') {
+                siswa = siswa.filter(s => (s.kelas || '').toUpperCase() === kelasFilter);
+            }
+
+            select.innerHTML = `<option value="" disabled selected>-- Pilih Santri Binaan (${siswa.length} Santri) --</option>`;
+
+            siswa.forEach(s => {
+                const sudah = APP_STATE.nilai && APP_STATE.nilai[s.id] ? '✓ ' : '• ';
+                const opt = document.createElement('option');
+                opt.value = s.id;
+                opt.textContent = isGuru
+                    ? `${sudah}${s.nama} (${s.kelas})`
+                    : `${sudah}${s.nama} (${s.kelas} - ${s.level})`;
+                select.appendChild(opt);
+            });
+        }
+
+        function loadNilaiForm(siswaId) {
+            const formContainer = document.getElementById('form-nilai-container');
+            if (!siswaId) {
+                formContainer.classList.add('hidden', 'opacity-0');
+                return;
+            }
+
+            formContainer.classList.remove('hidden');
+            setTimeout(() => formContainer.classList.remove('opacity-0'), 10);
+
+            const siswa = (APP_STATE.siswa || []).find(s => s.id === siswaId);
+            const levelSiswa = siswa ? siswa.level : "-";
+            const guruPengampu = (APP_STATE.guru || []).find(g => g.level === levelSiswa)?.nama || (currentUser?.role === 'guru' ? currentUser.nama : 'Guru Pembimbing');
+
+            const isGenap = APP_STATE.setting?.semester === 'Genap';
+            const areaKeputusan = document.getElementById('area-keputusan');
+            if (isGenap) {
+                areaKeputusan.classList.remove('hidden');
+            } else {
+                areaKeputusan.classList.add('hidden');
+            }
+
+            const lblLevel = document.getElementById('lbl-keputusan-level');
+            const lblGuru = document.getElementById('lbl-keputusan-guru');
+            const lblTetap = document.getElementById('lbl-tetap-level-name');
+            if (lblLevel) lblLevel.textContent = levelSiswa;
+            if (lblGuru) lblGuru.textContent = guruPengampu;
+            if (lblTetap) lblTetap.textContent = levelSiswa;
+
+            const selectLevelTujuan = document.getElementById('select-level-tujuan');
+            if (selectLevelTujuan) {
+                if (levelSiswa === "Iqra'") {
+                    selectLevelTujuan.value = "Al-Qur'an";
+                } else if (levelSiswa === "Al-Qur'an") {
+                    selectLevelTujuan.value = "Tahfidz A";
+                } else if (levelSiswa === "Tahfidz A") {
+                    selectLevelTujuan.value = "Tahfidz B";
+                } else {
+                    selectLevelTujuan.value = "Khotam / Lulus";
+                }
+            }
+
+            const dataNilai = (APP_STATE.nilai && APP_STATE.nilai[siswaId]) || null;
+            document.getElementById('nilai-makhraj').value = dataNilai ? dataNilai.makhraj : '';
+            document.getElementById('nilai-hukum').value = dataNilai ? dataNilai.hukum : '';
+            document.getElementById('nilai-lancar').value = dataNilai ? dataNilai.lancar : '';
+            document.getElementById('nilai-catatan').value = dataNilai ? (dataNilai.catatan || '') : '';
+
+            const radioNaik = document.getElementById('radio-keputusan-naik');
+            const radioTetap = document.getElementById('radio-keputusan-tetap');
+            if (radioNaik) radioNaik.checked = false;
+            if (radioTetap) radioTetap.checked = false;
+
+            if (dataNilai && dataNilai.keputusan) {
+                if (typeof dataNilai.keputusan === 'object' && dataNilai.keputusan !== null) {
+                    if (dataNilai.keputusan.tipe === 'Naik') {
+                        if (radioNaik) radioNaik.checked = true;
+                        if (dataNilai.keputusan.levelTujuan && selectLevelTujuan) {
+                            selectLevelTujuan.value = dataNilai.keputusan.levelTujuan;
+                        }
+                    } else if (dataNilai.keputusan.tipe === 'Tetap') {
+                        if (radioTetap) radioTetap.checked = true;
+                    }
+                } else if (typeof dataNilai.keputusan === 'string') {
+                    if (dataNilai.keputusan === 'Naik') {
+                        if (radioNaik) radioNaik.checked = true;
+                    } else {
+                        if (radioTetap) radioTetap.checked = true;
+                    }
+                }
+            }
+
+            const tbody = document.getElementById('table-hafalan-body');
+            tbody.innerHTML = '';
+            if (dataNilai && Array.isArray(dataNilai.hafalan) && dataNilai.hafalan.length > 0) {
+                dataNilai.hafalan.forEach(h => tambahBarisHafalan(h.nama, h.predikat));
+            } else {
+                updateHafalanState();
             }
         }
 
