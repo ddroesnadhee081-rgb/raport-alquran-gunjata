@@ -484,9 +484,10 @@
     </div>
     <div id="global-loading"
         class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[200] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="bg-white p-6 rounded-2xl shadow-2xl flex flex-col items-center gap-4">
+        <div class="bg-white p-6 rounded-2xl shadow-2xl flex flex-col items-center gap-3">
             <div class="loader-circle w-10 h-10 border-4"></div>
             <p class="text-sm font-bold text-slate-700 animate-pulse">Memproses...</p>
+            <button type="button" onclick="showLoading(false)" class="text-[11px] text-slate-400 hover:text-slate-600 underline">Batal</button>
         </div>
     </div>
 
@@ -1282,11 +1283,6 @@
                     <template id="raport-page-template">
                         <div class="raport-page w-[210mm] bg-white text-slate-900 shadow-xl relative"
                             style="padding: 8mm 12mm; box-sizing: border-box; min-height: 297mm; max-height: 297mm; height: 297mm; overflow: hidden; page-break-inside: avoid; break-inside: avoid;">
-                            <div
-                                class="rap-watermark absolute inset-0 pointer-events-none flex items-center justify-center opacity-[0.05] z-0 overflow-hidden">
-                                <div class="rap-watermark-inner w-[50%] h-auto"></div>
-                            </div>
-
                             <div class="rap-inner-container relative z-10 w-full flex flex-col justify-start"
                                 style="box-sizing: border-box;">
                                 <div>
@@ -3453,12 +3449,11 @@ service cloud.firestore {
                 const page = clone.querySelector('.raport-page');
                 const nilai = (APP_STATE.nilai && APP_STATE.nilai[siswa.id]) || {};
 
-                // Logo & Watermark
+                // Logo KOP Raport
                 const logoHtml = APP_STATE.setting?.logo
                     ? `<img src="${APP_STATE.setting.logo}" alt="Logo" class="w-full h-full object-contain">`
                     : DEFAULT_SVG_LOGO;
                 page.querySelector('.rap-logo-kop').innerHTML = logoHtml;
-                page.querySelector('.rap-watermark-inner').innerHTML = logoHtml;
 
                 // Identitas & Tahun Ajaran
                 page.querySelector('.rap-tahun-ajaran').textContent = APP_STATE.setting?.tahun || '2025/2026';
@@ -3957,15 +3952,31 @@ service cloud.firestore {
             }
         }
 
-        async function syncToFirebase() {
-            if (!fbConnected || !fbDb || !window.firebaseFirestoreModule) return;
+        async function syncToFirebase(timeoutMs = 10000) {
+            if (!fbConnected || !fbDb || !window.firebaseFirestoreModule) {
+                throw new Error("Koneksi Firebase belum aktif. Klik 'Simpan & Hubungkan' terlebih dahulu.");
+            }
             try {
                 const { doc, setDoc } = window.firebaseFirestoreModule;
                 const cfg = JSON.parse(localStorage.getItem(FIREBASE_CONFIG_KEY) || '{}');
                 const docRef = doc(fbDb, 'raport_tpq', cfg.docId || 'tpq_gunung_jati');
-                await setDoc(docRef, APP_STATE, { merge: true });
+                
+                // Bersihkan payload dari nilai undefined
+                const cleanPayload = JSON.parse(JSON.stringify(APP_STATE));
+
+                const timeoutPromise = new Promise((_, reject) => {
+                    setTimeout(() => {
+                        reject(new Error("Timeout (10 detik): Firestore tidak merespon. Pastikan Database Firestore sudah dibuat di console.firebase.google.com dan tab Rules mengizinkan read/write."));
+                    }, timeoutMs);
+                });
+
+                await Promise.race([
+                    setDoc(docRef, cleanPayload, { merge: true }),
+                    timeoutPromise
+                ]);
             } catch (err) {
                 console.error("Gagal sync ke cloud:", err);
+                throw err;
             }
         }
 
@@ -4019,7 +4030,16 @@ service cloud.firestore {
                 const { doc, getDoc } = window.firebaseFirestoreModule;
                 const cfg = JSON.parse(localStorage.getItem(FIREBASE_CONFIG_KEY) || '{}');
                 const docRef = doc(fbDb, 'raport_tpq', cfg.docId || 'tpq_gunung_jati');
-                const snap = await getDoc(docRef);
+
+                const timeoutPromise = new Promise((_, reject) => {
+                    setTimeout(() => reject(new Error("Timeout (10 detik): Firestore tidak merespon saat menarik data.")), 10000);
+                });
+
+                const snap = await Promise.race([
+                    getDoc(docRef),
+                    timeoutPromise
+                ]);
+
                 showLoading(false);
                 if (snap.exists()) {
                     APP_STATE = snap.data();
@@ -4028,27 +4048,39 @@ service cloud.firestore {
                     updateDashboard();
                     showToast("Tarik Data", "Data berhasil diperbarui dari Cloud!");
                 } else {
-                    showToast("Kosong", "Data belum ada di Cloud Firestore.", "info");
+                    showToast("Kosong", "Data belum ada di Cloud Firestore. Silakan klik 'Upload Data Lokal'.", "info");
                 }
             } catch (err) {
                 showLoading(false);
-                showToast("Gagal", err.message, "error");
+                console.error("Detail Pull Error:", err);
+                let pesan = err.message || "Gagal mengambil data.";
+                if (err.code === 'permission-denied') {
+                    pesan = "Izin ditolak (Permission Denied). Cek tab Rules di Firestore Database.";
+                }
+                showToast("Gagal", pesan, "error");
             }
         }
 
         async function handlePushFirebase() {
             if (!fbConnected || !fbDb || !window.firebaseFirestoreModule) {
-                showToast("Perhatian", "Belum terhubung ke Firebase.", "error");
+                showToast("Perhatian", "Belum terhubung ke Firebase. Silakan klik 'Simpan & Hubungkan'.", "error");
                 return;
             }
             try {
                 showLoading(true);
-                await syncToFirebase();
+                await syncToFirebase(10000);
                 showLoading(false);
                 showToast("Berhasil", "Data lokal berhasil diunggah ke Cloud Firestore!");
             } catch (err) {
                 showLoading(false);
-                showToast("Gagal", err.message, "error");
+                console.error("Detail Push Error:", err);
+                let pesan = err.message || "Gagal mengunggah data.";
+                if (err.code === 'permission-denied') {
+                    pesan = "Izin ditolak (Permission Denied). Buka Firebase Console > Firestore Database > Rules, ubah menjadi 'allow read, write: if true;'.";
+                } else if (err.code === 'not-found') {
+                    pesan = "Database Firestore tidak ditemukan. Pastikan Anda sudah mengklik 'Create Database' di menu Firestore Database.";
+                }
+                showToast("Gagal Upload", pesan, "error");
             }
         }
 
