@@ -184,16 +184,16 @@
         }
 
         .raport-page.rap-size-spacious .rap-ttd-area {
-            margin-top: 26px !important;
+            margin-top: 32px !important;
             font-size: 9.5pt !important;
         }
 
         .raport-page.rap-size-spacious .rap-ttd-space {
-            margin-top: 40px !important;
+            margin-top: 48px !important;
         }
 
         .raport-page.rap-size-spacious .rap-ttd-row2 {
-            margin-top: 16px !important;
+            margin-top: 22px !important;
         }
 
         /* 2. Mode Luas / Sedikit (Tabel membesar proporsional) */
@@ -239,18 +239,18 @@
 
         .raport-page.rap-size-relaxed .rap-ttd-area,
         .raport-page.rap-relaxed .rap-ttd-area {
-            margin-top: 22px !important;
+            margin-top: 28px !important;
             font-size: 9.5pt !important;
         }
 
         .raport-page.rap-size-relaxed .rap-ttd-space,
         .raport-page.rap-relaxed .rap-ttd-space {
-            margin-top: 34px !important;
+            margin-top: 42px !important;
         }
 
         .raport-page.rap-size-relaxed .rap-ttd-row2,
         .raport-page.rap-relaxed .rap-ttd-row2 {
-            margin-top: 14px !important;
+            margin-top: 18px !important;
         }
 
         /* 3. Mode Normal / Sedang (Hafalan 5-6 baris: Ukuran Standar) */
@@ -296,18 +296,18 @@
 
         .raport-page.rap-size-normal .rap-ttd-area,
         .raport-page.rap-normal .rap-ttd-area {
-            margin-top: 16px !important;
+            margin-top: 22px !important;
             font-size: 9pt !important;
         }
 
         .raport-page.rap-size-normal .rap-ttd-space,
         .raport-page.rap-normal .rap-ttd-space {
-            margin-top: 26px !important;
+            margin-top: 34px !important;
         }
 
         .raport-page.rap-size-normal .rap-ttd-row2,
         .raport-page.rap-normal .rap-ttd-row2 {
-            margin-top: 10px !important;
+            margin-top: 14px !important;
         }
 
         /* 4. Mode Padat / Penuh (Tabel MENGECIL otomatis saat hafalan 7-9 baris / catatan panjang / keputusan) */
@@ -352,18 +352,18 @@
 
         .raport-page.rap-size-compact .rap-ttd-area,
         .raport-page.rap-compact .rap-ttd-area {
-            margin-top: 10px !important;
+            margin-top: 15px !important;
             font-size: 8.5pt !important;
         }
 
         .raport-page.rap-size-compact .rap-ttd-space,
         .raport-page.rap-compact .rap-ttd-space {
-            margin-top: 18px !important;
+            margin-top: 26px !important;
         }
 
         .raport-page.rap-size-compact .rap-ttd-row2,
         .raport-page.rap-compact .rap-ttd-row2 {
-            margin-top: 6px !important;
+            margin-top: 10px !important;
         }
 
         /* 5. Mode Sangat Padat (Tabel MENGECIL maksimal saat hafalan 10+ baris agar tetap pas 1 lembar) */
@@ -408,18 +408,18 @@
 
         .raport-page.rap-size-extra-compact .rap-ttd-area,
         .raport-page.rap-compact-extra .rap-ttd-area {
-            margin-top: 6px !important;
+            margin-top: 10px !important;
             font-size: 8pt !important;
         }
 
         .raport-page.rap-size-extra-compact .rap-ttd-space,
         .raport-page.rap-compact-extra .rap-ttd-space {
-            margin-top: 14px !important;
+            margin-top: 20px !important;
         }
 
         .raport-page.rap-size-extra-compact .rap-ttd-row2,
         .raport-page.rap-compact-extra .rap-ttd-row2 {
-            margin-top: 4px !important;
+            margin-top: 8px !important;
         }
 
         .raport-page.rap-size-extra-compact .rap-kop-area .flex,
@@ -462,20 +462,78 @@
         }
 
         .raport-page.rap-size-ultra-compact .rap-ttd-area {
-            margin-top: 4px !important;
+            margin-top: 8px !important;
             font-size: 7.5pt !important;
         }
 
         .raport-page.rap-size-ultra-compact .rap-ttd-space {
-            margin-top: 10px !important;
+            margin-top: 16px !important;
         }
 
         .raport-page.rap-size-ultra-compact .rap-ttd-row2 {
-            margin-top: 2px !important;
+            margin-top: 6px !important;
         }
 
         .raport-page.rap-size-ultra-compact .rap-kop-area .flex {
             padding-bottom: 1px !important;
+        }
+
+        /* Pengaturan khusus tinggi tabel B. HAFALAN agar lebih ringkas */
+        table.table-hafalan th,
+        table.table-hafalan td {
+            padding-top: 2.5px !important;
+            padding-bottom: 2.5px !important;
+            line-height: 1.2 !important;
+        }
+
+        .raport-page.rap-size-spacious table.table-hafalan th,
+        .raport-page.rap-size-spacious table.table-hafalan td {
+            padding-top: 4.5px !important;
+            padding-bottom: 4.5px !important;
+            line-height: 1.25 !important;
+        }
+
+        .raport-page.rap-size-relaxed table.table-hafalan th,
+        .raport-page.rap-size-relaxed table.table-hafalan td,
+        .raport-page.rap-relaxed table.table-hafalan th,
+        .raport-page.rap-relaxed table.table-hafalan td {
+            padding-top: 3.5px !important;
+            padding-bottom: 3.5px !important;
+            line-height: 1.22 !important;
+        }
+
+        .raport-page.rap-size-normal table.table-hafalan th,
+        .raport-page.rap-size-normal table.table-hafalan td,
+        .raport-page.rap-normal table.table-hafalan th,
+        .raport-page.rap-normal table.table-hafalan td {
+            padding-top: 2.5px !important;
+            padding-bottom: 2.5px !important;
+            line-height: 1.18 !important;
+        }
+
+        .raport-page.rap-size-compact table.table-hafalan th,
+        .raport-page.rap-size-compact table.table-hafalan td,
+        .raport-page.rap-compact table.table-hafalan th,
+        .raport-page.rap-compact table.table-hafalan td {
+            padding-top: 1.8px !important;
+            padding-bottom: 1.8px !important;
+            line-height: 1.15 !important;
+        }
+
+        .raport-page.rap-size-extra-compact table.table-hafalan th,
+        .raport-page.rap-size-extra-compact table.table-hafalan td,
+        .raport-page.rap-compact-extra table.table-hafalan th,
+        .raport-page.rap-compact-extra table.table-hafalan td {
+            padding-top: 1px !important;
+            padding-bottom: 1px !important;
+            line-height: 1.1 !important;
+        }
+
+        .raport-page.rap-size-ultra-compact table.table-hafalan th,
+        .raport-page.rap-size-ultra-compact table.table-hafalan td {
+            padding-top: 0.5px !important;
+            padding-bottom: 0.5px !important;
+            line-height: 1.05 !important;
         }
 
         /* Jarak antar halaman hanya untuk pratinjau layar, dinolkan saat export PDF/Print */
@@ -1476,7 +1534,7 @@
                                         <!-- B. HAFALAN -->
                                         <div class="rap-section-box mb-2.5">
                                             <p class="rap-section-title font-bold text-[10pt] mb-1.5">B. HAFALAN</p>
-                                            <table class="w-full text-center table-nilai">
+                                            <table class="w-full text-center table-nilai table-hafalan">
                                                 <thead class="font-bold">
                                                     <tr>
                                                         <th class="w-10">No</th>
@@ -1527,7 +1585,7 @@
                                                 <p class="font-medium">Orang Tua / Wali Santri</p>
                                             </div>
                                             <div
-                                                class="rap-ttd-space mt-[34px] w-36 border-b border-black border-dashed">
+                                                class="rap-ttd-space mt-[42px] w-36 border-b border-black border-dashed">
                                             </div>
                                         </div>
                                         <!-- Tengah: Guru Pembimbing -->
@@ -1536,7 +1594,7 @@
                                                 <p class="font-medium opacity-0 select-none">&nbsp;</p>
                                                 <p class="font-medium">Guru Pembimbing</p>
                                             </div>
-                                            <p class="rap-nama-guru font-bold mt-[34px] rap-ttd-space leading-tight">-</p>
+                                            <p class="rap-nama-guru font-bold mt-[42px] rap-ttd-space leading-tight">-</p>
                                         </div>
                                         <!-- Kanan: Wali Kelas -->
                                         <div class="flex flex-col justify-between items-center">
@@ -1545,17 +1603,17 @@
                                                         Desember 2026</span></p>
                                                 <p class="font-medium">Wali Kelas</p>
                                             </div>
-                                            <p class="rap-nama-walikelas font-bold mt-[34px] rap-ttd-space leading-tight">-</p>
+                                            <p class="rap-nama-walikelas font-bold mt-[42px] rap-ttd-space leading-tight">-</p>
                                         </div>
                                     </div>
                                     <!-- Baris 2: Tengah Bawah (Kepala SMP Gunung Jati) -->
-                                    <div class="rap-ttd-row2 flex justify-center mt-3">
+                                    <div class="rap-ttd-row2 flex justify-center mt-4">
                                         <div class="flex flex-col justify-between items-center">
                                             <div>
                                                 <p class="font-medium">Mengetahui,</p>
                                                 <p class="font-medium">Kepala SMP Gunung Jati</p>
                                             </div>
-                                            <p class="rap-nama-kepala font-bold mt-[34px] rap-ttd-space leading-tight">-</p>
+                                            <p class="rap-nama-kepala font-bold mt-[42px] rap-ttd-space leading-tight">-</p>
                                         </div>
                                     </div>
                                 </div>
