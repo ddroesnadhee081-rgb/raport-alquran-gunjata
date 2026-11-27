@@ -1154,7 +1154,7 @@
                         class="bg-white p-6 rounded-[1.25rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
                             <h2 class="text-xl font-bold text-slate-800">Input Nilai &amp; Hafalan</h2>
-                            <p class="text-xs text-slate-500 mt-1">Pilih santri untuk memperbarui capaian belajar.</p>
+                            <p id="desc-input-nilai" class="text-xs text-slate-500 mt-1">Pilih santri untuk memperbarui capaian belajar.</p>
                         </div>
                         <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto items-stretch sm:items-center">
                             <select id="filter-kelas-nilai" onchange="filterSiswaNilaiByKelas(this.value)"
@@ -3248,7 +3248,23 @@ service cloud.firestore {
 
         function prepareFormNilai() {
             populateSuratDataList();
-            populateKelasSelect('filter-kelas-nilai', 'Semua Kelas', 'ALL');
+            const filterKelasEl = document.getElementById('filter-kelas-nilai');
+            const descEl = document.getElementById('desc-input-nilai');
+
+            if (currentUser && currentUser.role === 'guru') {
+                if (filterKelasEl) {
+                    filterKelasEl.value = 'ALL';
+                    filterKelasEl.classList.add('hidden');
+                }
+                if (descEl) {
+                    descEl.textContent = `Menampilkan seluruh santri binaan Level ${currentUser.level} yang telah Anda pilih.`;
+                }
+            } else {
+                if (filterKelasEl) filterKelasEl.classList.remove('hidden');
+                if (descEl) descEl.textContent = 'Pilih santri untuk memperbarui capaian belajar.';
+                populateKelasSelect('filter-kelas-nilai', 'Semua Kelas', 'ALL');
+            }
+
             updateSiswaNilaiDropdown('ALL');
             const formContainer = document.getElementById('form-nilai-container');
             formContainer.classList.add('hidden', 'opacity-0');
@@ -3263,18 +3279,28 @@ service cloud.firestore {
         function updateSiswaNilaiDropdown(kelasFilter = 'ALL') {
             const select = document.getElementById('select-siswa-nilai');
             if (!select) return;
-            select.innerHTML = '<option value="" disabled selected>-- Pilih Siswa yang Akan Dinilai --</option>';
 
             let siswa = getAccessibleSiswa();
-            if (kelasFilter !== 'ALL') {
+            const isGuru = currentUser && currentUser.role === 'guru';
+
+            if (!isGuru && kelasFilter !== 'ALL') {
                 siswa = siswa.filter(s => (s.kelas || '').toUpperCase() === kelasFilter);
             }
+
+            if (siswa.length === 0) {
+                select.innerHTML = `<option value="" disabled selected>${isGuru ? '-- Belum ada santri binaan yang dipilih --' : '-- Tidak ada siswa ditemukan --'}</option>`;
+                return;
+            }
+
+            select.innerHTML = `<option value="" disabled selected>${isGuru ? `-- Pilih Santri Binaan Anda (${siswa.length} Santri) --` : '-- Pilih Siswa yang Akan Dinilai --'}</option>`;
 
             siswa.forEach(s => {
                 const sudah = APP_STATE.nilai && APP_STATE.nilai[s.id] ? '✓ ' : '• ';
                 const opt = document.createElement('option');
                 opt.value = s.id;
-                opt.textContent = `${sudah}${s.nama} (${s.kelas} - ${s.level})`;
+                opt.textContent = isGuru
+                    ? `${sudah}${s.nama} (Kelas ${s.kelas})`
+                    : `${sudah}${s.nama} (${s.kelas} - ${s.level})`;
                 select.appendChild(opt);
             });
         }
@@ -3473,15 +3499,16 @@ service cloud.firestore {
             saveDatabase();
             if (typeof updateDashboard === 'function') updateDashboard();
 
-            // Pertahankan filter kelas saat ini agar pilihan guru tidak hilang
-            const currentKelasFilter = document.getElementById('filter-kelas-nilai')?.value || 'ALL';
+            // Pertahankan filter kelas saat ini agar pilihan tidak hilang (khusus Admin)
+            const isGuru = currentUser && currentUser.role === 'guru';
+            const currentKelasFilter = isGuru ? 'ALL' : (document.getElementById('filter-kelas-nilai')?.value || 'ALL');
             updateSiswaNilaiDropdown(currentKelasFilter);
             const filterKelasSelect = document.getElementById('filter-kelas-nilai');
-            if (filterKelasSelect) filterKelasSelect.value = currentKelasFilter;
+            if (filterKelasSelect && !isGuru) filterKelasSelect.value = currentKelasFilter;
 
             // Cari santri binaan sesuai filter kelas & level guru
             let siswaList = getAccessibleSiswa();
-            if (currentKelasFilter !== 'ALL') {
+            if (!isGuru && currentKelasFilter !== 'ALL') {
                 siswaList = siswaList.filter(s => (s.kelas || '').toUpperCase() === currentKelasFilter);
             }
 
