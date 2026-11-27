@@ -2863,7 +2863,7 @@ service cloud.firestore {
                     <td class="p-3 font-semibold text-slate-700">${s.kelas}</td>
                     <td class="p-3 text-slate-500 font-mono">${s.nis}</td>
                     <td class="p-3 text-right space-x-1">
-                        <button type="button" onclick="bukaModalEditSiswaGuru('${s.id}')" class="px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 text-xs font-semibold rounded-lg transition" title="Edit Nama/NIS/NISN">
+                        <button type="button" onclick="editSiswaGuru('${s.id}')" class="px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 text-xs font-semibold rounded-lg transition" title="Edit Nama/NIS/NISN">
                             <i class="ph-bold ph-pencil-simple"></i> Edit
                         </button>
                         <button type="button" onclick="keluarkanSiswaDariLevel('${s.id}')" class="px-2 py-1 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-semibold rounded-lg transition" title="Keluarkan dari level">
@@ -3012,9 +3012,12 @@ service cloud.firestore {
             }, 20);
         }
 
-        function editSiswaGuru(id) {
-            const s = (APP_STATE.siswa || []).find(item => item.id === id);
-            if (!s) return;
+        function editSiswaGuru(siswaId) {
+            const s = (APP_STATE.siswa || []).find(item => item.id === siswaId);
+            if (!s) {
+                showToast("Data Tidak Ditemukan", "Data santri tidak ditemukan.", "error");
+                return;
+            }
             const modal = document.getElementById('modal-siswa-guru');
             if (!modal) return;
 
@@ -3041,6 +3044,8 @@ service cloud.firestore {
                 document.getElementById('guru-input-nama').focus();
             }, 20);
         }
+
+        const bukaModalEditSiswaGuru = editSiswaGuru;
 
         function tutupModalSiswaGuru() {
             const modal = document.getElementById('modal-siswa-guru');
