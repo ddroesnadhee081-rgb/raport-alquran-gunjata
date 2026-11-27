@@ -1133,15 +1133,14 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- MODAL TAMBAH SISWA GURU -->
+                        <!-- MODAL TAMBAH / EDIT SISWA GURU -->
                         <div id="modal-siswa-guru"
                             class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
                             <div
                                 class="bg-white rounded-2xl shadow-2xl border border-slate-100 w-full max-w-md overflow-hidden transform scale-95 transition-transform duration-300">
                                 <div
                                     class="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-                                    <h3 class="font-bold text-sm text-slate-800 flex items-center gap-2">
+                                    <h3 id="modal-siswa-guru-title" class="font-bold text-sm text-slate-800 flex items-center gap-2">
                                         <i class="ph-bold ph-user-plus text-emerald-600 text-base"></i> Tambah Siswa
                                         Baru (Guru)
                                     </h3>
@@ -1151,6 +1150,7 @@
                                     </button>
                                 </div>
                                 <form onsubmit="handleSimpanSiswaGuru(event)" class="p-6 space-y-4">
+                                    <input type="hidden" id="guru-edit-siswa-id">
                                     <div>
                                         <label class="block text-xs font-medium text-slate-600 mb-1.5">Nama Lengkap
                                             Siswa <span class="text-red-500">*</span></label>
@@ -1184,14 +1184,14 @@
                                                 class="w-full px-3.5 py-2 text-xs border border-slate-200 bg-slate-100 rounded-xl text-slate-700 font-bold outline-none cursor-not-allowed">
                                         </div>
                                     </div>
-                                    <div
+                                    <div id="modal-siswa-guru-info"
                                         class="p-3 bg-emerald-50/60 rounded-xl border border-emerald-100 text-[11px] text-emerald-800 flex items-center gap-2">
                                         <i class="ph-bold ph-info text-base text-emerald-600 shrink-0"></i>
                                         <span>Siswa baru otomatis masuk ke master data dan langsung dibina pada level
                                             Anda.</span>
                                     </div>
                                     <div class="pt-2 flex gap-2">
-                                        <button type="submit"
+                                        <button type="submit" id="btn-submit-siswa-guru"
                                             class="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold text-xs py-2.5 rounded-xl transition shadow-md shadow-emerald-200">
                                             Simpan Siswa
                                         </button>
@@ -2862,8 +2862,11 @@ service cloud.firestore {
                     <td class="p-3 font-bold text-slate-800">${s.nama}</td>
                     <td class="p-3 font-semibold text-slate-700">${s.kelas}</td>
                     <td class="p-3 text-slate-500 font-mono">${s.nis}</td>
-                    <td class="p-3 text-right">
-                        <button type="button" onclick="keluarkanSiswaDariLevel('${s.id}')" class="px-2.5 py-1 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-semibold rounded-lg transition" title="Keluarkan dari level">
+                    <td class="p-3 text-right space-x-1">
+                        <button type="button" onclick="bukaModalEditSiswaGuru('${s.id}')" class="px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 text-xs font-semibold rounded-lg transition" title="Edit Nama/NIS/NISN">
+                            <i class="ph-bold ph-pencil-simple"></i> Edit
+                        </button>
+                        <button type="button" onclick="keluarkanSiswaDariLevel('${s.id}')" class="px-2 py-1 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-semibold rounded-lg transition" title="Keluarkan dari level">
                             <i class="ph-bold ph-x-circle"></i> Keluarkan
                         </button>
                     </td>
@@ -2872,14 +2875,164 @@ service cloud.firestore {
             });
         }
 
+        function getGuruPengampuByLevel(level) {
+            if (!level || level === 'Belum Ditentukan') return null;
+            const g = (APP_STATE.guru || []).find(item => item.level === level);
+            return g ? g.nama : `Guru Level ${level}`;
+        }
+
+        function handleBulkAssignLevel() {
+            const checkboxes = document.querySelectorAll('.check-source-siswa:checked');
+            if (checkboxes.length === 0) {
+                showToast("Pilih Santri", "Centang minimal satu santri yang ingin dimasukkan ke level Anda.", "error");
+                return;
+            }
+
+            const targetLevel = currentUser.level;
+            const availableStudents = [];
+            const conflictStudents = [];
+
+            checkboxes.forEach(cb => {
+                const id = cb.value;
+                const s = (APP_STATE.siswa || []).find(item => item.id === id);
+                if (s) {
+                    const isAssignedElsewhere = s.level && s.level !== 'Belum Ditentukan' && s.level !== targetLevel;
+                    if (isAssignedElsewhere) {
+                        const namaGuruLain = getGuruPengampuByLevel(s.level);
+                        conflictStudents.push({ siswa: s, levelAsal: s.level, namaGuru: namaGuruLain });
+                    } else {
+                        availableStudents.push(s);
+                    }
+                }
+            });
+
+            if (conflictStudents.length > 0) {
+                const detailKonflik = conflictStudents
+                    .map(c => `${c.siswa.nama} (Kelas ${c.siswa.kelas}) sudah ada di Level ${c.levelAsal} (${c.namaGuru})`)
+                    .join('; ');
+
+                if (availableStudents.length === 0) {
+                    showToast("Santri Sudah Diambil Guru Lain", detailKonflik, "error");
+                    return;
+                }
+
+                showConfirm(
+                    "Sebagian Santri Sudah Diambil",
+                    `Pemberitahuan: ${detailKonflik}. Apakah Anda tetap ingin mengambil alih semua santri terpilih (termasuk yang sudah ada di guru lain) ke Level ${targetLevel}?`,
+                    () => {
+                        let totalMoved = 0;
+                        [...availableStudents, ...conflictStudents.map(c => c.siswa)].forEach(s => {
+                            s.level = targetLevel;
+                            totalMoved++;
+                        });
+                        saveDatabase();
+                        if (typeof updateDashboard === 'function') updateDashboard();
+                        renderGuruPlotting();
+                        showToast("Santri Berhasil Masuk", `${totalMoved} santri dimasukkan ke Level ${targetLevel}.`);
+                    },
+                    "Ya, Tetap Ambil Semua"
+                );
+                return;
+            }
+
+            let count = 0;
+            availableStudents.forEach(s => {
+                s.level = targetLevel;
+                count++;
+            });
+
+            saveDatabase();
+            if (typeof updateDashboard === 'function') updateDashboard();
+            renderGuruPlotting();
+            showToast("Santri Berhasil Masuk", `${count} santri dimasukkan ke Level ${targetLevel}.`);
+        }
+
+        function assignSiswaToLevel(siswaId, targetLevel) {
+            const s = (APP_STATE.siswa || []).find(item => item.id === siswaId);
+            if (!s) return;
+            const finalLevel = targetLevel || (currentUser && currentUser.level);
+            if (!finalLevel) {
+                showToast("Gagal Memasukkan", "Level binaan guru tidak ditemukan.", "error");
+                return;
+            }
+
+            if (s.level && s.level !== 'Belum Ditentukan' && s.level !== finalLevel) {
+                const namaGuruLain = getGuruPengampuByLevel(s.level);
+                showToast(
+                    "Santri Sudah Diambil Guru Lain",
+                    `Siswa ${s.nama} (${s.kelas}) sudah ada di Level ${s.level} oleh ${namaGuruLain}.`,
+                    "error"
+                );
+                showConfirm(
+                    "Konfirmasi Ambil Alih Santri",
+                    `Pemberitahuan: Siswa ${s.nama} (Kelas ${s.kelas}) sudah terdaftar di Level ${s.level} (${namaGuruLain}). Apakah Anda yakin ingin memindahkannya ke Level ${finalLevel}?`,
+                    () => {
+                        s.level = finalLevel;
+                        saveDatabase();
+                        if (typeof updateDashboard === 'function') updateDashboard();
+                        renderGuruPlotting();
+                        showToast("Santri Dipindahkan", `${s.nama} (${s.kelas}) dipindahkan ke Level ${finalLevel}.`);
+                    },
+                    "Ya, Pindahkan ke Level Saya"
+                );
+                return;
+            }
+
+            s.level = finalLevel;
+            saveDatabase();
+            if (typeof updateDashboard === 'function') updateDashboard();
+            renderGuruPlotting();
+            showToast("Santri Berhasil Masuk", `${s.nama} (${s.kelas}) dimasukkan ke Level ${finalLevel}.`);
+        }
+
         function bukaModalSiswaGuru() {
             const modal = document.getElementById('modal-siswa-guru');
             if (!modal) return;
+            document.getElementById('guru-edit-siswa-id').value = '';
             document.getElementById('guru-input-nama').value = '';
             document.getElementById('guru-input-kelas').value = '';
             document.getElementById('guru-input-nis').value = '';
             document.getElementById('guru-input-nisn').value = '';
             document.getElementById('guru-input-level').value = currentUser?.level || "Belum Ditentukan";
+
+            const titleEl = document.getElementById('modal-siswa-guru-title');
+            if (titleEl) {
+                titleEl.innerHTML = '<i class="ph-bold ph-user-plus text-emerald-600 text-base"></i> Tambah Siswa Baru (Guru)';
+            }
+            const infoEl = document.getElementById('modal-siswa-guru-info');
+            if (infoEl) infoEl.classList.remove('hidden');
+            const btnSubmit = document.getElementById('btn-submit-siswa-guru');
+            if (btnSubmit) btnSubmit.textContent = 'Simpan Siswa';
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('div').classList.remove('scale-95');
+                document.getElementById('guru-input-nama').focus();
+            }, 20);
+        }
+
+        function editSiswaGuru(id) {
+            const s = (APP_STATE.siswa || []).find(item => item.id === id);
+            if (!s) return;
+            const modal = document.getElementById('modal-siswa-guru');
+            if (!modal) return;
+
+            document.getElementById('guru-edit-siswa-id').value = s.id;
+            document.getElementById('guru-input-nama').value = s.nama || '';
+            document.getElementById('guru-input-kelas').value = s.kelas || '';
+            document.getElementById('guru-input-nis').value = (s.nis && s.nis !== '-') ? s.nis : '';
+            document.getElementById('guru-input-nisn').value = s.nisn || '';
+            document.getElementById('guru-input-level').value = s.level || currentUser?.level || "Belum Ditentukan";
+
+            const titleEl = document.getElementById('modal-siswa-guru-title');
+            if (titleEl) {
+                titleEl.innerHTML = '<i class="ph-bold ph-pencil-simple text-blue-600 text-base"></i> Edit Identitas Santri';
+            }
+            const infoEl = document.getElementById('modal-siswa-guru-info');
+            if (infoEl) infoEl.classList.add('hidden');
+            const btnSubmit = document.getElementById('btn-submit-siswa-guru');
+            if (btnSubmit) btnSubmit.textContent = 'Simpan Perubahan';
 
             modal.classList.remove('hidden');
             setTimeout(() => {
@@ -2901,6 +3054,7 @@ service cloud.firestore {
 
         function handleSimpanSiswaGuru(e) {
             e.preventDefault();
+            const editId = document.getElementById('guru-edit-siswa-id').value;
             const nama = document.getElementById('guru-input-nama').value.trim();
             const kelas = document.getElementById('guru-input-kelas').value.trim().toUpperCase();
             const nis = document.getElementById('guru-input-nis').value.trim() || '-';
@@ -2912,540 +3066,38 @@ service cloud.firestore {
                 return;
             }
 
-            const newId = 'S' + Date.now().toString().slice(-4) + Math.floor(Math.random() * 90 + 10);
-            APP_STATE.siswa.push({
-                id: newId,
-                nama,
-                kelas,
-                nis,
-                nisn,
-                level
-            });
-
-            saveDatabase();
-            updateDashboard();
-            renderTableSiswa();
-            tutupModalSiswaGuru();
-            showToast("Siswa Ditambahkan", `${nama} (${kelas}) berhasil didaftarkan dan masuk ke kelompok binaan ${level}.`);
-        }
-
-        function handleSimpanSiswa(e) {
-            e.preventDefault();
-            const id = document.getElementById('siswa-id').value;
-            const nama = document.getElementById('siswa-nama').value.trim();
-            const nis = document.getElementById('siswa-nis').value.trim();
-            const nisn = document.getElementById('siswa-nisn').value.trim();
-            const kelas = document.getElementById('siswa-kelas').value.trim().toUpperCase();
-            const levelEl = document.getElementById('siswa-level');
-            const level = (levelEl && levelEl.value) ? levelEl.value : "Belum Ditentukan";
-
-            if (id) {
-                const idx = APP_STATE.siswa.findIndex(s => s.id === id);
+            if (editId) {
+                const idx = (APP_STATE.siswa || []).findIndex(item => item.id === editId);
                 if (idx !== -1) {
-                    APP_STATE.siswa[idx] = { id, nama, nis, nisn, kelas, level };
-                    showToast("Berhasil", "Data siswa diperbarui.");
+                    APP_STATE.siswa[idx] = {
+                        ...APP_STATE.siswa[idx],
+                        nama,
+                        kelas,
+                        nis,
+                        nisn
+                    };
+                    saveDatabase();
+                    updateDashboard();
+                    renderTableSiswa();
+                    tutupModalSiswaGuru();
+                    showToast("Data Diperbarui", `Identitas ${nama} (${kelas}) berhasil diperbarui.`);
                 }
             } else {
                 const newId = 'S' + Date.now().toString().slice(-4) + Math.floor(Math.random() * 90 + 10);
-                APP_STATE.siswa.push({ id: newId, nama, nis, nisn, kelas, level });
-                showToast("Berhasil", "Siswa baru ditambahkan.");
-            }
-
-            batalEditSiswa();
-            saveDatabase();
-            renderTableSiswa();
-        }
-
-        function editSiswa(id) {
-            const s = (APP_STATE.siswa || []).find(item => item.id === id);
-            if (!s) return;
-            document.getElementById('siswa-id').value = s.id;
-            document.getElementById('siswa-nama').value = s.nama;
-            document.getElementById('siswa-nis').value = s.nis;
-            document.getElementById('siswa-nisn').value = s.nisn || '';
-            document.getElementById('siswa-kelas').value = s.kelas;
-            const levelEl = document.getElementById('siswa-level');
-            if (levelEl) levelEl.value = s.level || "Belum Ditentukan";
-
-            document.getElementById('form-siswa-title').innerHTML = '<i class="ph-bold ph-pencil-simple text-emerald-600"></i> Edit Data Siswa';
-        }
-
-        function batalEditSiswa() {
-            document.getElementById('siswa-id').value = '';
-            document.getElementById('siswa-nama').value = '';
-            document.getElementById('siswa-nis').value = '';
-            document.getElementById('siswa-nisn').value = '';
-            document.getElementById('siswa-kelas').value = '';
-            const levelEl = document.getElementById('siswa-level');
-            if (levelEl) levelEl.value = "Belum Ditentukan";
-            document.getElementById('form-siswa-title').innerHTML = '<i class="ph-bold ph-user-plus text-emerald-600"></i> Tambah Siswa Baru';
-        }
-
-        function hapusSiswa(id) {
-            showConfirm("Hapus Siswa", "Yakin ingin menghapus data siswa ini beserta rekam nilainya?", () => {
-                APP_STATE.siswa = (APP_STATE.siswa || []).filter(s => s.id !== id);
-                if (APP_STATE.nilai && APP_STATE.nilai[id]) {
-                    delete APP_STATE.nilai[id];
-                }
-                saveDatabase();
-                renderTableSiswa();
-                showToast("Dihapus", "Data siswa telah dihapus.");
-            });
-        }
-
-        function downloadTemplateExcel() {
-            // Format SpreadsheetML XML resmi Microsoft Excel 2003+ (Ekstensi .xls)
-            // Format ini 100% diproses Excel sebagai sel terpisah (Kolom A, B, C, D) tanpa risiko kolom menyatu.
-            const xml = `<?xml version="1.0"?>
-<?mso-application progid="Excel.Sheet"?>
-<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
- xmlns:o="urn:schemas-microsoft-com:office:office"
- xmlns:x="urn:schemas-microsoft-com:office:excel"
- xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
- xmlns:html="http://www.w3.org/TR/REC-html40">
- <Styles>
-  <Style ss:ID="Default" ss:Name="Normal">
-   <Alignment ss:Vertical="Center"/>
-   <Borders/>
-   <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#000000"/>
-  </Style>
-  <Style ss:ID="Header">
-   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#000000"/>
-    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#000000"/>
-    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#000000"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#000000"/>
-   </Borders>
-   <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#FFFFFF" ss:Bold="1"/>
-   <Interior ss:Color="#059669" ss:Pattern="Solid"/>
-  </Style>
-  <Style ss:ID="TextLeft">
-   <Alignment ss:Vertical="Center"/>
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
-    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
-    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
-   </Borders>
-   <NumberFormat ss:Format="@"/>
-  </Style>
-  <Style ss:ID="TextCenter">
-   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
-    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
-    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
-   </Borders>
-   <NumberFormat ss:Format="@"/>
-  </Style>
- </Styles>
- <Worksheet ss:Name="Master Siswa">
-  <Table ss:DefaultColumnWidth="100">
-   <Column ss:Width="220"/>
-   <Column ss:Width="80"/>
-   <Column ss:Width="110"/>
-   <Column ss:Width="130"/>
-   <Row ss:Height="26">
-    <Cell ss:StyleID="Header"><Data ss:Type="String">Nama</Data></Cell>
-    <Cell ss:StyleID="Header"><Data ss:Type="String">Kelas</Data></Cell>
-    <Cell ss:StyleID="Header"><Data ss:Type="String">NIS</Data></Cell>
-    <Cell ss:StyleID="Header"><Data ss:Type="String">NISN</Data></Cell>
-   </Row>
-   <Row ss:Height="22">
-    <Cell ss:StyleID="TextLeft"><Data ss:Type="String">Ahmad Fauzi</Data></Cell>
-    <Cell ss:StyleID="TextCenter"><Data ss:Type="String">7A</Data></Cell>
-    <Cell ss:StyleID="TextCenter"><Data ss:Type="String">2425001</Data></Cell>
-    <Cell ss:StyleID="TextCenter"><Data ss:Type="String">0081234567</Data></Cell>
-   </Row>
-   <Row ss:Height="22">
-    <Cell ss:StyleID="TextLeft"><Data ss:Type="String">Aisyah Rahma</Data></Cell>
-    <Cell ss:StyleID="TextCenter"><Data ss:Type="String">7B</Data></Cell>
-    <Cell ss:StyleID="TextCenter"><Data ss:Type="String">2425002</Data></Cell>
-    <Cell ss:StyleID="TextCenter"><Data ss:Type="String">0081234568</Data></Cell>
-   </Row>
-   <Row ss:Height="22">
-    <Cell ss:StyleID="TextLeft"><Data ss:Type="String">Muhammad Rizky</Data></Cell>
-    <Cell ss:StyleID="TextCenter"><Data ss:Type="String">8A</Data></Cell>
-    <Cell ss:StyleID="TextCenter"><Data ss:Type="String">2425003</Data></Cell>
-    <Cell ss:StyleID="TextCenter"><Data ss:Type="String">0081234569</Data></Cell>
-   </Row>
-  </Table>
- </Worksheet>
-</Workbook>`;
-
-            const blob = new Blob([xml], { type: 'application/vnd.ms-excel;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.href = url;
-            link.download = "template_master_siswa.xls";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-        }
-
-        function downloadTemplateCSV(format = 'semicolon') {
-            const bom = "\uFEFF";
-            let csvContent = "";
-            let filename = "template_master_siswa.csv";
-
-            if (format === 'comma') {
-                // Format koma standar (cocok untuk Google Spreadsheet / Excel US)
-                csvContent = bom + "Nama,Kelas,NIS,NISN\r\nAhmad Fauzi,7A,2425001,0081234567\r\nAisyah Rahma,7B,2425002,0081234568\r\nMuhammad Rizky,8A,2425003,0081234569\r\n";
-                filename = "template_master_siswa_koma.csv";
-            } else {
-                // Format titik koma (Standar Windows & Microsoft Excel di Indonesia)
-                // Di Excel Indonesia, tanda titik koma (;) otomatis memisahkan data ke Kolom A, B, C, D
-                csvContent = bom + "Nama;Kelas;NIS;NISN\r\nAhmad Fauzi;7A;2425001;0081234567\r\nAisyah Rahma;7B;2425002;0081234568\r\nMuhammad Rizky;8A;2425003;0081234569\r\n";
-                filename = "template_master_siswa_excel.csv";
-            }
-
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.href = url;
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-        }
-
-        function handleImportFile(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function (evt) {
-                const text = evt.target.result || '';
-                let parsedRows = [];
-
-                // 1. Cek SpreadsheetML (XML Spreadsheet 2003 / .xls)
-                if (text.includes('<Workbook') || text.includes('urn:schemas-microsoft-com:office:spreadsheet')) {
-                    const rowRegex = /<Row[^>]*>([\s\S]*?)<\/Row>/gi;
-                    let rowMatch;
-                    let headerIdx = { nama: -1, kelas: -1, nis: -1, nisn: -1, level: -1 };
-                    let isFirst = true;
-
-                    while ((rowMatch = rowRegex.exec(text)) !== null) {
-                        const rowContent = rowMatch[1];
-                        const cellRegex = /<Cell[^>]*>[\s\S]*?<Data[^>]*>([\s\S]*?)<\/Data>[\s\S]*?<\/Cell>/gi;
-                        const cells = [];
-                        let cellMatch;
-                        while ((cellMatch = cellRegex.exec(rowContent)) !== null) {
-                            cells.push(cellMatch[1].trim());
-                        }
-
-                        if (cells.length < 2) continue;
-
-                        if (isFirst) {
-                            cells.forEach((c, idx) => {
-                                const low = c.toLowerCase();
-                                if (low.includes('nama')) headerIdx.nama = idx;
-                                else if (low.includes('nisn')) headerIdx.nisn = idx;
-                                else if (low.includes('nis')) headerIdx.nis = idx;
-                                else if (low.includes('kelas') || low.includes('rombel')) headerIdx.kelas = idx;
-                                else if (low.includes('level')) headerIdx.level = idx;
-                            });
-                            isFirst = false;
-                            continue;
-                        }
-
-                        const namaVal = headerIdx.nama !== -1 ? cells[headerIdx.nama] : cells[0];
-                        if (!namaVal || namaVal.toLowerCase().includes('nama')) continue;
-
-                        const kelasVal = headerIdx.kelas !== -1 ? cells[headerIdx.kelas] : (cells[1] || '7A');
-                        const nisVal = headerIdx.nis !== -1 ? cells[headerIdx.nis] : (cells[2] || '-');
-                        const nisnVal = headerIdx.nisn !== -1 ? cells[headerIdx.nisn] : (cells[3] || '');
-                        const levelVal = headerIdx.level !== -1 ? cells[headerIdx.level] : (cells[4] || 'Belum Ditentukan');
-
-                        parsedRows.push({
-                            nama: namaVal,
-                            kelas: (kelasVal || '7A').toUpperCase(),
-                            nis: nisVal || '-',
-                            nisn: nisnVal || '',
-                            level: levelVal || 'Belum Ditentukan'
-                        });
-                    }
-                }
-
-                // 2. Cek format tabel HTML (misal <table><tr><td>...</td></tr></table>)
-                if (parsedRows.length === 0 && (text.includes('<table') || text.includes('<tr'))) {
-                    try {
-                        const parser = new DOMParser();
-                        const doc = parser.parseFromString(text, 'text/html');
-                        const trList = doc.querySelectorAll('tr');
-                        let headerIdx = { nama: -1, kelas: -1, nis: -1, nisn: -1, level: -1 };
-                        let hasHeader = false;
-
-                        trList.forEach((tr) => {
-                            const cells = Array.from(tr.querySelectorAll('th, td')).map(td => td.textContent.trim());
-                            if (cells.length < 2) return;
-
-                            if (!hasHeader) {
-                                cells.forEach((c, cIdx) => {
-                                    const low = c.toLowerCase();
-                                    if (low.includes('nama')) headerIdx.nama = cIdx;
-                                    else if (low.includes('nisn')) headerIdx.nisn = cIdx;
-                                    else if (low.includes('nis')) headerIdx.nis = cIdx;
-                                    else if (low.includes('kelas') || low.includes('rombel')) headerIdx.kelas = cIdx;
-                                    else if (low.includes('level')) headerIdx.level = cIdx;
-                                });
-                                if (headerIdx.nama !== -1) {
-                                    hasHeader = true;
-                                    return;
-                                }
-                            }
-
-                            const namaVal = headerIdx.nama !== -1 ? cells[headerIdx.nama] : cells[0];
-                            if (!namaVal || namaVal.toLowerCase().includes('nama')) return;
-
-                            const kelasVal = headerIdx.kelas !== -1 ? cells[headerIdx.kelas] : (cells[1] || '7A');
-                            const nisVal = headerIdx.nis !== -1 ? cells[headerIdx.nis] : (cells[2] || '-');
-                            const nisnVal = headerIdx.nisn !== -1 ? cells[headerIdx.nisn] : (cells[3] || '');
-                            const levelVal = headerIdx.level !== -1 ? cells[headerIdx.level] : (cells[4] || 'Belum Ditentukan');
-
-                            parsedRows.push({
-                                nama: namaVal,
-                                kelas: (kelasVal || '7A').toUpperCase(),
-                                nis: nisVal || '-',
-                                nisn: nisnVal || '',
-                                level: levelVal || 'Belum Ditentukan'
-                            });
-                        });
-                    } catch (err) { }
-                }
-
-                // 3. Jika bukan XML/HTML atau belum ada baris, parse sebagai CSV / TSV
-                if (parsedRows.length === 0) {
-                    const rawLines = text.split(/\r\n|\n/).map(l => l.trim()).filter(l => l !== '');
-                    const lines = rawLines.filter(l => !l.toLowerCase().startsWith('sep='));
-                    if (lines.length >= 2) {
-                        const sampleHeader = lines[0];
-                        let delim = ',';
-                        if (sampleHeader.includes(';')) delim = ';';
-                        else if (sampleHeader.includes('\t')) delim = '\t';
-
-                        const headerCols = lines[0].split(delim).map(c => c.trim().replace(/^"|"$/g, '').toLowerCase());
-                        let headerIdx = { nama: -1, kelas: -1, nis: -1, nisn: -1, level: -1 };
-                        headerCols.forEach((c, idx) => {
-                            if (c.includes('nama')) headerIdx.nama = idx;
-                            else if (c.includes('nisn')) headerIdx.nisn = idx;
-                            else if (c.includes('nis')) headerIdx.nis = idx;
-                            else if (c.includes('kelas') || c.includes('rombel')) headerIdx.kelas = idx;
-                            else if (c.includes('level')) headerIdx.level = idx;
-                        });
-
-                        for (let i = 1; i < lines.length; i++) {
-                            const cols = lines[i].split(delim).map(c => c.trim().replace(/^"|"$/g, ''));
-                            if (cols.length >= 2 && cols[0]) {
-                                const namaVal = headerIdx.nama !== -1 ? cols[headerIdx.nama] : cols[0];
-                                if (!namaVal || namaVal.toLowerCase().includes('nama')) continue;
-
-                                const kelasVal = headerIdx.kelas !== -1 ? cols[headerIdx.kelas] : (cols[1] || '7A');
-                                const nisVal = headerIdx.nis !== -1 ? cols[headerIdx.nis] : (cols[2] || '-');
-                                const nisnVal = headerIdx.nisn !== -1 ? cols[headerIdx.nisn] : (cols[3] || '');
-                                const levelVal = headerIdx.level !== -1 ? cols[headerIdx.level] : (cols[4] || 'Belum Ditentukan');
-
-                                parsedRows.push({
-                                    nama: namaVal,
-                                    kelas: (kelasVal || '7A').toUpperCase(),
-                                    nis: nisVal || '-',
-                                    nisn: nisnVal || '',
-                                    level: levelVal || 'Belum Ditentukan'
-                                });
-                            }
-                        }
-                    }
-                }
-
-                if (parsedRows.length === 0) {
-                    showToast("Import Gagal", "File kosong atau format kolom tidak terbaca. Pastikan ada kolom Nama dan Kelas.", "error");
-                    e.target.value = '';
-                    return;
-                }
-
-                let imported = 0;
-                parsedRows.forEach((r, idx) => {
-                    const newId = 'S' + Date.now().toString().slice(-4) + Math.floor(Math.random() * 90 + 10) + idx;
-                    APP_STATE.siswa.push({
-                        id: newId,
-                        nama: r.nama,
-                        nis: r.nis,
-                        nisn: r.nisn,
-                        kelas: r.kelas,
-                        level: r.level
-                    });
-                    imported++;
+                APP_STATE.siswa.push({
+                    id: newId,
+                    nama,
+                    kelas,
+                    nis,
+                    nisn,
+                    level
                 });
 
                 saveDatabase();
+                updateDashboard();
                 renderTableSiswa();
-                showToast("Import Berhasil", `${imported} data santri berhasil diimpor.`);
-                e.target.value = '';
-            };
-            reader.readAsText(file);
-        }
-
-        // Alias backwards compatibility
-        window.handleImportCSV = handleImportFile;
-
-        // --- 2. INPUT NILAI ---
-        function populateSuratDataList() {
-            const dl = document.getElementById('list-surat-all');
-            if (!dl) return;
-            dl.innerHTML = '';
-            DAFTAR_SURAT.forEach(s => {
-                const opt = document.createElement('option');
-                opt.value = s;
-                dl.appendChild(opt);
-            });
-        }
-
-        function prepareFormNilai() {
-            populateSuratDataList();
-            const filterKelasEl = document.getElementById('filter-kelas-nilai');
-            const descEl = document.getElementById('desc-input-nilai');
-
-            if (currentUser && currentUser.role === 'guru') {
-                if (filterKelasEl) {
-                    filterKelasEl.value = 'ALL';
-                    filterKelasEl.classList.add('hidden');
-                }
-                if (descEl) {
-                    descEl.textContent = `Menampilkan seluruh santri binaan Level ${currentUser.level} yang telah Anda pilih.`;
-                }
-            } else {
-                if (filterKelasEl) filterKelasEl.classList.remove('hidden');
-                if (descEl) descEl.textContent = 'Pilih santri untuk memperbarui capaian belajar.';
-                populateKelasSelect('filter-kelas-nilai', 'Semua Kelas', 'ALL');
-            }
-
-            updateSiswaNilaiDropdown('ALL');
-            const formContainer = document.getElementById('form-nilai-container');
-            formContainer.classList.add('hidden', 'opacity-0');
-        }
-
-        function filterSiswaNilaiByKelas(kelas) {
-            updateSiswaNilaiDropdown(kelas);
-            const formContainer = document.getElementById('form-nilai-container');
-            formContainer.classList.add('hidden', 'opacity-0');
-        }
-
-        function updateSiswaNilaiDropdown(kelasFilter = 'ALL') {
-            const select = document.getElementById('select-siswa-nilai');
-            if (!select) return;
-
-            let siswa = getAccessibleSiswa();
-            const isGuru = currentUser && currentUser.role === 'guru';
-
-            if (!isGuru && kelasFilter !== 'ALL') {
-                siswa = siswa.filter(s => (s.kelas || '').toUpperCase() === kelasFilter);
-            }
-
-            if (siswa.length === 0) {
-                select.innerHTML = `<option value="" disabled selected>${isGuru ? '-- Belum ada santri binaan yang dipilih --' : '-- Tidak ada siswa ditemukan --'}</option>`;
-                return;
-            }
-
-            select.innerHTML = `<option value="" disabled selected>${isGuru ? `-- Pilih Santri Binaan Anda (${siswa.length} Santri) --` : '-- Pilih Siswa yang Akan Dinilai --'}</option>`;
-
-            siswa.forEach(s => {
-                const sudah = APP_STATE.nilai && APP_STATE.nilai[s.id] ? '✓ ' : '• ';
-                const opt = document.createElement('option');
-                opt.value = s.id;
-                opt.textContent = isGuru
-                    ? `${sudah}${s.nama} (Kelas ${s.kelas})`
-                    : `${sudah}${s.nama} (${s.kelas} - ${s.level})`;
-                select.appendChild(opt);
-            });
-        }
-
-        function loadNilaiForm(siswaId) {
-            const formContainer = document.getElementById('form-nilai-container');
-            if (!siswaId) {
-                formContainer.classList.add('hidden', 'opacity-0');
-                return;
-            }
-
-            formContainer.classList.remove('hidden');
-            setTimeout(() => formContainer.classList.remove('opacity-0'), 10);
-
-            const siswa = (APP_STATE.siswa || []).find(s => s.id === siswaId);
-            const levelSiswa = siswa ? siswa.level : "-";
-            const guruPengampu = (APP_STATE.guru || []).find(g => g.level === levelSiswa)?.nama || (currentUser?.role === 'guru' ? currentUser.nama : 'Guru Pembimbing');
-
-            // Cek semester genap untuk keputusan kenaikan level
-            const isGenap = APP_STATE.setting?.semester === 'Genap';
-            const areaKeputusan = document.getElementById('area-keputusan');
-            if (isGenap) {
-                areaKeputusan.classList.remove('hidden');
-            } else {
-                areaKeputusan.classList.add('hidden');
-            }
-
-            // Tampilkan identitas level santri & guru yang mengampu
-            const lblLevel = document.getElementById('lbl-keputusan-level');
-            const lblGuru = document.getElementById('lbl-keputusan-guru');
-            const lblTetap = document.getElementById('lbl-tetap-level-name');
-            if (lblLevel) lblLevel.textContent = levelSiswa;
-            if (lblGuru) lblGuru.textContent = guruPengampu;
-            if (lblTetap) lblTetap.textContent = levelSiswa;
-
-            // Atur pilihan rekomendasi level tujuan naik
-            const selectLevelTujuan = document.getElementById('select-level-tujuan');
-            if (selectLevelTujuan) {
-                if (levelSiswa === "Iqra'") {
-                    selectLevelTujuan.value = "Al-Qur'an";
-                } else if (levelSiswa === "Al-Qur'an") {
-                    selectLevelTujuan.value = "Tahfidz A";
-                } else if (levelSiswa === "Tahfidz A") {
-                    selectLevelTujuan.value = "Tahfidz B";
-                } else {
-                    selectLevelTujuan.value = "Khotam / Lulus";
-                }
-            }
-
-            const dataNilai = (APP_STATE.nilai && APP_STATE.nilai[siswaId]) || null;
-            document.getElementById('nilai-makhraj').value = dataNilai ? dataNilai.makhraj : '';
-            document.getElementById('nilai-hukum').value = dataNilai ? dataNilai.hukum : '';
-            document.getElementById('nilai-lancar').value = dataNilai ? dataNilai.lancar : '';
-            document.getElementById('nilai-catatan').value = dataNilai ? (dataNilai.catatan || '') : '';
-
-            // Keputusan radio restore
-            const radioNaik = document.getElementById('radio-keputusan-naik');
-            const radioTetap = document.getElementById('radio-keputusan-tetap');
-            if (radioNaik) radioNaik.checked = false;
-            if (radioTetap) radioTetap.checked = false;
-
-            if (dataNilai && dataNilai.keputusan) {
-                if (typeof dataNilai.keputusan === 'object' && dataNilai.keputusan !== null) {
-                    if (dataNilai.keputusan.tipe === 'Naik') {
-                        if (radioNaik) radioNaik.checked = true;
-                        if (dataNilai.keputusan.levelTujuan && selectLevelTujuan) {
-                            selectLevelTujuan.value = dataNilai.keputusan.levelTujuan;
-                        }
-                    } else if (dataNilai.keputusan.tipe === 'Tetap') {
-                        if (radioTetap) radioTetap.checked = true;
-                    }
-                } else if (typeof dataNilai.keputusan === 'string') {
-                    if (dataNilai.keputusan === 'Naik') {
-                        if (radioNaik) radioNaik.checked = true;
-                    } else {
-                        if (radioTetap) radioTetap.checked = true;
-                    }
-                }
-            }
-
-            // Hafalan rows
-            const tbody = document.getElementById('table-hafalan-body');
-            tbody.innerHTML = '';
-            if (dataNilai && Array.isArray(dataNilai.hafalan) && dataNilai.hafalan.length > 0) {
-                dataNilai.hafalan.forEach(h => tambahBarisHafalan(h.nama, h.predikat));
-            } else {
-                updateHafalanState();
+                tutupModalSiswaGuru();
+                showToast("Siswa Ditambahkan", `${nama} (${kelas}) berhasil didaftarkan dan masuk ke kelompok binaan ${level}.`);
             }
         }
 
