@@ -125,6 +125,13 @@
             font-size: 9.5pt !important;
         }
 
+        /* Pengaturan khusus tinggi baris Tabel B. Hafalan agar ringkas */
+        table.table-hafalan th,
+        table.table-hafalan td {
+            padding: 2.5px 6px !important;
+            line-height: 1.15 !important;
+        }
+
         table.table-identitas td {
             border: none !important;
             padding: 2px 0 !important;
@@ -145,16 +152,23 @@
             break-inside: avoid !important;
             font-size: 9pt !important;
             width: 100%;
-            margin-top: 18px;
+            margin-top: 22px;
             transition: all 0.2s ease;
         }
 
-        /* 1. Mode Sangat Luas / Ruang Kosong Banyak (Tabel MEMBESAR otomatis mengisi ruang kertas agar penuh & rapi) */
+        /* 1. Mode Sangat Luas */
         .raport-page.rap-size-spacious table.table-nilai th,
         .raport-page.rap-size-spacious table.table-nilai td {
-            padding: 9.5px 12px !important;
+            padding: 8px 12px !important;
             font-size: 10.5pt !important;
-            line-height: 1.45 !important;
+            line-height: 1.4 !important;
+        }
+
+        .raport-page.rap-size-spacious table.table-hafalan th,
+        .raport-page.rap-size-spacious table.table-hafalan td {
+            padding: 5px 10px !important;
+            font-size: 10pt !important;
+            line-height: 1.25 !important;
         }
 
         .raport-page.rap-size-spacious table.table-nilai thead {
@@ -167,43 +181,52 @@
         }
 
         .raport-page.rap-size-spacious .rap-section-box {
-            margin-bottom: 16px !important;
+            margin-bottom: 14px !important;
         }
 
         .raport-page.rap-size-spacious .rap-section-title {
             font-size: 11pt !important;
-            margin-bottom: 7px !important;
+            margin-bottom: 6px !important;
         }
 
         .raport-page.rap-size-spacious .rap-catatan-teks {
-            min-height: 80px !important;
+            min-height: 68px !important;
             height: auto !important;
-            padding: 10px 12px !important;
+            padding: 8px 12px !important;
             font-size: 10pt !important;
-            line-height: 1.5 !important;
+            line-height: 1.45 !important;
         }
 
         .raport-page.rap-size-spacious .rap-ttd-area {
-            margin-top: 32px !important;
+            margin-top: 30px !important;
             font-size: 9.5pt !important;
         }
 
         .raport-page.rap-size-spacious .rap-ttd-space {
-            margin-top: 48px !important;
+            margin-top: 52px !important;
         }
 
         .raport-page.rap-size-spacious .rap-ttd-row2 {
             margin-top: 22px !important;
         }
 
-        /* 2. Mode Luas / Sedikit (Tabel membesar proporsional) */
+        /* 2. Mode Luas / Sedikit */
         .raport-page.rap-size-relaxed table.table-nilai th,
         .raport-page.rap-size-relaxed table.table-nilai td,
         .raport-page.rap-relaxed table.table-nilai th,
         .raport-page.rap-relaxed table.table-nilai td {
-            padding: 7px 10px !important;
+            padding: 6px 10px !important;
             font-size: 10pt !important;
-            line-height: 1.4 !important;
+            line-height: 1.35 !important;
+        }
+
+        .raport-page.rap-size-relaxed table.table-hafalan th,
+        .raport-page.rap-size-relaxed table.table-hafalan td,
+        .raport-page.rap-relaxed table.table-hafalan th,
+        .raport-page.rap-relaxed table.table-hafalan td {
+            padding: 4px 8px !important;
+            font-size: 9.5pt !important;
+            line-height: 1.2 !important;
         }
 
         .raport-page.rap-size-relaxed table.table-nilai thead,
@@ -219,7 +242,7 @@
 
         .raport-page.rap-size-relaxed .rap-section-box,
         .raport-page.rap-relaxed .rap-section-box {
-            margin-bottom: 12px !important;
+            margin-bottom: 11px !important;
         }
 
         .raport-page.rap-size-relaxed .rap-section-title,
@@ -230,7 +253,7 @@
 
         .raport-page.rap-size-relaxed .rap-catatan-teks,
         .raport-page.rap-relaxed .rap-catatan-teks {
-            min-height: 55px !important;
+            min-height: 50px !important;
             height: auto !important;
             padding: 6px 10px !important;
             font-size: 9.5pt !important;
@@ -239,13 +262,13 @@
 
         .raport-page.rap-size-relaxed .rap-ttd-area,
         .raport-page.rap-relaxed .rap-ttd-area {
-            margin-top: 28px !important;
+            margin-top: 26px !important;
             font-size: 9.5pt !important;
         }
 
         .raport-page.rap-size-relaxed .rap-ttd-space,
         .raport-page.rap-relaxed .rap-ttd-space {
-            margin-top: 42px !important;
+            margin-top: 46px !important;
         }
 
         .raport-page.rap-size-relaxed .rap-ttd-row2,
@@ -253,14 +276,23 @@
             margin-top: 18px !important;
         }
 
-        /* 3. Mode Normal / Sedang (Hafalan 5-6 baris: Ukuran Standar) */
+        /* 3. Mode Normal / Sedang */
         .raport-page.rap-size-normal table.table-nilai th,
         .raport-page.rap-size-normal table.table-nilai td,
         .raport-page.rap-normal table.table-nilai th,
         .raport-page.rap-normal table.table-nilai td {
-            padding: 5px 8px !important;
+            padding: 4.5px 8px !important;
             font-size: 9.5pt !important;
-            line-height: 1.35 !important;
+            line-height: 1.3 !important;
+        }
+
+        .raport-page.rap-size-normal table.table-hafalan th,
+        .raport-page.rap-size-normal table.table-hafalan td,
+        .raport-page.rap-normal table.table-hafalan th,
+        .raport-page.rap-normal table.table-hafalan td {
+            padding: 3px 7px !important;
+            font-size: 9pt !important;
+            line-height: 1.18 !important;
         }
 
         .raport-page.rap-size-normal table.table-nilai thead,
@@ -287,7 +319,7 @@
 
         .raport-page.rap-size-normal .rap-catatan-teks,
         .raport-page.rap-normal .rap-catatan-teks {
-            min-height: 38px !important;
+            min-height: 36px !important;
             height: auto !important;
             padding: 4px 8px !important;
             font-size: 9pt !important;
@@ -296,13 +328,13 @@
 
         .raport-page.rap-size-normal .rap-ttd-area,
         .raport-page.rap-normal .rap-ttd-area {
-            margin-top: 22px !important;
+            margin-top: 20px !important;
             font-size: 9pt !important;
         }
 
         .raport-page.rap-size-normal .rap-ttd-space,
         .raport-page.rap-normal .rap-ttd-space {
-            margin-top: 34px !important;
+            margin-top: 38px !important;
         }
 
         .raport-page.rap-size-normal .rap-ttd-row2,
@@ -310,14 +342,23 @@
             margin-top: 14px !important;
         }
 
-        /* 4. Mode Padat / Penuh (Tabel MENGECIL otomatis saat hafalan 7-9 baris / catatan panjang / keputusan) */
+        /* 4. Mode Padat / Penuh */
         .raport-page.rap-size-compact table.table-nilai th,
         .raport-page.rap-size-compact table.table-nilai td,
         .raport-page.rap-compact table.table-nilai th,
         .raport-page.rap-compact table.table-nilai td {
             padding: 3px 6px !important;
             font-size: 8.5pt !important;
-            line-height: 1.3 !important;
+            line-height: 1.25 !important;
+        }
+
+        .raport-page.rap-size-compact table.table-hafalan th,
+        .raport-page.rap-size-compact table.table-hafalan td,
+        .raport-page.rap-compact table.table-hafalan th,
+        .raport-page.rap-compact table.table-hafalan td {
+            padding: 2px 6px !important;
+            font-size: 8.5pt !important;
+            line-height: 1.15 !important;
         }
 
         .raport-page.rap-size-compact table.table-nilai thead,
@@ -344,7 +385,7 @@
 
         .raport-page.rap-size-compact .rap-catatan-teks,
         .raport-page.rap-compact .rap-catatan-teks {
-            min-height: 26px !important;
+            min-height: 24px !important;
             height: auto !important;
             padding: 2.5px 6px !important;
             font-size: 8.5pt !important;
@@ -352,13 +393,13 @@
 
         .raport-page.rap-size-compact .rap-ttd-area,
         .raport-page.rap-compact .rap-ttd-area {
-            margin-top: 15px !important;
+            margin-top: 14px !important;
             font-size: 8.5pt !important;
         }
 
         .raport-page.rap-size-compact .rap-ttd-space,
         .raport-page.rap-compact .rap-ttd-space {
-            margin-top: 26px !important;
+            margin-top: 30px !important;
         }
 
         .raport-page.rap-size-compact .rap-ttd-row2,
@@ -366,14 +407,23 @@
             margin-top: 10px !important;
         }
 
-        /* 5. Mode Sangat Padat (Tabel MENGECIL maksimal saat hafalan 10+ baris agar tetap pas 1 lembar) */
+        /* 5. Mode Sangat Padat */
         .raport-page.rap-size-extra-compact table.table-nilai th,
         .raport-page.rap-size-extra-compact table.table-nilai td,
         .raport-page.rap-compact-extra table.table-nilai th,
         .raport-page.rap-compact-extra table.table-nilai td {
             padding: 1.5px 4px !important;
             font-size: 8pt !important;
-            line-height: 1.2 !important;
+            line-height: 1.15 !important;
+        }
+
+        .raport-page.rap-size-extra-compact table.table-hafalan th,
+        .raport-page.rap-size-extra-compact table.table-hafalan td,
+        .raport-page.rap-compact-extra table.table-hafalan th,
+        .raport-page.rap-compact-extra table.table-hafalan td {
+            padding: 1px 4px !important;
+            font-size: 7.8pt !important;
+            line-height: 1.1 !important;
         }
 
         .raport-page.rap-size-extra-compact table.table-nilai thead,
@@ -400,7 +450,7 @@
 
         .raport-page.rap-size-extra-compact .rap-catatan-teks,
         .raport-page.rap-compact-extra .rap-catatan-teks {
-            min-height: 20px !important;
+            min-height: 18px !important;
             height: auto !important;
             padding: 1.5px 4px !important;
             font-size: 8pt !important;
@@ -414,7 +464,7 @@
 
         .raport-page.rap-size-extra-compact .rap-ttd-space,
         .raport-page.rap-compact-extra .rap-ttd-space {
-            margin-top: 20px !important;
+            margin-top: 24px !important;
         }
 
         .raport-page.rap-size-extra-compact .rap-ttd-row2,
@@ -427,16 +477,23 @@
             padding-bottom: 2px !important;
         }
 
-        /* 6. Mode Ultra Padat (Cadangan otomatis jika daftar hafalan sangat panjang > 12 baris) */
+        /* 6. Mode Ultra Padat */
         .raport-page.rap-size-ultra-compact table.table-nilai th,
         .raport-page.rap-size-ultra-compact table.table-nilai td {
             padding: 1px 3px !important;
-            font-size: 7.2pt !important;
-            line-height: 1.12 !important;
+            font-size: 7.5pt !important;
+            line-height: 1.1 !important;
+        }
+
+        .raport-page.rap-size-ultra-compact table.table-hafalan th,
+        .raport-page.rap-size-ultra-compact table.table-hafalan td {
+            padding: 0.5px 3px !important;
+            font-size: 7.3pt !important;
+            line-height: 1.05 !important;
         }
 
         .raport-page.rap-size-ultra-compact table.table-nilai thead {
-            font-size: 7.2pt !important;
+            font-size: 7.5pt !important;
         }
 
         .raport-page.rap-size-ultra-compact .table-identitas td {
@@ -449,16 +506,15 @@
         }
 
         .raport-page.rap-size-ultra-compact .rap-section-title {
-            font-size: 8.2pt !important;
-            margin-bottom: 1px !important;
+            font-size: 8.5pt !important;
+            margin-bottom: 1.5px !important;
         }
 
         .raport-page.rap-size-ultra-compact .rap-catatan-teks {
-            min-height: 16px !important;
+            min-height: 14px !important;
             height: auto !important;
-            padding: 1px 4px !important;
+            padding: 1px 3px !important;
             font-size: 7.5pt !important;
-            line-height: 1.15 !important;
         }
 
         .raport-page.rap-size-ultra-compact .rap-ttd-area {
@@ -467,7 +523,7 @@
         }
 
         .raport-page.rap-size-ultra-compact .rap-ttd-space {
-            margin-top: 16px !important;
+            margin-top: 20px !important;
         }
 
         .raport-page.rap-size-ultra-compact .rap-ttd-row2 {
@@ -478,75 +534,31 @@
             padding-bottom: 1px !important;
         }
 
-        /* Pengaturan khusus tinggi tabel B. HAFALAN agar lebih ringkas */
-        table.table-hafalan th,
-        table.table-hafalan td {
-            padding-top: 2.5px !important;
-            padding-bottom: 2.5px !important;
-            line-height: 1.2 !important;
+        .raport-page.rap-size-ultra-compact .rap-logo-kop {
+            width: 50px !important;
+            height: 50px !important;
         }
 
-        .raport-page.rap-size-spacious table.table-hafalan th,
-        .raport-page.rap-size-spacious table.table-hafalan td {
-            padding-top: 4.5px !important;
-            padding-bottom: 4.5px !important;
-            line-height: 1.25 !important;
-        }
-
-        .raport-page.rap-size-relaxed table.table-hafalan th,
-        .raport-page.rap-size-relaxed table.table-hafalan td,
-        .raport-page.rap-relaxed table.table-hafalan th,
-        .raport-page.rap-relaxed table.table-hafalan td {
-            padding-top: 3.5px !important;
-            padding-bottom: 3.5px !important;
-            line-height: 1.22 !important;
-        }
-
-        .raport-page.rap-size-normal table.table-hafalan th,
-        .raport-page.rap-size-normal table.table-hafalan td,
-        .raport-page.rap-normal table.table-hafalan th,
-        .raport-page.rap-normal table.table-hafalan td {
-            padding-top: 2.5px !important;
-            padding-bottom: 2.5px !important;
-            line-height: 1.18 !important;
-        }
-
-        .raport-page.rap-size-compact table.table-hafalan th,
-        .raport-page.rap-size-compact table.table-hafalan td,
-        .raport-page.rap-compact table.table-hafalan th,
-        .raport-page.rap-compact table.table-hafalan td {
-            padding-top: 1.8px !important;
-            padding-bottom: 1.8px !important;
-            line-height: 1.15 !important;
-        }
-
-        .raport-page.rap-size-extra-compact table.table-hafalan th,
-        .raport-page.rap-size-extra-compact table.table-hafalan td,
-        .raport-page.rap-compact-extra table.table-hafalan th,
-        .raport-page.rap-compact-extra table.table-hafalan td {
-            padding-top: 1px !important;
-            padding-bottom: 1px !important;
-            line-height: 1.1 !important;
-        }
-
-        .raport-page.rap-size-ultra-compact table.table-hafalan th,
-        .raport-page.rap-size-ultra-compact table.table-hafalan td {
-            padding-top: 0.5px !important;
-            padding-bottom: 0.5px !important;
-            line-height: 1.05 !important;
-        }
-
-        /* Jarak antar halaman hanya untuk pratinjau layar, dinolkan saat export PDF/Print */
+        /* Mode Export PDF (html2pdf) */
         .pdf-export-mode {
             gap: 0 !important;
-            padding: 0 !important;
             margin: 0 !important;
+            padding: 0 !important;
         }
 
         .pdf-export-mode .raport-page {
             box-shadow: none !important;
             margin: 0 !important;
             border: none !important;
+            page-break-after: always !important;
+            break-after: page !important;
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+        }
+
+        .pdf-export-mode .raport-page:last-child {
+            page-break-after: auto !important;
+            break-after: auto !important;
         }
 
         @page {
@@ -583,6 +595,7 @@
                 margin: 0 !important;
                 border: none !important;
                 page-break-after: always !important;
+                break-after: page !important;
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
                 height: 296mm !important;
@@ -592,7 +605,8 @@
             }
 
             .raport-page:last-child {
-                page-break-after: avoid !important;
+                page-break-after: auto !important;
+                break-after: auto !important;
             }
         }
 
@@ -620,11 +634,11 @@
     <div id="mobile-sidebar-backdrop" onclick="toggleSidebarMobile(false)"
         class="fixed inset-0 bg-slate-950/60 z-30 hidden md:hidden"></div>
     <div id="toast-container"
-        class="fixed top-6 right-6 z-[9999] opacity-0 translate-y-[-20px] scale-95 pointer-events-none flex items-center gap-3 bg-white/95 backdrop-blur-md border border-emerald-100 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-2xl px-5 py-3.5">
-        <div id="toast-icon" class="text-emerald-500 text-2xl flex items-center justify-center"><i
+        class="fixed top-6 right-6 z-[9999] opacity-0 translate-y-[-20px] scale-95 pointer-events-none flex items-center gap-3 bg-white/95 backdrop-blur-md border border-emerald-100 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-2xl px-5 py-3.5 max-w-md">
+        <div id="toast-icon" class="text-emerald-500 text-2xl flex items-center justify-center shrink-0"><i
                 class="ph-fill ph-check-circle"></i></div>
         <div class="flex flex-col"><span id="toast-title" class="font-bold text-sm text-slate-800">Berhasil!</span><span
-                id="toast-msg" class="text-xs text-slate-500 font-medium">Data tersimpan.</span></div>
+                id="toast-msg" class="text-xs text-slate-500 font-medium leading-relaxed">Data tersimpan.</span></div>
     </div>
     <div id="global-loading"
         class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[200] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
@@ -642,16 +656,16 @@
         <div class="bg-white rounded-[1.5rem] p-6 max-w-sm w-full mx-4 shadow-2xl text-center transform transition-all">
             <div
                 class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto mb-3.5 text-2xl">
-                <i class="ph-bold ph-trash"></i>
+                <i class="ph-bold ph-warning-circle"></i>
             </div>
-            <h4 id="confirm-title" class="text-base font-bold text-slate-800 mb-1">Konfirmasi Hapus</h4>
-            <p id="confirm-message" class="text-xs text-slate-500 mb-6">Yakin ingin menghapus data ini?</p>
+            <h4 id="confirm-title" class="text-base font-bold text-slate-800 mb-1">Konfirmasi</h4>
+            <p id="confirm-message" class="text-xs text-slate-500 mb-6 leading-relaxed">Yakin ingin melanjutkan?</p>
             <div class="flex gap-3">
                 <button type="button" onclick="closeConfirmModal()"
                     class="flex-1 py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl">Batal</button>
                 <button id="btn-ok-confirm" type="button"
                     class="flex-1 py-2.5 px-4 bg-red-600 hover:bg-red-700 text-white font-semibold text-xs rounded-xl">Ya,
-                    Hapus</button>
+                    Lanjutkan</button>
             </div>
         </div>
     </div>
@@ -687,8 +701,8 @@
                             class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">
                             <i class="ph-bold ph-lock-key"></i> Masuk Sistem Raport
                         </span>
-                        <p class="text-[11px] text-slate-500 font-medium mt-1.5">Pendaftaran akun guru baru hanya dapat
-                            dilakukan oleh Administrator.</p>
+                        <p class="text-[11px] text-slate-500 font-medium mt-1.5">Gunakan username dan password yang telah
+                            didaftarkan oleh Administrator.</p>
                     </div>
 
                     <!-- FORM LOGIN -->
@@ -698,7 +712,7 @@
                                 class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">Username</label>
                             <div class="relative">
                                 <i class="ph-fill ph-user absolute left-3.5 top-3 text-slate-400 text-lg"></i>
-                                <input type="text" id="login-user" required
+                                <input type="text" id="login-user" required autocomplete="username"
                                     class="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 outline-none transition-all text-sm font-medium"
                                     placeholder="Masukkan username">
                             </div>
@@ -708,9 +722,9 @@
                                 class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">Password</label>
                             <div class="relative">
                                 <i class="ph-fill ph-lock-key absolute left-3.5 top-3 text-slate-400 text-lg"></i>
-                                <input type="password" id="login-pass" required
+                                <input type="password" id="login-pass" required autocomplete="current-password"
                                     class="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 outline-none transition-all text-sm font-medium"
-                                    placeholder="••••••••">
+                                    placeholder="Masukkan password">
                             </div>
                         </div>
                         <button type="submit"
@@ -718,7 +732,6 @@
                             Masuk Aplikasi <i class="ph-bold ph-arrow-right"></i>
                         </button>
                     </form>
-
 
                     <p class="text-center text-[10px] text-slate-400 mt-6 font-semibold tracking-wide">Developed by Dhee
                         Roesnadhee</p>
@@ -804,7 +817,7 @@
         </aside>
 
         <!-- MAIN CONTENT AREA -->
-        <main class="flex-1 p-4 md:p-8 overflow-y-auto relative flex flex-col">
+        <main class="flex-1 p-4 md:p-6 lg:p-8 overflow-y-auto relative flex flex-col">
             <!-- MOBILE HEADER -->
             <div
                 class="md:hidden flex items-center justify-between bg-white px-4 py-3 rounded-[1rem] shadow-sm border border-slate-100 mb-4 shrink-0">
@@ -815,15 +828,14 @@
                 <div class="w-8"></div>
             </div>
 
-            <div id="main-content-wrapper" class="max-w-6xl mx-auto pb-20 w-full flex-1 transition-all duration-200">
+            <div id="main-content-wrapper" class="max-w-6xl mx-auto pb-20 w-full flex-1">
                 <!-- 0. DASHBOARD -->
                 <section id="sec-dashboard" class="space-y-6">
                     <div
                         class="bg-white p-6 rounded-[1.25rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
                             <h2 class="text-xl font-bold text-slate-800">Dashboard Raport Al-Qur'an</h2>
-                            <p class="text-xs text-slate-500 mt-1">Semua data tersimpan secara aman di dalam browser
-                                ini.</p>
+                            <p class="text-xs text-slate-500 mt-1">Semua data tersimpan dan tersinkronisasi aman.</p>
                         </div>
                         <span id="dash-badge-tahun"
                             class="px-4 py-1.5 bg-emerald-50/50 border border-emerald-200 text-emerald-700 text-xs font-bold rounded-full uppercase tracking-wide">Tahun
@@ -1043,29 +1055,30 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 2xl:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
                             <!-- PANEL 1: PILIH DARI KELAS -->
                             <div
                                 class="bg-white rounded-[1.25rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] overflow-hidden flex flex-col">
                                 <div
-                                    class="p-4 border-b border-slate-100 bg-emerald-50/40 flex flex-wrap items-center justify-between gap-3">
+                                    class="p-4 border-b border-slate-100 bg-emerald-50/40 flex flex-wrap items-center justify-between gap-2">
                                     <div>
                                         <h3
                                             class="font-bold text-xs uppercase tracking-wider text-emerald-900 flex items-center gap-1.5">
-                                            <i class="ph-bold ph-user-plus text-emerald-600 text-base"></i> Pilih Santri dari
+                                            <i class="ph-bold ph-user-plus text-emerald-600"></i> Pilih Santri dari
                                             Kelas
                                         </h3>
-                                        <p class="text-[11px] text-slate-500 mt-0.5">Centang santri atau klik tombol Masukkan di sebelah kanan.</p>
+                                        <p class="text-[10px] text-slate-500">Centang santri atau klik Masukkan untuk
+                                            menambahkan ke level Anda.</p>
                                     </div>
                                     <div class="flex items-center gap-2">
                                         <select id="guru-select-kelas-source" onchange="renderGuruPlottingSources()"
-                                            class="px-3.5 py-2 text-xs font-bold border border-slate-200 rounded-xl outline-none bg-white text-slate-700 focus:ring-2 focus:ring-emerald-500">
+                                            class="px-3 py-1.5 text-xs font-bold border border-slate-200 rounded-lg outline-none bg-white text-slate-700 focus:ring-2 focus:ring-emerald-500">
                                             <option value="ALL">Semua Kelas</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div
-                                    class="px-4 py-3 border-b border-slate-100 bg-slate-50 flex flex-wrap items-center justify-between gap-2">
+                                    class="p-3 border-b border-slate-100 bg-slate-50 flex flex-wrap items-center justify-between gap-2">
                                     <label
                                         class="flex items-center gap-2 text-xs font-semibold text-slate-700 cursor-pointer">
                                         <input type="checkbox" id="check-select-all-source"
@@ -1074,20 +1087,20 @@
                                         <span>Pilih Semua yang Tampil</span>
                                     </label>
                                     <button type="button" onclick="handleBulkAssignLevel()"
-                                        class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-xs rounded-xl transition shadow-sm flex items-center gap-1.5">
-                                        <i class="ph-bold ph-plus-circle text-sm"></i> Masukkan Terpilih
+                                        class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-xs rounded-lg transition shadow-sm flex items-center gap-1.5">
+                                        <i class="ph-bold ph-plus-circle"></i> Masukkan Terpilih
                                     </button>
                                 </div>
-                                <div class="overflow-x-auto flex-1 max-h-[480px]">
+                                <div class="overflow-y-auto flex-1 max-h-[500px]">
                                     <table class="w-full text-left text-xs">
                                         <thead
                                             class="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-100 sticky top-0 z-10">
                                             <tr>
-                                                <th class="py-3 px-3 w-10 text-center">Pilih</th>
-                                                <th class="py-3 px-3">Nama Santri</th>
-                                                <th class="py-3 px-3 text-center w-16">Kelas</th>
-                                                <th class="py-3 px-3 w-28">Level</th>
-                                                <th class="py-3 px-3 text-right w-28">Aksi</th>
+                                                <th class="p-3 w-10 text-center">Pilih</th>
+                                                <th class="p-3">Nama Santri</th>
+                                                <th class="p-3 w-16 text-center">Kelas</th>
+                                                <th class="p-3 w-36">Level</th>
+                                                <th class="p-3 w-28 text-right">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="table-guru-source-body" class="divide-y divide-slate-100"></tbody>
@@ -1099,31 +1112,31 @@
                             <div
                                 class="bg-white rounded-[1.25rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] overflow-hidden flex flex-col">
                                 <div
-                                    class="p-4 border-b border-slate-100 bg-blue-50/40 flex flex-wrap items-center justify-between gap-3">
+                                    class="p-4 border-b border-slate-100 bg-blue-50/40 flex flex-wrap items-center justify-between gap-2">
                                     <div>
                                         <h3
                                             class="font-bold text-xs uppercase tracking-wider text-blue-900 flex items-center gap-1.5">
-                                            <i class="ph-bold ph-users-three text-blue-600 text-base"></i> Santri Binaan Saya
+                                            <i class="ph-bold ph-users-three text-blue-600"></i> Santri Binaan Saya
                                         </h3>
-                                        <p class="text-[11px] text-slate-500 mt-0.5">Santri yang saat ini sudah masuk ke
-                                            kelompok Anda.</p>
+                                        <p class="text-[10px] text-slate-500">Edit identitas jika ada kesalahan nama /
+                                            NIS, atau keluarkan dari kelompok.</p>
                                     </div>
                                     <div class="flex items-center gap-2">
                                         <select id="guru-filter-binaan-kelas" onchange="renderGuruBinaanTable()"
-                                            class="px-3.5 py-2 text-xs font-bold border border-slate-200 rounded-xl outline-none bg-white text-slate-700 focus:ring-2 focus:ring-blue-500">
+                                            class="px-3 py-1.5 text-xs font-bold border border-slate-200 rounded-lg outline-none bg-white text-slate-700 focus:ring-2 focus:ring-blue-500">
                                             <option value="ALL">Semua Kelas</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="overflow-x-auto flex-1 max-h-[530px]">
+                                <div class="overflow-y-auto flex-1 max-h-[545px]">
                                     <table class="w-full text-left text-xs">
                                         <thead
                                             class="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-100 sticky top-0 z-10">
                                             <tr>
-                                                <th class="py-3 px-3 w-10 text-center">No</th>
-                                                <th class="py-3 px-3">Nama Santri &amp; NIS</th>
-                                                <th class="py-3 px-3 text-center w-16">Kelas</th>
-                                                <th class="py-3 px-3 text-right w-44">Aksi</th>
+                                                <th class="p-3 w-10 text-center">No</th>
+                                                <th class="p-3">Nama Santri &amp; NIS</th>
+                                                <th class="p-3 w-16 text-center">Kelas</th>
+                                                <th class="p-3 w-44 text-right">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="table-guru-binaan-body" class="divide-y divide-slate-100"></tbody>
@@ -1131,14 +1144,15 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- MODAL TAMBAH / EDIT SISWA GURU -->
+
+                        <!-- MODAL TAMBAH SISWA GURU -->
                         <div id="modal-siswa-guru"
                             class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
                             <div
                                 class="bg-white rounded-2xl shadow-2xl border border-slate-100 w-full max-w-md overflow-hidden transform scale-95 transition-transform duration-300">
                                 <div
                                     class="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-                                    <h3 id="modal-siswa-guru-title" class="font-bold text-sm text-slate-800 flex items-center gap-2">
+                                    <h3 class="font-bold text-sm text-slate-800 flex items-center gap-2">
                                         <i class="ph-bold ph-user-plus text-emerald-600 text-base"></i> Tambah Siswa
                                         Baru (Guru)
                                     </h3>
@@ -1148,7 +1162,6 @@
                                     </button>
                                 </div>
                                 <form onsubmit="handleSimpanSiswaGuru(event)" class="p-6 space-y-4">
-                                    <input type="hidden" id="guru-edit-siswa-id">
                                     <div>
                                         <label class="block text-xs font-medium text-slate-600 mb-1.5">Nama Lengkap
                                             Siswa <span class="text-red-500">*</span></label>
@@ -1182,18 +1195,89 @@
                                                 class="w-full px-3.5 py-2 text-xs border border-slate-200 bg-slate-100 rounded-xl text-slate-700 font-bold outline-none cursor-not-allowed">
                                         </div>
                                     </div>
-                                    <div id="modal-siswa-guru-info"
+                                    <div
                                         class="p-3 bg-emerald-50/60 rounded-xl border border-emerald-100 text-[11px] text-emerald-800 flex items-center gap-2">
                                         <i class="ph-bold ph-info text-base text-emerald-600 shrink-0"></i>
                                         <span>Siswa baru otomatis masuk ke master data dan langsung dibina pada level
                                             Anda.</span>
                                     </div>
                                     <div class="pt-2 flex gap-2">
-                                        <button type="submit" id="btn-submit-siswa-guru"
+                                        <button type="submit"
                                             class="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold text-xs py-2.5 rounded-xl transition shadow-md shadow-emerald-200">
                                             Simpan Siswa
                                         </button>
                                         <button type="button" onclick="tutupModalSiswaGuru()"
+                                            class="px-4 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold text-xs py-2.5 rounded-xl transition">
+                                            Batal
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- MODAL EDIT IDENTITAS SISWA OLEH GURU -->
+                        <div id="modal-edit-siswa-guru"
+                            class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+                            <div
+                                class="bg-white rounded-2xl shadow-2xl border border-slate-100 w-full max-w-md overflow-hidden transform scale-95 transition-transform duration-300">
+                                <div
+                                    class="p-5 border-b border-slate-100 flex items-center justify-between bg-blue-50/60">
+                                    <h3 class="font-bold text-sm text-blue-950 flex items-center gap-2">
+                                        <i class="ph-bold ph-pencil-simple text-blue-600 text-base"></i> Edit Identitas
+                                        Santri
+                                    </h3>
+                                    <button type="button" onclick="tutupModalEditSiswaGuru()"
+                                        class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-200 transition">
+                                        <i class="ph-bold ph-x text-base"></i>
+                                    </button>
+                                </div>
+                                <form onsubmit="handleUpdateSiswaGuru(event)" class="p-6 space-y-4">
+                                    <input type="hidden" id="guru-edit-id">
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-600 mb-1.5">Nama Lengkap
+                                            Santri <span class="text-red-500">*</span></label>
+                                        <input type="text" id="guru-edit-nama" required
+                                            placeholder="Perbaiki ejaan nama lengkap santri"
+                                            class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none font-semibold text-slate-800">
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-medium text-slate-600 mb-1.5">Kelas
+                                                (Rombel) <span class="text-red-500">*</span></label>
+                                            <input type="text" id="guru-edit-kelas" required placeholder="Misal: 7A"
+                                                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl uppercase focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none font-semibold">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-medium text-slate-600 mb-1.5">NIS</label>
+                                            <input type="text" id="guru-edit-nis" placeholder="Nomor Induk Siswa"
+                                                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none font-mono">
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-medium text-slate-600 mb-1.5">NISN</label>
+                                            <input type="text" id="guru-edit-nisn" placeholder="NISN Nasional"
+                                                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none font-mono">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-medium text-slate-600 mb-1.5">Level
+                                                Binaan</label>
+                                            <input type="text" id="guru-edit-level" readonly
+                                                class="w-full px-3.5 py-2 text-xs border border-slate-200 bg-slate-100 rounded-xl text-slate-700 font-bold outline-none cursor-not-allowed">
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="p-3 bg-blue-50/70 rounded-xl border border-blue-100 text-[11px] text-blue-800 flex items-center gap-2">
+                                        <i class="ph-bold ph-info text-base text-blue-600 shrink-0"></i>
+                                        <span>Perubahan identitas santri akan langsung diperbarui pada data master,
+                                            input nilai, dan cetak raport.</span>
+                                    </div>
+                                    <div class="pt-2 flex gap-2">
+                                        <button type="submit"
+                                            class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold text-xs py-2.5 rounded-xl transition shadow-md shadow-blue-200">
+                                            Simpan Perubahan
+                                        </button>
+                                        <button type="button" onclick="tutupModalEditSiswaGuru()"
                                             class="px-4 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold text-xs py-2.5 rounded-xl transition">
                                             Batal
                                         </button>
@@ -1210,7 +1294,8 @@
                         class="bg-white p-6 rounded-[1.25rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
                             <h2 class="text-xl font-bold text-slate-800">Input Nilai &amp; Hafalan</h2>
-                            <p id="desc-input-nilai" class="text-xs text-slate-500 mt-1">Pilih santri untuk memperbarui capaian belajar.</p>
+                            <p id="subtitle-input-nilai" class="text-xs text-slate-500 mt-1">Pilih santri untuk
+                                memperbarui capaian belajar.</p>
                         </div>
                         <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto items-stretch sm:items-center">
                             <select id="filter-kelas-nilai" onchange="filterSiswaNilaiByKelas(this.value)"
@@ -1390,7 +1475,7 @@
                         <div class="flex flex-wrap items-center gap-3">
                             <select id="select-siswa-cetak" onchange="renderRaport(this.value)"
                                 class="px-3.5 py-2.5 text-xs border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 font-bold bg-slate-50 outline-none"></select>
-                            <select id="select-ukuran-kertas" onchange="renderRaport(document.getElementById('select-siswa-cetak').value)"
+                            <select id="select-ukuran-kertas" onchange="refitAllRaportPages()"
                                 class="px-3.5 py-2.5 text-xs border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 font-bold bg-slate-50 outline-none text-slate-700">
                                 <option value="a4" selected>Kertas A4</option>
                                 <option value="letter">Kertas Letter</option>
@@ -1415,9 +1500,9 @@
                     <!-- TEMPLATE RAPORT (Hidden) -->
                     <template id="raport-page-template">
                         <div class="raport-page w-[210mm] bg-white text-slate-900 shadow-xl relative"
-                            style="padding: 7mm 12mm; box-sizing: border-box; min-height: 296mm; max-height: 296mm; height: 296mm; overflow: hidden; page-break-inside: avoid; break-inside: avoid;">
+                            style="padding: 8mm 12mm; box-sizing: border-box; min-height: 296mm; max-height: 296mm; height: 296mm; overflow: hidden; page-break-inside: avoid; break-inside: avoid;">
                             <div class="rap-inner-container relative z-10 w-full flex flex-col justify-start"
-                                style="box-sizing: border-box; transform-origin: top center;">
+                                style="box-sizing: border-box;">
                                 <div>
                                     <!-- KOP -->
                                     <div class="rap-kop-area">
@@ -1571,11 +1656,10 @@
                                     </div>
                                 </div>
 
-                                <!-- TANDA TANGAN (Otomatis Bergeser Mengikuti Isi Tabel & Tetap Pas 1 Lembar) -->
+                                <!-- TANDA TANGAN (3 Kolom Sejajar Baris 1 + Kepala Sekolah di Tengah Baris 2) -->
                                 <div class="rap-ttd-area w-full text-center text-[9pt]"
                                     style="page-break-inside: avoid; break-inside: avoid;">
-                                    <!-- Baris 1: 3 Kolom Sejajar (Orang Tua, Guru Pembimbing, Wali Kelas) -->
-                                    <div class="grid grid-cols-3 gap-2 items-start">
+                                    <div class="grid grid-cols-3 gap-2">
                                         <!-- Kiri: Orang Tua / Wali Santri -->
                                         <div class="flex flex-col justify-between items-center">
                                             <div>
@@ -1583,7 +1667,7 @@
                                                 <p class="font-medium">Orang Tua / Wali Santri</p>
                                             </div>
                                             <div
-                                                class="rap-ttd-space mt-[42px] w-36 border-b border-black border-dashed">
+                                                class="rap-ttd-space mt-[42px] w-40 border-b border-black border-dashed">
                                             </div>
                                         </div>
                                         <!-- Tengah: Guru Pembimbing -->
@@ -1592,7 +1676,7 @@
                                                 <p class="font-medium opacity-0 select-none">&nbsp;</p>
                                                 <p class="font-medium">Guru Pembimbing</p>
                                             </div>
-                                            <p class="rap-nama-guru font-bold mt-[42px] rap-ttd-space leading-tight">-</p>
+                                            <p class="rap-nama-guru font-bold mt-[42px] rap-ttd-space">-</p>
                                         </div>
                                         <!-- Kanan: Wali Kelas -->
                                         <div class="flex flex-col justify-between items-center">
@@ -1601,17 +1685,17 @@
                                                         Desember 2026</span></p>
                                                 <p class="font-medium">Wali Kelas</p>
                                             </div>
-                                            <p class="rap-nama-walikelas font-bold mt-[42px] rap-ttd-space leading-tight">-</p>
+                                            <p class="rap-nama-walikelas font-bold mt-[42px] rap-ttd-space">-</p>
                                         </div>
                                     </div>
-                                    <!-- Baris 2: Tengah Bawah (Kepala SMP Gunung Jati) -->
+                                    <!-- Tengah Bawah: Kepala SMP Gunung Jati -->
                                     <div class="rap-ttd-row2 flex justify-center mt-4">
                                         <div class="flex flex-col justify-between items-center">
                                             <div>
                                                 <p class="font-medium">Mengetahui,</p>
                                                 <p class="font-medium">Kepala SMP Gunung Jati</p>
                                             </div>
-                                            <p class="rap-nama-kepala font-bold mt-[42px] rap-ttd-space leading-tight">-</p>
+                                            <p class="rap-nama-kepala font-bold mt-[42px] rap-ttd-space">-</p>
                                         </div>
                                     </div>
                                 </div>
@@ -1737,8 +1821,8 @@
                                 </div>
                                 <div class="flex-1 space-y-3 w-full">
                                     <div><label class="block text-xs font-medium text-slate-600 mb-1">Unggah dari
-                                            Perangkat (Lokal)</label><input type="file" accept="image/*"
-                                            onchange="handleLocalLogo(event)"
+                                            Perangkat (Lokal - Otomatis Dikompres)</label><input type="file"
+                                            accept="image/*" onchange="handleLocalLogo(event)"
                                             class="w-full px-3 py-1.5 text-xs border border-emerald-200 rounded-lg bg-white cursor-pointer">
                                     </div>
                                     <div class="text-center text-[10px] text-slate-400 font-bold uppercase">— ATAU —
@@ -1782,7 +1866,7 @@
                                 <div class="flex-1 space-y-3 w-full">
                                     <div>
                                         <label class="block text-xs font-medium text-slate-600 mb-1">Ganti Gambar
-                                            Background (Lokal)</label>
+                                            Background (Lokal - Otomatis Dikompres)</label>
                                         <input type="file" id="input-loginbg-file" accept="image/*"
                                             onchange="handleLocalLoginBg(event)"
                                             class="w-full px-3 py-1.5 text-xs border border-teal-200 rounded-lg bg-white cursor-pointer">
@@ -2002,6 +2086,11 @@ service cloud.firestore {
                                         class="px-3.5 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-semibold text-xs rounded-xl transition flex items-center gap-1.5">
                                         <i class="ph-bold ph-cloud-arrow-up text-sm"></i> Upload Data Lokal
                                     </button>
+                                    <button type="button" onclick="handleCopyConfigCode()"
+                                        class="px-3.5 py-2 bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 font-semibold text-xs rounded-xl transition flex items-center gap-1.5"
+                                        title="Salin kode konfigurasi untuk ditanam sebelum deploy agar semua perangkat langsung terhubung">
+                                        <i class="ph-bold ph-code text-sm"></i> Salin Kode Deploy
+                                    </button>
                                     <button type="button" onclick="handleDisconnectFirebase()"
                                         class="px-3.5 py-2 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 font-semibold text-xs rounded-xl transition flex items-center gap-1.5">
                                         <i class="ph-bold ph-plugs text-sm"></i> Putuskan
@@ -2077,7 +2166,7 @@ service cloud.firestore {
         const SESSION_USER_KEY = 'TPQ_SESSION_USER';
         const SESSION_PAGE_KEY = 'TPQ_SESSION_PAGE';
 
-        // Konfigurasi Bawaan Firebase (Opsional: Jika diisi, semua guru yang membuka link Vercel langsung terhubung otomatis)
+        // Konfigurasi Bawaan Firebase (Isi agar semua guru yang membuka link langsung terhubung otomatis)
         const DEFAULT_FIREBASE_CONFIG = {
             apiKey: "",
             projectId: "",
@@ -2196,6 +2285,7 @@ service cloud.firestore {
         let fbUnsubscribe = null;
         let fbConnected = false;
         let fbSyncingFromCloud = false;
+        let fbInitialSyncPromise = null;
 
         const DEFAULT_SVG_LOGO = `<svg viewBox="0 0 200 260" class="w-full h-full" fill="none" stroke="currentColor" stroke-width="2"><path d="M100 8 C95 18 64 68 46 106 C34 132 36 156 46 182 C38 196 34 214 48 230 C60 244 82 250 96 247 L100 254 L104 247 C118 250 140 244 152 230 C166 214 162 196 154 182 C164 156 166 132 154 106 C136 68 105 18 100 8 Z" fill="#f0fdf4"/><circle cx="100" cy="54" r="6.5"/><path d="M86 172 Q100 166 100 176 Q100 166 114 172 L114 184 Q100 178 100 188 Q100 178 86 184 Z" fill="currentColor" fill-opacity="0.15"/></svg>`;
 
@@ -2216,31 +2306,34 @@ service cloud.firestore {
         ];
 
         // --- SISTEM NOTIFIKASI & MODAL ---
-        function showToast(title, msg, type = 'success') {
+        let toastTimer = null;
+        function showToast(title, msg, type = 'success', duration = 3800) {
             const toast = document.getElementById('toast-container');
             const icon = document.getElementById('toast-icon');
             document.getElementById('toast-title').textContent = title;
             document.getElementById('toast-msg').textContent = msg;
 
             if (type === 'error') {
-                icon.className = 'text-red-500 text-2xl flex items-center justify-center';
+                icon.className = 'text-red-500 text-2xl flex items-center justify-center shrink-0';
                 icon.innerHTML = '<i class="ph-fill ph-warning-circle"></i>';
             } else if (type === 'info') {
-                icon.className = 'text-blue-500 text-2xl flex items-center justify-center';
+                icon.className = 'text-blue-500 text-2xl flex items-center justify-center shrink-0';
                 icon.innerHTML = '<i class="ph-fill ph-info"></i>';
             } else {
-                icon.className = 'text-emerald-500 text-2xl flex items-center justify-center';
+                icon.className = 'text-emerald-500 text-2xl flex items-center justify-center shrink-0';
                 icon.innerHTML = '<i class="ph-fill ph-check-circle"></i>';
             }
 
+            if (toastTimer) clearTimeout(toastTimer);
             toast.classList.add('toast-enter');
-            setTimeout(() => {
+            toastTimer = setTimeout(() => {
                 toast.classList.remove('toast-enter');
-            }, 3000);
+            }, duration);
         }
 
         function showLoading(show) {
             const el = document.getElementById('global-loading');
+            if (!el) return;
             if (show) {
                 el.classList.remove('opacity-0', 'pointer-events-none');
             } else {
@@ -2278,6 +2371,7 @@ service cloud.firestore {
         function toggleSidebarMobile(show) {
             const sidebar = document.getElementById('app-sidebar');
             const backdrop = document.getElementById('mobile-sidebar-backdrop');
+            if (!sidebar || !backdrop) return;
             if (show) {
                 sidebar.classList.remove('-translate-x-full');
                 backdrop.classList.remove('hidden');
@@ -2302,7 +2396,7 @@ service cloud.firestore {
                     if (!Array.isArray(APP_STATE.wali)) APP_STATE.wali = [...DEFAULT_STATE.wali];
                 } else {
                     APP_STATE = JSON.parse(JSON.stringify(DEFAULT_STATE));
-                    saveDatabase();
+                    saveDatabase(false);
                 }
             } catch (err) {
                 console.error("Gagal memuat database lokal:", err);
@@ -2314,12 +2408,45 @@ service cloud.firestore {
             try {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(APP_STATE));
                 if (syncCloud && fbConnected && !fbSyncingFromCloud) {
-                    syncToFirebase();
+                    syncToFirebase().catch(err => console.warn("Background cloud sync error:", err));
                 }
             } catch (err) {
                 console.error("Gagal menyimpan database:", err);
-                showToast("Peringatan", "Gagal menyimpan perubahan ke memori browser.", "error");
+                showToast("Peringatan", "Gagal menyimpan perubahan ke memori browser (kapasitas penuh).", "error");
             }
+        }
+
+        // --- KOMPRESI GAMBAR OTOMATIS AGAR AMAN UNTUK FIRESTORE ---
+        function compressImageDataUrl(dataUrl, maxWidth = 300, maxHeight = 300, quality = 0.8) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = function () {
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > maxWidth || height > maxHeight) {
+                        const ratio = Math.min(maxWidth / width, maxHeight / height);
+                        width = Math.round(width * ratio);
+                        height = Math.round(height * ratio);
+                    }
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const isPng = dataUrl.startsWith('data:image/png');
+                    const compressed = isPng
+                        ? canvas.toDataURL('image/png')
+                        : canvas.toDataURL('image/jpeg', quality);
+                    resolve(compressed.length < dataUrl.length ? compressed : dataUrl);
+                };
+                img.onerror = function () {
+                    resolve(dataUrl);
+                };
+                img.src = dataUrl;
+            });
         }
 
         // --- HELPER LOGO & PREVIEW ---
@@ -2338,37 +2465,13 @@ service cloud.firestore {
         function handleLocalLogo(e) {
             const file = e.target.files[0];
             if (!file) return;
-            compressImageFile(file, 300, 300, 0.85, (dataUrl) => {
-                APP_STATE.setting.logo = dataUrl;
+            const reader = new FileReader();
+            reader.onload = async function (evt) {
+                const compressedLogo = await compressImageDataUrl(evt.target.result, 240, 240, 0.85);
+                APP_STATE.setting.logo = compressedLogo;
                 saveDatabase();
                 renderLogo();
-                showToast("Logo Diperbarui", "Logo instansi berhasil disimpan & dikompresi optimal.");
-            });
-        }
-
-        function compressImageFile(file, maxWidth, maxHeight, quality, callback) {
-            const reader = new FileReader();
-            reader.onload = function (evt) {
-                const img = new Image();
-                img.onload = function () {
-                    let width = img.width;
-                    let height = img.height;
-                    if (width > maxWidth || height > maxHeight) {
-                        const ratio = Math.min(maxWidth / width, maxHeight / height);
-                        width = Math.round(width * ratio);
-                        height = Math.round(height * ratio);
-                    }
-                    const canvas = document.createElement('canvas');
-                    canvas.width = width;
-                    canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-                    const outputType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
-                    const compressed = canvas.toDataURL(outputType, quality);
-                    callback(compressed.length < evt.target.result.length ? compressed : evt.target.result);
-                };
-                img.onerror = () => callback(evt.target.result);
-                img.src = evt.target.result;
+                showToast("Logo Diperbarui", "Logo instansi berhasil dikompres dan disimpan.");
             };
             reader.readAsDataURL(file);
         }
@@ -2453,13 +2556,16 @@ service cloud.firestore {
         function handleLocalLoginBg(e) {
             const file = e.target.files[0];
             if (!file) return;
-            compressImageFile(file, 1024, 768, 0.72, (dataUrl) => {
+            const reader = new FileReader();
+            reader.onload = async function (evt) {
+                const compressedBg = await compressImageDataUrl(evt.target.result, 1024, 768, 0.65);
                 if (!APP_STATE.setting) APP_STATE.setting = {};
-                APP_STATE.setting.loginBg = dataUrl;
+                APP_STATE.setting.loginBg = compressedBg;
                 saveDatabase();
                 renderLoginBg();
-                showToast("Background Disimpan", "Gambar background login berhasil diperbarui.");
-            });
+                showToast("Background Disimpan", "Gambar background halaman login berhasil dikompres dan diperbarui.");
+            };
+            reader.readAsDataURL(file);
         }
 
         function handleInputUrlLoginBg(url) {
@@ -2492,14 +2598,13 @@ service cloud.firestore {
         }
 
         // --- AUTH & NAVIGASI ---
-        function toggleAuthForm(mode) {
-            // Pendaftaran akun kini dikelola eksklusif oleh Administrator di menu 'Kelola Akun Guru Pembimbing'
-            const formLogin = document.getElementById('form-login');
-            if (formLogin) formLogin.classList.remove('hidden');
-        }
-
-        function handleLogin(e) {
+        async function handleLogin(e) {
             e.preventDefault();
+            if (fbInitialSyncPromise) {
+                try {
+                    await fbInitialSyncPromise;
+                } catch (err) { }
+            }
             const rawUser = document.getElementById('login-user').value.trim();
             const pass = document.getElementById('login-pass').value.trim();
             const user = rawUser.toLowerCase();
@@ -2518,7 +2623,7 @@ service cloud.firestore {
                     if (exists) {
                         showToast("Login Gagal", "Password salah! Silakan coba lagi.", "error");
                     } else {
-                        showToast("Login Gagal", `Username "${rawUser}" tidak terdaftar. Hubungi Administrator untuk pembuatan akun.`, "error");
+                        showToast("Login Gagal", `Username "${rawUser}" tidak terdaftar. Silakan hubungi Administrator.`, "error");
                     }
                     return;
                 }
@@ -2576,20 +2681,19 @@ service cloud.firestore {
                 }
             }
 
-            const targetSection = document.getElementById(`sec-${targetId}`);
-            if (targetSection) targetSection.classList.remove('hidden');
-
-            // Lebarkan area kerja penuh saat Guru membuka Data Siswa (Plotting Santri) agar semua tombol terlihat utuh
-            const mainWrapper = document.getElementById('main-content-wrapper');
-            if (mainWrapper) {
+            const wrapper = document.getElementById('main-content-wrapper');
+            if (wrapper) {
                 if (targetId === 'data-siswa' && currentUser && currentUser.role !== 'admin') {
-                    mainWrapper.classList.remove('max-w-6xl');
-                    mainWrapper.classList.add('max-w-full');
+                    wrapper.classList.remove('max-w-6xl');
+                    wrapper.classList.add('max-w-full');
                 } else {
-                    mainWrapper.classList.remove('max-w-full');
-                    mainWrapper.classList.add('max-w-6xl');
+                    wrapper.classList.remove('max-w-full');
+                    wrapper.classList.add('max-w-6xl');
                 }
             }
+
+            const targetSection = document.getElementById(`sec-${targetId}`);
+            if (targetSection) targetSection.classList.remove('hidden');
 
             const navBtns = document.querySelectorAll('.nav-btn');
             navBtns.forEach(btn => {
@@ -2659,6 +2763,12 @@ service cloud.firestore {
                 return APP_STATE.siswa || [];
             }
             return (APP_STATE.siswa || []).filter(s => s.level === currentUser.level);
+        }
+
+        function getGuruPengampuByLevel(level) {
+            if (!level || level === 'Belum Ditentukan') return null;
+            const g = (APP_STATE.guru || []).find(item => item.level === level);
+            return g ? g.nama : null;
         }
 
         // --- 1. DATA SISWA & PLOTTING ---
@@ -2745,7 +2855,6 @@ service cloud.firestore {
             const checkAll = document.getElementById('check-select-all-source');
             if (checkAll) checkAll.checked = false;
 
-            // Siswa yang belum masuk ke level guru saat ini
             let sources = (APP_STATE.siswa || []).filter(s => s.level !== currentUser.level);
             if (kelasFilter !== 'ALL') {
                 sources = sources.filter(s => (s.kelas || '').toUpperCase() === kelasFilter);
@@ -2760,19 +2869,23 @@ service cloud.firestore {
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-slate-50 transition";
                 const isBelum = !s.level || s.level === 'Belum Ditentukan';
+                const guruLain = !isBelum ? getGuruPengampuByLevel(s.level) : null;
                 const statusBadge = isBelum
-                    ? `<span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-500 whitespace-nowrap">Belum Diplot</span>`
-                    : `<span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 whitespace-nowrap">${s.level}</span>`;
+                    ? `<span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-500">Belum Ada Level</span>`
+                    : `<div class="flex flex-col items-start gap-0.5">
+                        <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200">${s.level}</span>
+                        ${guruLain ? `<span class="text-[9.5px] text-slate-500 leading-tight">${guruLain}</span>` : ''}
+                       </div>`;
 
                 tr.innerHTML = `
-                    <td class="py-3 px-3 text-center">
+                    <td class="p-3 text-center">
                         <input type="checkbox" value="${s.id}" class="check-source-siswa w-4 h-4 text-emerald-600 rounded border-gray-300 focus:ring-emerald-500 cursor-pointer">
                     </td>
-                    <td class="py-3 px-3 font-bold text-slate-800 leading-snug">${s.nama}</td>
-                    <td class="py-3 px-3 text-center font-semibold text-slate-700 whitespace-nowrap">${s.kelas}</td>
-                    <td class="py-3 px-3">${statusBadge}</td>
-                    <td class="py-3 px-3 text-right whitespace-nowrap">
-                        <button type="button" onclick="assignSiswaToLevel('${s.id}')" class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-bold rounded-lg transition shadow-xs inline-flex items-center gap-1.5">
+                    <td class="p-3 font-bold text-slate-800 leading-snug">${s.nama}</td>
+                    <td class="p-3 text-center font-semibold text-slate-700">${s.kelas}</td>
+                    <td class="p-3">${statusBadge}</td>
+                    <td class="p-3 text-right">
+                        <button type="button" onclick="assignSiswaToLevel('${s.id}')" class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-bold rounded-lg transition shadow-xs inline-flex items-center justify-center gap-1 whitespace-nowrap">
                             <i class="ph-bold ph-plus"></i> Masukkan
                         </button>
                     </td>
@@ -2794,20 +2907,64 @@ service cloud.firestore {
             }
 
             const targetLevel = currentUser.level;
-            let count = 0;
+            const availableStudents = [];
+            const conflictStudents = [];
+
             checkboxes.forEach(cb => {
                 const id = cb.value;
                 const s = (APP_STATE.siswa || []).find(item => item.id === id);
-                if (s) {
-                    s.level = targetLevel;
-                    count++;
+                if (!s) return;
+
+                const isSudahDiLevelLain = s.level && s.level !== "Belum Ditentukan" && s.level !== targetLevel;
+                if (isSudahDiLevelLain) {
+                    const namaGuru = getGuruPengampuByLevel(s.level);
+                    conflictStudents.push({ siswa: s, namaGuru });
+                } else {
+                    availableStudents.push(s);
                 }
             });
 
-            saveDatabase();
-            if (typeof updateDashboard === 'function') updateDashboard();
-            renderGuruPlotting();
-            showToast("Santri Berhasil Masuk", `${count} santri dimasukkan ke Level ${targetLevel}.`);
+            if (availableStudents.length > 0) {
+                availableStudents.forEach(s => { s.level = targetLevel; });
+                saveDatabase();
+                if (typeof updateDashboard === 'function') updateDashboard();
+                renderGuruPlotting();
+            }
+
+            if (conflictStudents.length > 0) {
+                const first = conflictStudents[0];
+                const ketGuru = first.namaGuru ? ` (${first.namaGuru})` : '';
+                const infoTambahan = conflictStudents.length > 1
+                    ? ` dan ${conflictStudents.length - 1} santri lainnya sudah terdaftar pada level guru lain.`
+                    : ` sudah berada di Level ${first.siswa.level}${ketGuru}.`;
+
+                const ringkasanDaftar = conflictStudents.map(c => {
+                    const gTxt = c.namaGuru ? ` - ${c.namaGuru}` : '';
+                    return `• ${c.siswa.nama} (${c.siswa.kelas}) → Level ${c.siswa.level}${gTxt}`;
+                }).join('\n');
+
+                showToast(
+                    "Santri Sudah Diambil Guru Lain",
+                    `Santri ${first.siswa.nama} (Kelas ${first.siswa.kelas})${infoTambahan}`,
+                    "error",
+                    5500
+                );
+
+                showConfirm(
+                    "Santri Sudah Terdaftar di Level Lain",
+                    `Beberapa santri berikut sudah ditarik oleh guru pengampu lain:\n\n${ringkasanDaftar}\n\nApakah Anda yakin tetap ingin memindahkan santri tersebut ke Level ${targetLevel}?`,
+                    () => {
+                        conflictStudents.forEach(c => { c.siswa.level = targetLevel; });
+                        saveDatabase();
+                        if (typeof updateDashboard === 'function') updateDashboard();
+                        renderGuruPlotting();
+                        showToast("Berhasil Dipindahkan", `${conflictStudents.length} santri dipindahkan ke Level ${targetLevel}.`);
+                    },
+                    "Ya, Pindahkan"
+                );
+            } else if (availableStudents.length > 0) {
+                showToast("Santri Berhasil Masuk", `${availableStudents.length} santri dimasukkan ke Level ${targetLevel}.`);
+            }
         }
 
         function assignSiswaToLevel(siswaId, targetLevel) {
@@ -2818,6 +2975,29 @@ service cloud.firestore {
                 showToast("Gagal Memasukkan", "Level binaan guru tidak ditemukan.", "error");
                 return;
             }
+
+            if (s.level && s.level !== "Belum Ditentukan" && s.level !== finalLevel) {
+                const namaGuru = getGuruPengampuByLevel(s.level);
+                const ketGuru = namaGuru ? ` oleh ${namaGuru}` : '';
+                const pesanNotif = `Santri ${s.nama} (Kelas ${s.kelas}) sudah ada di Level ${s.level}${ketGuru}.`;
+
+                showToast("Sudah Diambil Guru Lain", pesanNotif, "error", 5500);
+
+                showConfirm(
+                    "Santri Sudah Terdaftar di Level Lain",
+                    `${pesanNotif}\n\nApakah Anda yakin tetap ingin memindahkan ${s.nama} ke Level ${finalLevel}?`,
+                    () => {
+                        s.level = finalLevel;
+                        saveDatabase();
+                        if (typeof updateDashboard === 'function') updateDashboard();
+                        renderGuruPlotting();
+                        showToast("Berhasil Dipindahkan", `${s.nama} (${s.kelas}) dipindahkan ke Level ${finalLevel}.`);
+                    },
+                    "Ya, Pindahkan"
+                );
+                return;
+            }
+
             s.level = finalLevel;
             saveDatabase();
             if (typeof updateDashboard === 'function') updateDashboard();
@@ -2868,18 +3048,18 @@ service cloud.firestore {
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-slate-50 transition";
                 tr.innerHTML = `
-                    <td class="py-3 px-3 text-center font-bold text-slate-400">${idx + 1}</td>
-                    <td class="py-3 px-3">
+                    <td class="p-3 text-center font-bold text-slate-400">${idx + 1}</td>
+                    <td class="p-3">
                         <div class="font-bold text-slate-800 leading-snug">${s.nama}</div>
-                        <div class="text-[11px] text-slate-400 font-mono mt-0.5">NIS: ${s.nis || '-'}</div>
+                        <div class="text-[11px] text-slate-500 font-mono mt-0.5">NIS: ${s.nis || '-'}${s.nisn ? ` • NISN: ${s.nisn}` : ''}</div>
                     </td>
-                    <td class="py-3 px-3 text-center font-semibold text-slate-700 whitespace-nowrap">${s.kelas}</td>
-                    <td class="py-3 px-3 text-right whitespace-nowrap">
-                        <div class="inline-flex items-center gap-2">
-                            <button type="button" onclick="editSiswaGuru('${s.id}')" class="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 text-xs font-semibold rounded-lg transition inline-flex items-center gap-1" title="Edit Nama/NIS/NISN">
+                    <td class="p-3 text-center font-semibold text-slate-700">${s.kelas}</td>
+                    <td class="p-3 text-right">
+                        <div class="inline-flex items-center justify-end gap-1.5 flex-nowrap">
+                            <button type="button" onclick="editSiswaGuru('${s.id}')" class="px-2.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-xs font-semibold rounded-lg transition inline-flex items-center gap-1 whitespace-nowrap" title="Edit Nama, Kelas, NIS, atau NISN">
                                 <i class="ph-bold ph-pencil-simple"></i> Edit
                             </button>
-                            <button type="button" onclick="keluarkanSiswaDariLevel('${s.id}')" class="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-semibold rounded-lg transition inline-flex items-center gap-1" title="Keluarkan dari level">
+                            <button type="button" onclick="keluarkanSiswaDariLevel('${s.id}')" class="px-2.5 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-semibold rounded-lg transition inline-flex items-center gap-1 whitespace-nowrap" title="Keluarkan dari level">
                                 <i class="ph-bold ph-x-circle"></i> Keluarkan
                             </button>
                         </div>
@@ -2889,135 +3069,76 @@ service cloud.firestore {
             });
         }
 
-        function getGuruPengampuByLevel(level) {
-            if (!level || level === 'Belum Ditentukan') return null;
-            const g = (APP_STATE.guru || []).find(item => item.level === level);
-            return g ? g.nama : `Guru Level ${level}`;
-        }
-
-        function handleBulkAssignLevel() {
-            const checkboxes = document.querySelectorAll('.check-source-siswa:checked');
-            if (checkboxes.length === 0) {
-                showToast("Pilih Santri", "Centang minimal satu santri yang ingin dimasukkan ke level Anda.", "error");
-                return;
-            }
-
-            const targetLevel = currentUser.level;
-            const availableStudents = [];
-            const conflictStudents = [];
-
-            checkboxes.forEach(cb => {
-                const id = cb.value;
-                const s = (APP_STATE.siswa || []).find(item => item.id === id);
-                if (s) {
-                    const isAssignedElsewhere = s.level && s.level !== 'Belum Ditentukan' && s.level !== targetLevel;
-                    if (isAssignedElsewhere) {
-                        const namaGuruLain = getGuruPengampuByLevel(s.level);
-                        conflictStudents.push({ siswa: s, levelAsal: s.level, namaGuru: namaGuruLain });
-                    } else {
-                        availableStudents.push(s);
-                    }
-                }
-            });
-
-            if (conflictStudents.length > 0) {
-                const detailKonflik = conflictStudents
-                    .map(c => `${c.siswa.nama} (Kelas ${c.siswa.kelas}) sudah ada di Level ${c.levelAsal} (${c.namaGuru})`)
-                    .join('; ');
-
-                if (availableStudents.length === 0) {
-                    showToast("Santri Sudah Diambil Guru Lain", detailKonflik, "error");
-                    return;
-                }
-
-                showConfirm(
-                    "Sebagian Santri Sudah Diambil",
-                    `Pemberitahuan: ${detailKonflik}. Apakah Anda tetap ingin mengambil alih semua santri terpilih (termasuk yang sudah ada di guru lain) ke Level ${targetLevel}?`,
-                    () => {
-                        let totalMoved = 0;
-                        [...availableStudents, ...conflictStudents.map(c => c.siswa)].forEach(s => {
-                            s.level = targetLevel;
-                            totalMoved++;
-                        });
-                        saveDatabase();
-                        if (typeof updateDashboard === 'function') updateDashboard();
-                        renderGuruPlotting();
-                        showToast("Santri Berhasil Masuk", `${totalMoved} santri dimasukkan ke Level ${targetLevel}.`);
-                    },
-                    "Ya, Tetap Ambil Semua"
-                );
-                return;
-            }
-
-            let count = 0;
-            availableStudents.forEach(s => {
-                s.level = targetLevel;
-                count++;
-            });
-
-            saveDatabase();
-            if (typeof updateDashboard === 'function') updateDashboard();
-            renderGuruPlotting();
-            showToast("Santri Berhasil Masuk", `${count} santri dimasukkan ke Level ${targetLevel}.`);
-        }
-
-        function assignSiswaToLevel(siswaId, targetLevel) {
+        function editSiswaGuru(siswaId) {
             const s = (APP_STATE.siswa || []).find(item => item.id === siswaId);
             if (!s) return;
-            const finalLevel = targetLevel || (currentUser && currentUser.level);
-            if (!finalLevel) {
-                showToast("Gagal Memasukkan", "Level binaan guru tidak ditemukan.", "error");
+            const modal = document.getElementById('modal-edit-siswa-guru');
+            if (!modal) return;
+
+            document.getElementById('guru-edit-id').value = s.id;
+            document.getElementById('guru-edit-nama').value = s.nama || '';
+            document.getElementById('guru-edit-kelas').value = s.kelas || '';
+            document.getElementById('guru-edit-nis').value = s.nis || '';
+            document.getElementById('guru-edit-nisn').value = s.nisn || '';
+            document.getElementById('guru-edit-level').value = s.level || (currentUser && currentUser.level) || 'Belum Ditentukan';
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('div').classList.remove('scale-95');
+                document.getElementById('guru-edit-nama').focus();
+            }, 20);
+        }
+
+        function tutupModalEditSiswaGuru() {
+            const modal = document.getElementById('modal-edit-siswa-guru');
+            if (!modal) return;
+            modal.classList.add('opacity-0');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 250);
+        }
+
+        function handleUpdateSiswaGuru(e) {
+            e.preventDefault();
+            const id = document.getElementById('guru-edit-id').value;
+            const nama = document.getElementById('guru-edit-nama').value.trim();
+            const kelas = document.getElementById('guru-edit-kelas').value.trim().toUpperCase();
+            const nis = document.getElementById('guru-edit-nis').value.trim() || '-';
+            const nisn = document.getElementById('guru-edit-nisn').value.trim();
+
+            if (!nama || !kelas) {
+                showToast("Data Tidak Lengkap", "Nama dan kelas santri wajib diisi!", "error");
                 return;
             }
 
-            if (s.level && s.level !== 'Belum Ditentukan' && s.level !== finalLevel) {
-                const namaGuruLain = getGuruPengampuByLevel(s.level);
-                showToast(
-                    "Santri Sudah Diambil Guru Lain",
-                    `Siswa ${s.nama} (${s.kelas}) sudah ada di Level ${s.level} oleh ${namaGuruLain}.`,
-                    "error"
-                );
-                showConfirm(
-                    "Konfirmasi Ambil Alih Santri",
-                    `Pemberitahuan: Siswa ${s.nama} (Kelas ${s.kelas}) sudah terdaftar di Level ${s.level} (${namaGuruLain}). Apakah Anda yakin ingin memindahkannya ke Level ${finalLevel}?`,
-                    () => {
-                        s.level = finalLevel;
-                        saveDatabase();
-                        if (typeof updateDashboard === 'function') updateDashboard();
-                        renderGuruPlotting();
-                        showToast("Santri Dipindahkan", `${s.nama} (${s.kelas}) dipindahkan ke Level ${finalLevel}.`);
-                    },
-                    "Ya, Pindahkan ke Level Saya"
-                );
-                return;
+            const idx = (APP_STATE.siswa || []).findIndex(item => item.id === id);
+            if (idx !== -1) {
+                APP_STATE.siswa[idx] = {
+                    ...APP_STATE.siswa[idx],
+                    nama,
+                    kelas,
+                    nis,
+                    nisn
+                };
+                saveDatabase();
+                updateDashboard();
+                renderTableSiswa();
+                tutupModalEditSiswaGuru();
+                showToast("Identitas Diperbarui", `Data santri ${nama} (${kelas}) berhasil diperbarui.`);
             }
-
-            s.level = finalLevel;
-            saveDatabase();
-            if (typeof updateDashboard === 'function') updateDashboard();
-            renderGuruPlotting();
-            showToast("Santri Berhasil Masuk", `${s.nama} (${s.kelas}) dimasukkan ke Level ${finalLevel}.`);
         }
 
         function bukaModalSiswaGuru() {
             const modal = document.getElementById('modal-siswa-guru');
             if (!modal) return;
-            document.getElementById('guru-edit-siswa-id').value = '';
             document.getElementById('guru-input-nama').value = '';
             document.getElementById('guru-input-kelas').value = '';
             document.getElementById('guru-input-nis').value = '';
             document.getElementById('guru-input-nisn').value = '';
             document.getElementById('guru-input-level').value = currentUser?.level || "Belum Ditentukan";
 
-            const titleEl = document.getElementById('modal-siswa-guru-title');
-            if (titleEl) {
-                titleEl.innerHTML = '<i class="ph-bold ph-user-plus text-emerald-600 text-base"></i> Tambah Siswa Baru (Guru)';
-            }
-            const infoEl = document.getElementById('modal-siswa-guru-info');
-            if (infoEl) infoEl.classList.remove('hidden');
-            const btnSubmit = document.getElementById('btn-submit-siswa-guru');
-            if (btnSubmit) btnSubmit.textContent = 'Simpan Siswa';
-
             modal.classList.remove('hidden');
             setTimeout(() => {
                 modal.classList.remove('opacity-0');
@@ -3025,41 +3146,6 @@ service cloud.firestore {
                 document.getElementById('guru-input-nama').focus();
             }, 20);
         }
-
-        function editSiswaGuru(siswaId) {
-            const s = (APP_STATE.siswa || []).find(item => item.id === siswaId);
-            if (!s) {
-                showToast("Data Tidak Ditemukan", "Data santri tidak ditemukan.", "error");
-                return;
-            }
-            const modal = document.getElementById('modal-siswa-guru');
-            if (!modal) return;
-
-            document.getElementById('guru-edit-siswa-id').value = s.id;
-            document.getElementById('guru-input-nama').value = s.nama || '';
-            document.getElementById('guru-input-kelas').value = s.kelas || '';
-            document.getElementById('guru-input-nis').value = (s.nis && s.nis !== '-') ? s.nis : '';
-            document.getElementById('guru-input-nisn').value = s.nisn || '';
-            document.getElementById('guru-input-level').value = s.level || currentUser?.level || "Belum Ditentukan";
-
-            const titleEl = document.getElementById('modal-siswa-guru-title');
-            if (titleEl) {
-                titleEl.innerHTML = '<i class="ph-bold ph-pencil-simple text-blue-600 text-base"></i> Edit Identitas Santri';
-            }
-            const infoEl = document.getElementById('modal-siswa-guru-info');
-            if (infoEl) infoEl.classList.add('hidden');
-            const btnSubmit = document.getElementById('btn-submit-siswa-guru');
-            if (btnSubmit) btnSubmit.textContent = 'Simpan Perubahan';
-
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modal.querySelector('div').classList.remove('scale-95');
-                document.getElementById('guru-input-nama').focus();
-            }, 20);
-        }
-
-        const bukaModalEditSiswaGuru = editSiswaGuru;
 
         function tutupModalSiswaGuru() {
             const modal = document.getElementById('modal-siswa-guru');
@@ -3073,7 +3159,6 @@ service cloud.firestore {
 
         function handleSimpanSiswaGuru(e) {
             e.preventDefault();
-            const editId = document.getElementById('guru-edit-siswa-id').value;
             const nama = document.getElementById('guru-input-nama').value.trim();
             const kelas = document.getElementById('guru-input-kelas').value.trim().toUpperCase();
             const nis = document.getElementById('guru-input-nis').value.trim() || '-';
@@ -3085,39 +3170,21 @@ service cloud.firestore {
                 return;
             }
 
-            if (editId) {
-                const idx = (APP_STATE.siswa || []).findIndex(item => item.id === editId);
-                if (idx !== -1) {
-                    APP_STATE.siswa[idx] = {
-                        ...APP_STATE.siswa[idx],
-                        nama,
-                        kelas,
-                        nis,
-                        nisn
-                    };
-                    saveDatabase();
-                    updateDashboard();
-                    renderTableSiswa();
-                    tutupModalSiswaGuru();
-                    showToast("Data Diperbarui", `Identitas ${nama} (${kelas}) berhasil diperbarui.`);
-                }
-            } else {
-                const newId = 'S' + Date.now().toString().slice(-4) + Math.floor(Math.random() * 90 + 10);
-                APP_STATE.siswa.push({
-                    id: newId,
-                    nama,
-                    kelas,
-                    nis,
-                    nisn,
-                    level
-                });
+            const newId = 'S' + Date.now().toString().slice(-4) + Math.floor(Math.random() * 90 + 10);
+            APP_STATE.siswa.push({
+                id: newId,
+                nama,
+                kelas,
+                nis,
+                nisn,
+                level
+            });
 
-                saveDatabase();
-                updateDashboard();
-                renderTableSiswa();
-                tutupModalSiswaGuru();
-                showToast("Siswa Ditambahkan", `${nama} (${kelas}) berhasil didaftarkan dan masuk ke kelompok binaan ${level}.`);
-            }
+            saveDatabase();
+            updateDashboard();
+            renderTableSiswa();
+            tutupModalSiswaGuru();
+            showToast("Siswa Ditambahkan", `${nama} (${kelas}) berhasil didaftarkan dan masuk ke kelompok binaan ${level}.`);
         }
 
         function handleSimpanSiswa(e) {
@@ -3488,17 +3555,24 @@ service cloud.firestore {
 
         function prepareFormNilai() {
             populateSuratDataList();
-            const isGuru = currentUser && currentUser.role === 'guru';
+            const isGuru = currentUser && currentUser.role !== 'admin';
             const filterKelasEl = document.getElementById('filter-kelas-nilai');
-            const descEl = document.getElementById('desc-input-nilai');
+            const subtitleEl = document.getElementById('subtitle-input-nilai');
 
             if (isGuru) {
                 if (filterKelasEl) filterKelasEl.classList.add('hidden');
-                if (descEl) descEl.textContent = `Menampilkan seluruh santri binaan Level ${currentUser.level} yang telah Anda pilih.`;
+                if (subtitleEl) {
+                    const totalBinaan = getAccessibleSiswa().length;
+                    subtitleEl.textContent = `Menampilkan ${totalBinaan} santri binaan pada Level ${currentUser.level}.`;
+                }
             } else {
-                if (filterKelasEl) filterKelasEl.classList.remove('hidden');
-                if (descEl) descEl.textContent = 'Pilih santri untuk memperbarui capaian belajar.';
-                populateKelasSelect('filter-kelas-nilai', 'Semua Kelas', 'ALL');
+                if (filterKelasEl) {
+                    filterKelasEl.classList.remove('hidden');
+                    populateKelasSelect('filter-kelas-nilai', 'Semua Kelas', 'ALL');
+                }
+                if (subtitleEl) {
+                    subtitleEl.textContent = 'Pilih santri untuk memperbarui capaian belajar.';
+                }
             }
 
             updateSiswaNilaiDropdown('ALL');
@@ -3515,14 +3589,22 @@ service cloud.firestore {
         function updateSiswaNilaiDropdown(kelasFilter = 'ALL') {
             const select = document.getElementById('select-siswa-nilai');
             if (!select) return;
-            const isGuru = currentUser && currentUser.role === 'guru';
 
+            const isGuru = currentUser && currentUser.role !== 'admin';
             let siswa = getAccessibleSiswa();
+
             if (!isGuru && kelasFilter !== 'ALL') {
                 siswa = siswa.filter(s => (s.kelas || '').toUpperCase() === kelasFilter);
             }
 
-            select.innerHTML = `<option value="" disabled selected>-- Pilih Santri Binaan (${siswa.length} Santri) --</option>`;
+            if (isGuru && siswa.length === 0) {
+                select.innerHTML = `<option value="" disabled selected>-- Belum ada santri binaan pada Level ${currentUser.level} --</option>`;
+                return;
+            }
+
+            select.innerHTML = isGuru
+                ? `<option value="" disabled selected>-- Pilih Santri Binaan Anda (${siswa.length} Santri) --</option>`
+                : '<option value="" disabled selected>-- Pilih Siswa yang Akan Dinilai --</option>';
 
             siswa.forEach(s => {
                 const sudah = APP_STATE.nilai && APP_STATE.nilai[s.id] ? '✓ ' : '• ';
@@ -3675,7 +3757,6 @@ service cloud.firestore {
             const lancar = document.getElementById('nilai-lancar').value;
             const catatan = document.getElementById('nilai-catatan').value.trim();
 
-            // Keputusan (Khusus Semester Genap)
             let keputusan = null;
             const isGenap = APP_STATE.setting?.semester === 'Genap';
             if (isGenap) {
@@ -3700,7 +3781,6 @@ service cloud.firestore {
                 }
             }
 
-            // Ambil rincian hafalan
             const hafalanRows = document.querySelectorAll('#table-hafalan-body tr');
             const hafalan = [];
             hafalanRows.forEach(row => {
@@ -3724,30 +3804,22 @@ service cloud.firestore {
             saveDatabase();
             if (typeof updateDashboard === 'function') updateDashboard();
 
-            // Pertahankan filter kelas saat ini agar pilihan tidak hilang (khusus Admin)
-            const isGuru = currentUser && currentUser.role === 'guru';
+            const isGuru = currentUser && currentUser.role !== 'admin';
             const currentKelasFilter = isGuru ? 'ALL' : (document.getElementById('filter-kelas-nilai')?.value || 'ALL');
             updateSiswaNilaiDropdown(currentKelasFilter);
             const filterKelasSelect = document.getElementById('filter-kelas-nilai');
-            if (filterKelasSelect && !isGuru) filterKelasSelect.value = currentKelasFilter;
+            if (!isGuru && filterKelasSelect) filterKelasSelect.value = currentKelasFilter;
 
-            // Cari santri binaan sesuai filter kelas & level guru
             let siswaList = getAccessibleSiswa();
             if (!isGuru && currentKelasFilter !== 'ALL') {
                 siswaList = siswaList.filter(s => (s.kelas || '').toUpperCase() === currentKelasFilter);
             }
 
             const currentIndex = siswaList.findIndex(s => s.id === siswaId);
-
-            // Prioritas 1: Cari santri berikutnya yang belum dinilai setelah santri saat ini
             let nextSiswa = siswaList.slice(currentIndex + 1).find(s => !APP_STATE.nilai || !APP_STATE.nilai[s.id]);
-
-            // Prioritas 2: Jika tidak ada setelahnya, cari santri belum dinilai dari awal daftar
             if (!nextSiswa) {
                 nextSiswa = siswaList.find(s => !APP_STATE.nilai || !APP_STATE.nilai[s.id]);
             }
-
-            // Prioritas 3: Jika semua santri sudah dinilai, beralih ke santri urutan berikutnya (jika masih ada)
             if (!nextSiswa && currentIndex !== -1 && currentIndex + 1 < siswaList.length) {
                 nextSiswa = siswaList[currentIndex + 1];
             }
@@ -3759,7 +3831,6 @@ service cloud.firestore {
                 showToast("Nilai Berhasil Disimpan", `Tersimpan! Beralih ke santri berikutnya: ${nextSiswa.nama}`);
                 document.getElementById('sec-input-nilai')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             } else {
-                // Semua santri sudah dinilai
                 if (selectEl) selectEl.value = '';
                 loadNilaiForm('');
                 showToast("Semua Selesai", "Nilai tersimpan. Semua santri pada daftar ini telah selesai dinilai.");
@@ -3821,13 +3892,11 @@ service cloud.firestore {
                 const page = clone.querySelector('.raport-page');
                 const nilai = (APP_STATE.nilai && APP_STATE.nilai[siswa.id]) || {};
 
-                // Logo KOP Raport
                 const logoHtml = APP_STATE.setting?.logo
                     ? `<img src="${APP_STATE.setting.logo}" alt="Logo" class="w-full h-full object-contain">`
                     : DEFAULT_SVG_LOGO;
                 page.querySelector('.rap-logo-kop').innerHTML = logoHtml;
 
-                // Identitas & Tahun Ajaran
                 page.querySelector('.rap-tahun-ajaran').textContent = APP_STATE.setting?.tahun || '2025/2026';
                 page.querySelector('.rap-nama').textContent = siswa.nama;
                 page.querySelector('.rap-nis').textContent = siswa.nis || '-';
@@ -3836,7 +3905,6 @@ service cloud.firestore {
                 page.querySelector('.rap-level').textContent = siswa.level;
                 page.querySelector('.rap-semester').textContent = APP_STATE.setting?.semester || 'Ganjil';
 
-                // Penilaian Tajwid
                 page.querySelector('.rap-pred-makhraj').textContent = nilai.makhraj || '-';
                 page.querySelector('.rap-kat-makhraj').textContent = getKategoriText(nilai.makhraj);
                 page.querySelector('.rap-pred-hukum').textContent = nilai.hukum || '-';
@@ -3844,7 +3912,6 @@ service cloud.firestore {
                 page.querySelector('.rap-pred-lancar').textContent = nilai.lancar || '-';
                 page.querySelector('.rap-kat-lancar').textContent = getKategoriText(nilai.lancar);
 
-                // Hafalan
                 const tbodyHafalan = page.querySelector('.rap-table-hafalan-body');
                 tbodyHafalan.innerHTML = '';
                 if (Array.isArray(nilai.hafalan) && nilai.hafalan.length > 0) {
@@ -3862,7 +3929,6 @@ service cloud.firestore {
                     tbodyHafalan.innerHTML = `<tr><td colspan="4" class="italic text-slate-500 py-2">Belum ada rincian hafalan yang dicatat.</td></tr>`;
                 }
 
-                // Catatan & Keputusan
                 page.querySelector('.rap-catatan-teks').textContent = nilai.catatan ? `"${nilai.catatan}"` : 'Teruslah istiqomah dalam membaca dan menghafal Al-Qur\'an.';
 
                 const barisKeputusan = page.querySelector('.rap-baris-keputusan');
@@ -3891,7 +3957,6 @@ service cloud.firestore {
                     barisKeputusan.classList.add('hidden');
                 }
 
-                // Tanda Tangan
                 page.querySelector('.rap-titimangsa').textContent = APP_STATE.setting?.titimangsa || 'Tangerang, 19 Desember 2025';
 
                 const wali = (APP_STATE.wali || []).find(w => w.kelas === siswa.kelas);
@@ -3900,14 +3965,6 @@ service cloud.firestore {
 
                 const guru = (APP_STATE.guru || []).find(g => g.level === siswa.level);
                 page.querySelector('.rap-nama-guru').textContent = guru ? guru.nama : (currentUser?.nama || '( ........................................ )');
-
-                // Otomatisasi ukuran tabel & posisi tanda tangan:
-                // Jika ruang kosong -> membesar otomatis; jika ruang penuh -> mengecil otomatis agar cukup 1 lembar A4/Letter
-                const ukuranKertas = document.getElementById('select-ukuran-kertas')?.value || 'a4';
-                const pageHeightMm = ukuranKertas === 'letter' ? 278 : 296;
-                page.style.height = `${pageHeightMm}mm`;
-                page.style.minHeight = `${pageHeightMm}mm`;
-                page.style.maxHeight = `${pageHeightMm}mm`;
 
                 const hafalanCount = Array.isArray(nilai.hafalan) ? nilai.hafalan.length : 0;
                 const isGenapKeputusan = APP_STATE.setting?.semester === 'Genap' && Boolean(nilai.keputusan);
@@ -3935,20 +3992,32 @@ service cloud.firestore {
                 container.appendChild(clone);
             });
 
-            // Pemeriksaan & Penyesuaian Dinamis: Membesar jika masih ada ruang kosong, mengecil jika penuh
             requestAnimationFrame(() => {
-                const renderedPages = container.querySelectorAll('.raport-page');
-                renderedPages.forEach(p => autoFitRaportPage(p));
+                refitAllRaportPages();
             });
         }
 
-        // Fungsi Penyesuaian Otomatis Kerapatan & Ukuran Tabel agar 100% Pas 1 Halaman (Tanda Tangan Kepala Sekolah Tidak Terpotong)
+        function refitAllRaportPages() {
+            const container = document.getElementById('raport-pdf-area');
+            if (!container) return;
+            const renderedPages = container.querySelectorAll('.raport-page');
+            renderedPages.forEach(p => autoFitRaportPage(p));
+        }
+
         function autoFitRaportPage(page) {
             const inner = page.querySelector('.rap-inner-container');
             if (!inner) return;
 
-            // Reset transform scale terlebih dahulu sebelum mengukur tinggi aktual
-            inner.style.transform = '';
+            const ukuranKertas = document.getElementById('select-ukuran-kertas')?.value || 'a4';
+            const isLetter = ukuranKertas === 'letter';
+            const pageHeightMm = isLetter ? '278mm' : '296mm';
+
+            page.style.height = pageHeightMm;
+            page.style.minHeight = pageHeightMm;
+            page.style.maxHeight = pageHeightMm;
+            page.style.padding = '8mm 12mm';
+
+            inner.style.transform = 'none';
             inner.style.width = '100%';
 
             const modeClasses = [
@@ -3960,26 +4029,22 @@ service cloud.firestore {
                 'rap-size-ultra-compact'
             ];
 
-            // Hitung tinggi dalam area cetak (tinggi halaman dikurangi padding atas-bawah + margin aman 12px)
-            const computedStyle = window.getComputedStyle(page);
-            const padTop = parseFloat(computedStyle.paddingTop) || 26;
-            const padBottom = parseFloat(computedStyle.paddingBottom) || 26;
-            const pageHeight = page.clientHeight || 1118;
-            const availableHeight = pageHeight - padTop - padBottom - 12;
+            const style = window.getComputedStyle(page);
+            const padTop = parseFloat(style.paddingTop) || 0;
+            const padBottom = parseFloat(style.paddingBottom) || 0;
+            const pageHeight = page.clientHeight || (isLetter ? 1050 : 1118);
+            const availableHeight = pageHeight - padTop - padBottom - 4;
 
-            // Dapatkan index mode saat ini
             let currentIdx = modeClasses.findIndex(m => page.classList.contains(m));
             if (currentIdx === -1) currentIdx = 2;
 
-            // 1. Jika konten melebihi tinggi area dalam halaman -> otomatis perkecil kerapatan tabel & jarak tanda tangan
             while (currentIdx < modeClasses.length - 1 && inner.scrollHeight > availableHeight) {
                 page.classList.remove(modeClasses[currentIdx]);
                 currentIdx++;
                 page.classList.add(modeClasses[currentIdx]);
             }
 
-            // 2. Jika ruang kertas masih kosong banyak (sisa ruang > 120px) -> otomatis perbesar tabel & catatan
-            while (currentIdx > 0 && (availableHeight - inner.scrollHeight) > 120) {
+            while (currentIdx > 0 && (availableHeight - inner.scrollHeight) > 130) {
                 page.classList.remove(modeClasses[currentIdx]);
                 currentIdx--;
                 page.classList.add(modeClasses[currentIdx]);
@@ -3991,42 +4056,30 @@ service cloud.firestore {
                 }
             }
 
-            // 3. Pengaman Akhir (Fail-safe): Jika hafalan sangat banyak (> 15 surat) sehingga masih sedikit melebihi batas,
-            // terapkan skala proporsional agar tanda tangan Kepala Sekolah di baris paling bawah tetap utuh di 1 kertas
             if (inner.scrollHeight > availableHeight) {
-                const scaleRatio = Math.max(0.72, availableHeight / inner.scrollHeight);
-                inner.style.transform = `scale(${scaleRatio.toFixed(4)})`;
-                inner.style.width = `${(100 / scaleRatio).toFixed(2)}%`;
-                inner.style.marginLeft = `${-((100 / scaleRatio - 100) / 2).toFixed(2)}%`;
-            } else {
-                inner.style.marginLeft = '';
+                page.style.padding = '5mm 12mm';
+                const updatedStyle = window.getComputedStyle(page);
+                const newPadTop = parseFloat(updatedStyle.paddingTop) || 0;
+                const newPadBottom = parseFloat(updatedStyle.paddingBottom) || 0;
+                const newAvailable = pageHeight - newPadTop - newPadBottom - 4;
+
+                if (inner.scrollHeight > newAvailable) {
+                    const scale = Math.max(0.75, newAvailable / inner.scrollHeight);
+                    inner.style.transformOrigin = 'top center';
+                    inner.style.transform = `scale(${scale.toFixed(4)})`;
+                }
             }
         }
 
         window.addEventListener('beforeprint', () => {
-            const renderedPages = document.querySelectorAll('#raport-pdf-area .raport-page');
-            renderedPages.forEach(p => autoFitRaportPage(p));
+            refitAllRaportPages();
         });
 
         function downloadRaportPDF() {
             const element = document.getElementById('raport-pdf-area');
             const ukuran = document.getElementById('select-ukuran-kertas')?.value || 'a4';
 
-            // Pastikan semua halaman sudah disesuaikan ukurannya secara presisi
-            const renderedPages = element.querySelectorAll('.raport-page');
-            renderedPages.forEach((p, idx) => {
-                autoFitRaportPage(p);
-                // Pemisah halaman hanya antar siswa (halaman terakhir tidak diberi page-break-after agar tidak menambah lembar kosong)
-                if (idx < renderedPages.length - 1) {
-                    p.style.pageBreakAfter = 'always';
-                    p.style.breakAfter = 'page';
-                } else {
-                    p.style.pageBreakAfter = 'avoid';
-                    p.style.breakAfter = 'avoid';
-                }
-            });
-
-            // Hilangkan gap & bayangan pratinjau sementara agar html2pdf merender pas 1 halaman per raport
+            refitAllRaportPages();
             element.classList.add('pdf-export-mode');
 
             showLoading(true);
@@ -4043,7 +4096,7 @@ service cloud.firestore {
                 html2pdf().set(opt).from(element).save().then(() => {
                     element.classList.remove('pdf-export-mode');
                     showLoading(false);
-                    showToast("Berhasil", "File raport PDF berhasil dibuat (1 lembar penuh per siswa).");
+                    showToast("Berhasil", "File raport PDF berhasil dibuat (1 lembar per santri).");
                 }).catch(err => {
                     element.classList.remove('pdf-export-mode');
                     showLoading(false);
@@ -4100,7 +4153,6 @@ service cloud.firestore {
                 return;
             }
 
-            // Cek duplikasi dengan guru lain
             const duplicate = (APP_STATE.guru || []).some(g => g.id !== id && (g.user || '').toLowerCase() === user);
             if (duplicate) {
                 showToast("Gagal Menyimpan", `Username "${rawUser}" sudah dipakai oleh guru lain!`, "error");
@@ -4225,14 +4277,13 @@ service cloud.firestore {
             document.getElementById('set-titimangsa').value = APP_STATE.setting?.titimangsa || 'Tangerang, 19 Desember 2025';
             document.getElementById('set-kepala').value = APP_STATE.setting?.kepala || 'H. Suherman, M.Pd';
 
-            // Administrator Credential Fields
             document.getElementById('set-admin-nama').value = APP_STATE.admin?.nama || 'Administrator';
             document.getElementById('set-admin-user').value = APP_STATE.admin?.user || 'admin';
             document.getElementById('set-admin-pass').value = APP_STATE.admin?.pass || 'admin123';
 
-            // Firebase Config Fields
             try {
-                const fbConfig = JSON.parse(localStorage.getItem(FIREBASE_CONFIG_KEY) || '{}');
+                const savedFb = JSON.parse(localStorage.getItem(FIREBASE_CONFIG_KEY) || '{}');
+                const fbConfig = (savedFb.apiKey && savedFb.projectId) ? savedFb : DEFAULT_FIREBASE_CONFIG;
                 document.getElementById('fb-api-key').value = fbConfig.apiKey || '';
                 document.getElementById('fb-project-id').value = fbConfig.projectId || '';
                 document.getElementById('fb-auth-domain').value = fbConfig.authDomain || '';
@@ -4266,7 +4317,6 @@ service cloud.firestore {
                 return;
             }
 
-            // Cek jika username sama dengan guru yang sudah ada
             const guruMatch = (APP_STATE.guru || []).some(g => (g.user || '').toLowerCase() === user);
             if (guruMatch) {
                 showToast("Gagal Menyimpan", `Username "${rawUser}" sudah dipakai oleh salah satu guru!`, "error");
@@ -4294,14 +4344,18 @@ service cloud.firestore {
 
             if (fbConnected) {
                 const html = `<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Terhubung Cloud`;
-                badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 w-fit";
-                badge.innerHTML = html;
+                if (badge) {
+                    badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 w-fit";
+                    badge.innerHTML = html;
+                }
                 if (authDb) authDb.textContent = "DATABASE CLOUD FIRESTORE";
                 if (sideDb) sideDb.textContent = "DATABASE CLOUD";
             } else {
                 const html = `<span class="w-2 h-2 rounded-full bg-slate-400"></span> Mode Lokal`;
-                badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-slate-100 text-slate-600 border border-slate-200 w-fit";
-                badge.innerHTML = html;
+                if (badge) {
+                    badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-slate-100 text-slate-600 border border-slate-200 w-fit";
+                    badge.innerHTML = html;
+                }
                 if (authDb) authDb.textContent = "DATABASE LOKAL";
                 if (sideDb) sideDb.textContent = "DATABASE LOKAL";
             }
@@ -4315,8 +4369,7 @@ service cloud.firestore {
             }
 
             try {
-                showLoading(true);
-                // Load Firebase v9 scripts dynamically if not present
+                if (autoAlert) showLoading(true);
                 if (!window.firebaseAppModule) {
                     const appMod = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js');
                     const firestoreMod = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
@@ -4325,7 +4378,7 @@ service cloud.firestore {
                 }
 
                 const { initializeApp, getApps, getApp } = window.firebaseAppModule;
-                const { getFirestore, doc, onSnapshot, setDoc, getDoc } = window.firebaseFirestoreModule;
+                const { getFirestore, doc, onSnapshot, getDoc } = window.firebaseFirestoreModule;
 
                 const appConfig = {
                     apiKey: cfg.apiKey,
@@ -4339,26 +4392,61 @@ service cloud.firestore {
 
                 const docRef = doc(fbDb, 'raport_tpq', cfg.docId || 'tpq_gunung_jati');
 
-                // Listener realtime
                 if (fbUnsubscribe) fbUnsubscribe();
                 fbUnsubscribe = onSnapshot(docRef, (docSnap) => {
                     if (docSnap.exists()) {
                         const cloudData = docSnap.data();
                         fbSyncingFromCloud = true;
                         APP_STATE = { ...DEFAULT_STATE, ...cloudData };
+                        if (!Array.isArray(APP_STATE.siswa)) APP_STATE.siswa = [];
+                        if (!Array.isArray(APP_STATE.guru)) APP_STATE.guru = [];
+                        if (!Array.isArray(APP_STATE.wali)) APP_STATE.wali = [];
+                        if (!APP_STATE.nilai) APP_STATE.nilai = {};
+
                         saveDatabase(false);
                         renderLogo();
-                        if (!document.getElementById('sec-dashboard').classList.contains('hidden')) updateDashboard();
+                        renderLoginBg();
+
+                        if (currentUser) {
+                            if (!document.getElementById('sec-dashboard').classList.contains('hidden')) updateDashboard();
+                            if (!document.getElementById('sec-data-siswa').classList.contains('hidden')) renderTableSiswa();
+                            if (!document.getElementById('sec-data-guru').classList.contains('hidden')) renderTableGuru();
+                            if (!document.getElementById('sec-data-wali-kelas').classList.contains('hidden')) renderTableWali();
+                        }
                         fbSyncingFromCloud = false;
                     }
                 }, (error) => {
                     console.warn("Firestore realtime sync error:", error);
                 });
 
+                fbInitialSyncPromise = Promise.race([
+                    (async () => {
+                        try {
+                            const initialSnap = await getDoc(docRef);
+                            if (initialSnap.exists()) {
+                                const cloudData = initialSnap.data();
+                                fbSyncingFromCloud = true;
+                                APP_STATE = { ...DEFAULT_STATE, ...cloudData };
+                                saveDatabase(false);
+                                renderLogo();
+                                renderLoginBg();
+                                fbSyncingFromCloud = false;
+                            }
+                        } catch (e) {
+                            console.warn("Initial cloud fetch warning:", e);
+                        }
+                    })(),
+                    new Promise(resolve => setTimeout(resolve, 5000))
+                ]);
+
+                if (autoAlert) {
+                    await fbInitialSyncPromise;
+                }
+
                 fbConnected = true;
                 showLoading(false);
                 updateFirebaseBadge();
-                if (autoAlert) showToast("Koneksi Sukses", "Berhasil terhubung ke Cloud Firestore!");
+                if (autoAlert) showToast("Koneksi Sukses", "Berhasil terhubung & menyinkronkan data dari Cloud Firestore!");
             } catch (err) {
                 showLoading(false);
                 fbConnected = false;
@@ -4368,17 +4456,33 @@ service cloud.firestore {
             }
         }
 
-        async function syncToFirebase(timeoutMs = 10000) {
+        function sanitizeForFirestore(val) {
+            if (val === undefined || typeof val === 'function') return null;
+            if (val === null || typeof val !== 'object') return val;
+            if (Array.isArray(val)) {
+                return val.map(item => sanitizeForFirestore(item));
+            }
+            const cleanObj = {};
+            for (const [k, v] of Object.entries(val)) {
+                if (v !== undefined && typeof v !== 'function') {
+                    cleanObj[k] = sanitizeForFirestore(v);
+                }
+            }
+            return cleanObj;
+        }
+
+        async function syncToFirebase(timeoutMs = 12000) {
             if (!fbConnected || !fbDb || !window.firebaseFirestoreModule) {
                 throw new Error("Koneksi Firebase belum aktif. Klik 'Simpan & Hubungkan' terlebih dahulu.");
             }
             try {
                 const { doc, setDoc } = window.firebaseFirestoreModule;
                 const cfg = JSON.parse(localStorage.getItem(FIREBASE_CONFIG_KEY) || '{}');
-                const docRef = doc(fbDb, 'raport_tpq', cfg.docId || 'tpq_gunung_jati');
+                const docId = (cfg.docId || DEFAULT_FIREBASE_CONFIG.docId || 'tpq_gunung_jati').trim();
+                const docRef = doc(fbDb, 'raport_tpq', docId);
 
-                // Bersihkan payload & pastikan properti setting aman dari batas ukuran field Firestore
-                const cleanPayload = JSON.parse(JSON.stringify(APP_STATE));
+                const cleanPayload = sanitizeForFirestore(APP_STATE);
+
                 if (cleanPayload.setting) {
                     if (typeof cleanPayload.setting.logo === 'string' && cleanPayload.setting.logo.length > 350000) {
                         cleanPayload.setting.logo = null;
@@ -4390,12 +4494,12 @@ service cloud.firestore {
 
                 const timeoutPromise = new Promise((_, reject) => {
                     setTimeout(() => {
-                        reject(new Error("Timeout (10 detik): Firestore tidak merespon. Pastikan Database Firestore sudah dibuat di console.firebase.google.com dan tab Rules mengizinkan read/write."));
+                        reject(new Error("Timeout (12 detik): Firestore tidak merespon. Pastikan Database Firestore sudah dibuat di console.firebase.google.com dan tab Rules mengizinkan read/write."));
                     }, timeoutMs);
                 });
 
                 await Promise.race([
-                    setDoc(docRef, cleanPayload, { merge: true }),
+                    setDoc(docRef, cleanPayload),
                     timeoutPromise
                 ]);
             } catch (err) {
@@ -4453,7 +4557,7 @@ service cloud.firestore {
                 showLoading(true);
                 const { doc, getDoc } = window.firebaseFirestoreModule;
                 const cfg = JSON.parse(localStorage.getItem(FIREBASE_CONFIG_KEY) || '{}');
-                const docRef = doc(fbDb, 'raport_tpq', cfg.docId || 'tpq_gunung_jati');
+                const docRef = doc(fbDb, 'raport_tpq', cfg.docId || DEFAULT_FIREBASE_CONFIG.docId || 'tpq_gunung_jati');
 
                 const timeoutPromise = new Promise((_, reject) => {
                     setTimeout(() => reject(new Error("Timeout (10 detik): Firestore tidak merespon saat menarik data.")), 10000);
@@ -4469,6 +4573,7 @@ service cloud.firestore {
                     APP_STATE = snap.data();
                     saveDatabase(false);
                     renderLogo();
+                    renderLoginBg();
                     updateDashboard();
                     showToast("Tarik Data", "Data berhasil diperbarui dari Cloud!");
                 } else {
@@ -4492,7 +4597,7 @@ service cloud.firestore {
             }
             try {
                 showLoading(true);
-                await syncToFirebase(10000);
+                await syncToFirebase(12000);
                 showLoading(false);
                 showToast("Berhasil", "Data lokal berhasil diunggah ke Cloud Firestore!");
             } catch (err) {
@@ -4503,6 +4608,8 @@ service cloud.firestore {
                     pesan = "Izin ditolak (Permission Denied). Buka Firebase Console > Firestore Database > Rules, ubah menjadi 'allow read, write: if true;'.";
                 } else if (err.code === 'not-found') {
                     pesan = "Database Firestore tidak ditemukan. Pastikan Anda sudah mengklik 'Create Database' di menu Firestore Database.";
+                } else if (pesan.includes('exceeds the maximum') || pesan.includes('invalid nested entity')) {
+                    pesan = "Ukuran data melebihi batas 1 MB Firestore. Coba reset gambar background/logo kustom atau gunakan tautan URL gambar.";
                 }
                 showToast("Gagal Upload", pesan, "error");
             }
@@ -4520,6 +4627,30 @@ service cloud.firestore {
             document.getElementById('fb-app-id').value = '';
             updateFirebaseBadge();
             showToast("Terputus", "Koneksi Firebase dinonaktifkan.");
+        }
+
+        function handleCopyConfigCode() {
+            const apiKey = document.getElementById('fb-api-key').value.trim();
+            const projectId = document.getElementById('fb-project-id').value.trim();
+            const authDomain = document.getElementById('fb-auth-domain').value.trim() || (projectId ? `${projectId}.firebaseapp.com` : '');
+            const appId = document.getElementById('fb-app-id').value.trim();
+            const docId = document.getElementById('fb-doc-id').value.trim() || 'tpq_gunung_jati';
+
+            if (!apiKey || !projectId) {
+                showToast("Isi Konfigurasi Dahulu", "Masukkan API Key dan Project ID terlebih dahulu.", "error");
+                return;
+            }
+
+            const codeSnippet = `const DEFAULT_FIREBASE_CONFIG = {\n    apiKey: "${apiKey}",\n    projectId: "${projectId}",\n    authDomain: "${authDomain}",\n    appId: "${appId}",\n    docId: "${docId}"\n};`;
+
+            const tempArea = document.createElement('textarea');
+            tempArea.value = codeSnippet;
+            document.body.appendChild(tempArea);
+            tempArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempArea);
+
+            showToast("Kode Berhasil Disalin", "Tempel kode ini menggantikan DEFAULT_FIREBASE_CONFIG di file HTML sebelum di-deploy ulang ke hosting.");
         }
 
         // --- 7. BACKUP & RESTORE ---
@@ -4576,16 +4707,6 @@ service cloud.firestore {
             renderLogo();
             renderLoginBg();
 
-            // Auto-koneksi Firebase jika tersimpan di memori browser atau konfigurasi bawaan
-            try {
-                const savedFb = JSON.parse(localStorage.getItem(FIREBASE_CONFIG_KEY) || '{}');
-                const fbConfig = (savedFb.apiKey && savedFb.projectId) ? savedFb : DEFAULT_FIREBASE_CONFIG;
-                if (fbConfig.apiKey && fbConfig.projectId) {
-                    initFirebaseConnection(fbConfig, false);
-                }
-            } catch (err) { }
-
-            // Cek sesi login tersimpan agar tidak kembali ke login screen saat reload
             if (restoreUserSession()) {
                 document.documentElement.classList.add('has-session');
                 const authEl = document.getElementById('auth-container');
@@ -4603,6 +4724,14 @@ service cloud.firestore {
                 const appEl = document.getElementById('app-container');
                 if (appEl) appEl.classList.add('hidden');
             }
+
+            try {
+                const savedFb = JSON.parse(localStorage.getItem(FIREBASE_CONFIG_KEY) || '{}');
+                const fbConfig = (savedFb.apiKey && savedFb.projectId) ? savedFb : DEFAULT_FIREBASE_CONFIG;
+                if (fbConfig.apiKey && fbConfig.projectId) {
+                    initFirebaseConnection(fbConfig, false);
+                }
+            } catch (err) { }
         });
     </script>
 </body>
