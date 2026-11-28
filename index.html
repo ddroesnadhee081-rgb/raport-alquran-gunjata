@@ -539,6 +539,18 @@
             height: 50px !important;
         }
 
+        /* Jaga proporsi logo KOP agar tidak melebar/gepeng saat render PDF (html2pdf) */
+        .rap-logo-kop img,
+        .rap-logo-kop svg {
+            width: auto !important;
+            height: auto !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            object-fit: contain !important;
+            display: block;
+            margin: 0 auto;
+        }
+
         /* Mode Export PDF (html2pdf) */
         .pdf-export-mode {
             gap: 0 !important;
@@ -3961,7 +3973,7 @@ service cloud.firestore {
                 const nilai = (APP_STATE.nilai && APP_STATE.nilai[siswa.id]) || {};
 
                 const logoHtml = APP_STATE.setting?.logo
-                    ? `<img src="${APP_STATE.setting.logo}" alt="Logo" class="w-full h-full object-contain">`
+                    ? `<img src="${APP_STATE.setting.logo}" alt="Logo" style="width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain;">`
                     : DEFAULT_SVG_LOGO;
                 page.querySelector('.rap-logo-kop').innerHTML = logoHtml;
 
