@@ -797,6 +797,9 @@
                     class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-emerald-900/50 hover:text-teal-400 transition text-xs font-semibold text-slate-300"
                     data-target="input-nilai"><i class="ph-bold ph-pencil-simple-line text-base"></i> Input
                     Nilai</button>
+                <button onclick="navigate('rekap-nilai')"
+                    class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-emerald-900/50 hover:text-teal-400 transition text-xs font-semibold text-slate-300"
+                    data-target="rekap-nilai"><i class="ph-bold ph-table text-base"></i> Rekap Nilai</button>
                 <button onclick="navigate('cetak-raport')"
                     class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-emerald-900/50 hover:text-teal-400 transition text-xs font-semibold text-slate-300"
                     data-target="cetak-raport"><i class="ph-bold ph-printer text-base"></i> Cetak Raport</button>
@@ -1069,7 +1072,7 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 2xl:grid-cols-2 gap-6">
                             <!-- PANEL 1: PILIH DARI KELAS -->
                             <div
                                 class="bg-white rounded-[1.25rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] overflow-hidden flex flex-col">
@@ -1081,8 +1084,8 @@
                                             <i class="ph-bold ph-user-plus text-emerald-600"></i> Pilih Santri dari
                                             Kelas
                                         </h3>
-                                        <p class="text-[10px] text-slate-500">Centang santri atau klik Masukkan untuk
-                                            menambahkan ke level Anda.</p>
+                                        <p class="text-[10px] text-slate-500">Centang santri yang akan dimasukkan ke
+                                            level Anda.</p>
                                     </div>
                                     <div class="flex items-center gap-2">
                                         <select id="guru-select-kelas-source" onchange="renderGuruPlottingSources()"
@@ -1105,7 +1108,7 @@
                                         <i class="ph-bold ph-plus-circle"></i> Masukkan Terpilih
                                     </button>
                                 </div>
-                                <div class="overflow-y-auto flex-1 max-h-[500px]">
+                                <div class="overflow-x-auto flex-1 max-h-[520px]">
                                     <table class="w-full text-left text-xs">
                                         <thead
                                             class="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-100 sticky top-0 z-10">
@@ -1113,8 +1116,8 @@
                                                 <th class="p-3 w-10 text-center">Pilih</th>
                                                 <th class="p-3">Nama Santri</th>
                                                 <th class="p-3 w-16 text-center">Kelas</th>
-                                                <th class="p-3 w-36">Level</th>
-                                                <th class="p-3 w-28 text-right">Aksi</th>
+                                                <th class="p-3">Level Saat Ini</th>
+                                                <th class="p-3 text-right">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="table-guru-source-body" class="divide-y divide-slate-100"></tbody>
@@ -1132,8 +1135,8 @@
                                             class="font-bold text-xs uppercase tracking-wider text-blue-900 flex items-center gap-1.5">
                                             <i class="ph-bold ph-users-three text-blue-600"></i> Santri Binaan Saya
                                         </h3>
-                                        <p class="text-[10px] text-slate-500">Edit identitas jika ada kesalahan nama /
-                                            NIS, atau keluarkan dari kelompok.</p>
+                                        <p class="text-[10px] text-slate-500">Santri yang saat ini sudah masuk ke
+                                            kelompok Anda.</p>
                                     </div>
                                     <div class="flex items-center gap-2">
                                         <select id="guru-filter-binaan-kelas" onchange="renderGuruBinaanTable()"
@@ -1142,7 +1145,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="overflow-y-auto flex-1 max-h-[545px]">
+                                <div class="overflow-x-auto flex-1 max-h-[560px]">
                                     <table class="w-full text-left text-xs">
                                         <thead
                                             class="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-100 sticky top-0 z-10">
@@ -1150,12 +1153,76 @@
                                                 <th class="p-3 w-10 text-center">No</th>
                                                 <th class="p-3">Nama Santri &amp; NIS</th>
                                                 <th class="p-3 w-16 text-center">Kelas</th>
-                                                <th class="p-3 w-44 text-right">Aksi</th>
+                                                <th class="p-3 text-right">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="table-guru-binaan-body" class="divide-y divide-slate-100"></tbody>
                                     </table>
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- MODAL EDIT IDENTITAS SISWA GURU -->
+                        <div id="modal-edit-siswa-guru"
+                            class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+                            <div
+                                class="bg-white rounded-2xl shadow-2xl border border-slate-100 w-full max-w-md overflow-hidden transform scale-95 transition-transform duration-300">
+                                <div
+                                    class="p-5 border-b border-slate-100 flex items-center justify-between bg-blue-50/60">
+                                    <h3 class="font-bold text-sm text-slate-800 flex items-center gap-2">
+                                        <i class="ph-bold ph-pencil-simple text-blue-600 text-base"></i> Edit Identitas
+                                        Santri
+                                    </h3>
+                                    <button type="button" onclick="tutupModalEditSiswaGuru()"
+                                        class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-200 transition">
+                                        <i class="ph-bold ph-x text-base"></i>
+                                    </button>
+                                </div>
+                                <form onsubmit="handleUpdateSiswaGuru(event)" class="p-6 space-y-4">
+                                    <input type="hidden" id="guru-edit-id">
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-600 mb-1.5">Nama Lengkap
+                                            Siswa <span class="text-red-500">*</span></label>
+                                        <input type="text" id="guru-edit-nama" required
+                                            class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none font-medium">
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-medium text-slate-600 mb-1.5">Kelas
+                                                (Rombel) <span class="text-red-500">*</span></label>
+                                            <input type="text" id="guru-edit-kelas" required
+                                                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl uppercase focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none font-medium">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-medium text-slate-600 mb-1.5">NIS</label>
+                                            <input type="text" id="guru-edit-nis"
+                                                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none font-mono">
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-medium text-slate-600 mb-1.5">NISN</label>
+                                            <input type="text" id="guru-edit-nisn"
+                                                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none font-mono">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-medium text-slate-600 mb-1.5">Level
+                                                Binaan</label>
+                                            <input type="text" id="guru-edit-level" readonly
+                                                class="w-full px-3.5 py-2 text-xs border border-slate-200 bg-slate-100 rounded-xl text-slate-700 font-bold outline-none cursor-not-allowed">
+                                        </div>
+                                    </div>
+                                    <div class="pt-2 flex gap-2">
+                                        <button type="submit"
+                                            class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold text-xs py-2.5 rounded-xl transition shadow-md shadow-blue-200">
+                                            Simpan Perubahan
+                                        </button>
+                                        <button type="button" onclick="tutupModalEditSiswaGuru()"
+                                            class="px-4 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold text-xs py-2.5 rounded-xl transition">
+                                            Batal
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
 
@@ -1221,77 +1288,6 @@
                                             Simpan Siswa
                                         </button>
                                         <button type="button" onclick="tutupModalSiswaGuru()"
-                                            class="px-4 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold text-xs py-2.5 rounded-xl transition">
-                                            Batal
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        <!-- MODAL EDIT IDENTITAS SISWA OLEH GURU -->
-                        <div id="modal-edit-siswa-guru"
-                            class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
-                            <div
-                                class="bg-white rounded-2xl shadow-2xl border border-slate-100 w-full max-w-md overflow-hidden transform scale-95 transition-transform duration-300">
-                                <div
-                                    class="p-5 border-b border-slate-100 flex items-center justify-between bg-blue-50/60">
-                                    <h3 class="font-bold text-sm text-blue-950 flex items-center gap-2">
-                                        <i class="ph-bold ph-pencil-simple text-blue-600 text-base"></i> Edit Identitas
-                                        Santri
-                                    </h3>
-                                    <button type="button" onclick="tutupModalEditSiswaGuru()"
-                                        class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-200 transition">
-                                        <i class="ph-bold ph-x text-base"></i>
-                                    </button>
-                                </div>
-                                <form onsubmit="handleUpdateSiswaGuru(event)" class="p-6 space-y-4">
-                                    <input type="hidden" id="guru-edit-id">
-                                    <div>
-                                        <label class="block text-xs font-medium text-slate-600 mb-1.5">Nama Lengkap
-                                            Santri <span class="text-red-500">*</span></label>
-                                        <input type="text" id="guru-edit-nama" required
-                                            placeholder="Perbaiki ejaan nama lengkap santri"
-                                            class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none font-semibold text-slate-800">
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-4">
-                                        <div>
-                                            <label class="block text-xs font-medium text-slate-600 mb-1.5">Kelas
-                                                (Rombel) <span class="text-red-500">*</span></label>
-                                            <input type="text" id="guru-edit-kelas" required placeholder="Misal: 7A"
-                                                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl uppercase focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none font-semibold">
-                                        </div>
-                                        <div>
-                                            <label class="block text-xs font-medium text-slate-600 mb-1.5">NIS</label>
-                                            <input type="text" id="guru-edit-nis" placeholder="Nomor Induk Siswa"
-                                                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none font-mono">
-                                        </div>
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-4">
-                                        <div>
-                                            <label class="block text-xs font-medium text-slate-600 mb-1.5">NISN</label>
-                                            <input type="text" id="guru-edit-nisn" placeholder="NISN Nasional"
-                                                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none font-mono">
-                                        </div>
-                                        <div>
-                                            <label class="block text-xs font-medium text-slate-600 mb-1.5">Level
-                                                Binaan</label>
-                                            <input type="text" id="guru-edit-level" readonly
-                                                class="w-full px-3.5 py-2 text-xs border border-slate-200 bg-slate-100 rounded-xl text-slate-700 font-bold outline-none cursor-not-allowed">
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="p-3 bg-blue-50/70 rounded-xl border border-blue-100 text-[11px] text-blue-800 flex items-center gap-2">
-                                        <i class="ph-bold ph-info text-base text-blue-600 shrink-0"></i>
-                                        <span>Perubahan identitas santri akan langsung diperbarui pada data master,
-                                            input nilai, dan cetak raport.</span>
-                                    </div>
-                                    <div class="pt-2 flex gap-2">
-                                        <button type="submit"
-                                            class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold text-xs py-2.5 rounded-xl transition shadow-md shadow-blue-200">
-                                            Simpan Perubahan
-                                        </button>
-                                        <button type="button" onclick="tutupModalEditSiswaGuru()"
                                             class="px-4 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold text-xs py-2.5 rounded-xl transition">
                                             Batal
                                         </button>
@@ -1474,6 +1470,123 @@
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </section>
+
+                <!-- 2B. REKAP NILAI (ADMIN & GURU PENGAMPU) -->
+                <section id="sec-rekap-nilai" class="hidden space-y-6">
+                    <div
+                        class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-[1.25rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)]">
+                        <div>
+                            <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                                <span>Rekapitulasi Nilai &amp; Hafalan Santri</span>
+                                <span id="rekap-role-badge"
+                                    class="px-3 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">Semua
+                                    Level</span>
+                            </h2>
+                            <p id="rekap-subtitle" class="text-xs text-slate-500 mt-1">Pantau seluruh capaian tajwid,
+                                rincian hafalan, dan status penilaian santri dalam satu tabel.</p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2.5">
+                            <button type="button" onclick="exportRekapExcel()"
+                                class="px-4 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 active:scale-95 text-white text-xs font-bold rounded-xl transition flex items-center gap-2 shadow-md shadow-emerald-200">
+                                <i class="ph-bold ph-file-xls text-base"></i> Export Rekap Excel (.xls)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- RINGKASAN STATISTIK REKAP -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div
+                            class="bg-white p-4 rounded-[1.25rem] border border-slate-100 shadow-xs flex items-center justify-between">
+                            <div>
+                                <p class="text-[11px] font-semibold text-slate-500 uppercase">Total Santri Ditampilkan
+                                </p>
+                                <h4 id="rekap-stat-total" class="text-xl font-black text-slate-800 mt-0.5">0</h4>
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-xl">
+                                <i class="ph-fill ph-users"></i>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white p-4 rounded-[1.25rem] border border-slate-100 shadow-xs flex items-center justify-between">
+                            <div>
+                                <p class="text-[11px] font-semibold text-emerald-600 uppercase">Sudah Dinilai</p>
+                                <h4 id="rekap-stat-sudah" class="text-xl font-black text-emerald-700 mt-0.5">0</h4>
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-xl bg-emerald-100/70 text-emerald-600 flex items-center justify-center text-xl">
+                                <i class="ph-fill ph-check-circle"></i>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white p-4 rounded-[1.25rem] border border-slate-100 shadow-xs flex items-center justify-between">
+                            <div>
+                                <p class="text-[11px] font-semibold text-amber-600 uppercase">Belum Dinilai</p>
+                                <h4 id="rekap-stat-belum" class="text-xl font-black text-amber-700 mt-0.5">0</h4>
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-xl bg-amber-100/70 text-amber-600 flex items-center justify-center text-xl">
+                                <i class="ph-fill ph-clock-countdown"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FILTER & TABEL REKAP -->
+                    <div
+                        class="bg-white rounded-[1.25rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] overflow-hidden">
+                        <div
+                            class="p-4 border-b border-slate-100 bg-slate-50/60 flex flex-wrap items-center justify-between gap-3">
+                            <div class="flex flex-wrap items-center gap-2.5 flex-1">
+                                <div class="relative min-w-[200px] flex-1 sm:flex-initial">
+                                    <i
+                                        class="ph-bold ph-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-sm"></i>
+                                    <input type="text" id="rekap-search-input" oninput="renderTableRekapNilai()"
+                                        placeholder="Cari nama / NIS santri..."
+                                        class="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-emerald-500 bg-white">
+                                </div>
+                                <select id="rekap-filter-kelas" onchange="renderTableRekapNilai()"
+                                    class="px-3 py-1.5 text-xs font-bold border border-slate-200 rounded-lg outline-none bg-white text-slate-700 focus:ring-2 focus:ring-emerald-500">
+                                    <option value="ALL">Semua Kelas</option>
+                                </select>
+                                <select id="rekap-filter-level" onchange="renderTableRekapNilai()"
+                                    class="px-3 py-1.5 text-xs font-bold border border-slate-200 rounded-lg outline-none bg-white text-slate-700 focus:ring-2 focus:ring-emerald-500">
+                                    <option value="ALL">Semua Level</option>
+                                    <option value="Belum Ditentukan">Belum Diplot</option>
+                                    <option value="Iqra'">Iqra'</option>
+                                    <option value="Al-Qur'an">Al-Qur'an</option>
+                                    <option value="Tahfidz A">Tahfidz A</option>
+                                    <option value="Tahfidz B">Tahfidz B</option>
+                                </select>
+                                <select id="rekap-filter-status" onchange="renderTableRekapNilai()"
+                                    class="px-3 py-1.5 text-xs font-bold border border-slate-200 rounded-lg outline-none bg-white text-slate-700 focus:ring-2 focus:ring-emerald-500">
+                                    <option value="ALL">Semua Status</option>
+                                    <option value="SUDAH">Sudah Dinilai</option>
+                                    <option value="BELUM">Belum Dinilai</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead
+                                    class="bg-slate-50 border-b border-slate-100 text-slate-500 font-bold uppercase tracking-wider">
+                                    <tr>
+                                        <th class="p-3.5 w-10 text-center">No</th>
+                                        <th class="p-3.5 min-w-[170px]">Nama Santri &amp; NIS</th>
+                                        <th class="p-3.5 text-center">Kelas</th>
+                                        <th class="p-3.5">Level &amp; Pengampu</th>
+                                        <th class="p-3.5 text-center" title="Makharijul Huruf">Makhraj</th>
+                                        <th class="p-3.5 text-center" title="Hukum Bacaan">Tajwid</th>
+                                        <th class="p-3.5 text-center" title="Kelancaran">Lancar</th>
+                                        <th class="p-3.5 min-w-[210px]">Rincian Hafalan</th>
+                                        <th class="p-3.5 min-w-[160px]">Catatan / Keputusan</th>
+                                        <th class="p-3.5 text-right">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-rekap-nilai-body" class="divide-y divide-slate-100"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </section>
 
@@ -2763,7 +2876,7 @@ service cloud.firestore {
 
             const wrapper = document.getElementById('main-content-wrapper');
             if (wrapper) {
-                if (targetId === 'data-siswa' && currentUser && currentUser.role !== 'admin') {
+                if ((targetId === 'data-siswa' && currentUser && currentUser.role !== 'admin') || targetId === 'rekap-nilai') {
                     wrapper.classList.remove('max-w-6xl');
                     wrapper.classList.add('max-w-full');
                 } else {
@@ -2791,6 +2904,7 @@ service cloud.firestore {
             if (targetId === 'dashboard') updateDashboard();
             if (targetId === 'data-siswa') renderTableSiswa();
             if (targetId === 'input-nilai') prepareFormNilai();
+            if (targetId === 'rekap-nilai') prepareRekapNilai();
             if (targetId === 'cetak-raport') prepareCetakRaport();
             if (targetId === 'data-guru') renderTableGuru();
             if (targetId === 'data-wali-kelas') renderTableWali();
@@ -3918,6 +4032,314 @@ service cloud.firestore {
             }
         }
 
+        // --- 2B. REKAP NILAI (ADMIN & GURU PENGAMPU) ---
+        function prepareRekapNilai() {
+            const isGuru = currentUser && currentUser.role !== 'admin';
+            const roleBadge = document.getElementById('rekap-role-badge');
+            const subtitle = document.getElementById('rekap-subtitle');
+            const filterLevelEl = document.getElementById('rekap-filter-level');
+
+            populateKelasSelect('rekap-filter-kelas', 'Semua Kelas', document.getElementById('rekap-filter-kelas')?.value || 'ALL');
+
+            if (isGuru) {
+                if (roleBadge) roleBadge.textContent = `Level ${currentUser.level}`;
+                if (subtitle) subtitle.textContent = `Rekapitulasi nilai tajwid dan hafalan santri binaan Level ${currentUser.level}.`;
+                if (filterLevelEl) filterLevelEl.classList.add('hidden');
+            } else {
+                if (roleBadge) roleBadge.textContent = 'Semua Level (Admin)';
+                if (subtitle) subtitle.textContent = 'Pantau seluruh capaian tajwid, rincian hafalan, dan status penilaian semua santri.';
+                if (filterLevelEl) filterLevelEl.classList.remove('hidden');
+            }
+
+            renderTableRekapNilai();
+        }
+
+        function getFilteredRekapList() {
+            const isGuru = currentUser && currentUser.role !== 'admin';
+            let list = getAccessibleSiswa();
+
+            const searchVal = (document.getElementById('rekap-search-input')?.value || '').trim().toLowerCase();
+            const kelasFilter = document.getElementById('rekap-filter-kelas')?.value || 'ALL';
+            const levelFilter = isGuru ? 'ALL' : (document.getElementById('rekap-filter-level')?.value || 'ALL');
+            const statusFilter = document.getElementById('rekap-filter-status')?.value || 'ALL';
+
+            if (searchVal) {
+                list = list.filter(s =>
+                    (s.nama || '').toLowerCase().includes(searchVal) ||
+                    (s.nis || '').toLowerCase().includes(searchVal) ||
+                    (s.nisn || '').toLowerCase().includes(searchVal)
+                );
+            }
+
+            if (kelasFilter !== 'ALL') {
+                list = list.filter(s => (s.kelas || '').toUpperCase() === kelasFilter);
+            }
+
+            if (!isGuru && levelFilter !== 'ALL') {
+                list = list.filter(s => (s.level || 'Belum Ditentukan') === levelFilter);
+            }
+
+            if (statusFilter === 'SUDAH') {
+                list = list.filter(s => Boolean(APP_STATE.nilai && APP_STATE.nilai[s.id]));
+            } else if (statusFilter === 'BELUM') {
+                list = list.filter(s => !(APP_STATE.nilai && APP_STATE.nilai[s.id]));
+            }
+
+            return list;
+        }
+
+        function getPredikatBadgeHtml(pred) {
+            if (!pred) return '<span class="text-slate-300 font-bold">-</span>';
+            const colors = {
+                'A': 'bg-emerald-100 text-emerald-800 border-emerald-200',
+                'B': 'bg-blue-100 text-blue-800 border-blue-200',
+                'C': 'bg-amber-100 text-amber-800 border-amber-200',
+                'D': 'bg-red-100 text-red-800 border-red-200'
+            };
+            const cls = colors[pred] || 'bg-slate-100 text-slate-700 border-slate-200';
+            return `<span class="inline-flex items-center justify-center w-6 h-6 rounded-md text-xs font-black border ${cls}">${pred}</span>`;
+        }
+
+        function renderTableRekapNilai() {
+            const tbody = document.getElementById('table-rekap-nilai-body');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            const list = getFilteredRekapList();
+            let sudahCount = 0;
+            list.forEach(s => {
+                if (APP_STATE.nilai && APP_STATE.nilai[s.id]) sudahCount++;
+            });
+
+            document.getElementById('rekap-stat-total').textContent = list.length;
+            document.getElementById('rekap-stat-sudah').textContent = sudahCount;
+            document.getElementById('rekap-stat-belum').textContent = list.length - sudahCount;
+
+            if (list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="10" class="p-8 text-center text-slate-400 italic">Tidak ada data santri yang sesuai dengan filter pencarian.</td></tr>`;
+                return;
+            }
+
+            const isGenap = APP_STATE.setting?.semester === 'Genap';
+
+            list.forEach((s, idx) => {
+                const nilai = (APP_STATE.nilai && APP_STATE.nilai[s.id]) || null;
+                const guruNama = getGuruPengampuByLevel(s.level);
+                const isBelumLevel = !s.level || s.level === 'Belum Ditentukan';
+
+                let hafalanHtml = '<span class="text-slate-400 italic text-[11px]">Belum ada hafalan</span>';
+                if (nilai && Array.isArray(nilai.hafalan) && nilai.hafalan.length > 0) {
+                    hafalanHtml = `<div class="flex flex-wrap gap-1">` + nilai.hafalan.map(h =>
+                        `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10.5px] font-semibold bg-slate-100 text-slate-700 border border-slate-200">${h.nama} <strong class="text-emerald-700">(${h.predikat})</strong></span>`
+                    ).join('') + `</div>`;
+                }
+
+                let keputusanHtml = '';
+                if (isGenap && nilai && nilai.keputusan) {
+                    if (typeof nilai.keputusan === 'object') {
+                        const isNaik = nilai.keputusan.tipe === 'Naik';
+                        const teksKep = isNaik ? `Naik → ${nilai.keputusan.levelTujuan}` : `Tetap di ${nilai.keputusan.levelAsal}`;
+                        const badgeCls = isNaik ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-rose-50 text-rose-700 border-rose-200';
+                        keputusanHtml = `<div class="mt-1"><span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold border ${badgeCls}">${teksKep}</span></div>`;
+                    } else if (typeof nilai.keputusan === 'string') {
+                        keputusanHtml = `<div class="mt-1"><span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold border bg-emerald-50 text-emerald-700 border-emerald-200">${nilai.keputusan}</span></div>`;
+                    }
+                }
+
+                const catatanHtml = nilai
+                    ? `<p class="text-[11px] text-slate-600 line-clamp-2" title="${(nilai.catatan || '').replace(/"/g, '&quot;')}">${nilai.catatan || '<span class="italic text-slate-400">Tanpa catatan</span>'}</p>${keputusanHtml}`
+                    : `<span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">Belum Dinilai</span>`;
+
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50/80 transition align-top";
+                tr.innerHTML = `
+                    <td class="p-3.5 text-center font-bold text-slate-400">${idx + 1}</td>
+                    <td class="p-3.5">
+                        <div class="font-bold text-slate-800">${s.nama}</div>
+                        <div class="text-[10.5px] text-slate-500 font-mono mt-0.5">NIS: ${s.nis || '-'}</div>
+                    </td>
+                    <td class="p-3.5 text-center font-bold text-slate-700">${s.kelas}</td>
+                    <td class="p-3.5">
+                        <span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold ${isBelumLevel ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'}">${s.level || 'Belum Ditentukan'}</span>
+                        ${guruNama ? `<div class="text-[10px] text-slate-500 mt-0.5">${guruNama}</div>` : ''}
+                    </td>
+                    <td class="p-3.5 text-center">${getPredikatBadgeHtml(nilai?.makhraj)}</td>
+                    <td class="p-3.5 text-center">${getPredikatBadgeHtml(nilai?.hukum)}</td>
+                    <td class="p-3.5 text-center">${getPredikatBadgeHtml(nilai?.lancar)}</td>
+                    <td class="p-3.5">${hafalanHtml}</td>
+                    <td class="p-3.5">${catatanHtml}</td>
+                    <td class="p-3.5 text-right">
+                        <div class="inline-flex items-center justify-end gap-1.5">
+                            <button type="button" onclick="bukaInputNilaiDariRekap('${s.id}')" class="px-2.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[11px] font-bold rounded-lg transition inline-flex items-center gap-1" title="Input / Edit Nilai">
+                                <i class="ph-bold ph-pencil-simple"></i> Nilai
+                            </button>
+                            <button type="button" onclick="bukaCetakDariRekap('${s.id}')" class="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-[11px] font-bold rounded-lg transition inline-flex items-center gap-1" title="Lihat & Cetak Raport">
+                                <i class="ph-bold ph-printer"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function bukaInputNilaiDariRekap(siswaId) {
+            navigate('input-nilai');
+            const selectEl = document.getElementById('select-siswa-nilai');
+            if (selectEl) {
+                selectEl.value = siswaId;
+                loadNilaiForm(siswaId);
+            }
+        }
+
+        function bukaCetakDariRekap(siswaId) {
+            navigate('cetak-raport');
+            const selectEl = document.getElementById('select-siswa-cetak');
+            if (selectEl) {
+                selectEl.value = siswaId;
+                renderRaport(siswaId);
+            }
+        }
+
+        function escapeXml(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&apos;');
+        }
+
+        function exportRekapExcel() {
+            const list = getFilteredRekapList();
+            if (list.length === 0) {
+                showToast("Data Kosong", "Tidak ada data rekap untuk diekspor.", "error");
+                return;
+            }
+
+            const tahun = APP_STATE.setting?.tahun || '2025/2026';
+            const semester = APP_STATE.setting?.semester || 'Ganjil';
+
+            let rowsXml = '';
+            list.forEach((s, idx) => {
+                const n = (APP_STATE.nilai && APP_STATE.nilai[s.id]) || {};
+                const guruNama = getGuruPengampuByLevel(s.level) || '-';
+                const hafalanStr = (Array.isArray(n.hafalan) && n.hafalan.length > 0)
+                    ? n.hafalan.map(h => `${h.nama} (${h.predikat})`).join(', ')
+                    : '-';
+                let keputusanStr = '-';
+                if (semester === 'Genap' && n.keputusan) {
+                    if (typeof n.keputusan === 'object') {
+                        keputusanStr = n.keputusan.tipe === 'Naik'
+                            ? `Naik ke Level ${n.keputusan.levelTujuan}`
+                            : `Tetap di Level ${n.keputusan.levelAsal}`;
+                    } else {
+                        keputusanStr = String(n.keputusan);
+                    }
+                }
+
+                rowsXml += `
+                <Row ss:Height="24">
+                    <Cell ss:StyleID="CellCenter"><Data ss:Type="Number">${idx + 1}</Data></Cell>
+                    <Cell ss:StyleID="CellLeft"><Data ss:Type="String">${escapeXml(s.nama)}</Data></Cell>
+                    <Cell ss:StyleID="CellCenter"><Data ss:Type="String">${escapeXml(s.nis || '-')}</Data></Cell>
+                    <Cell ss:StyleID="CellCenter"><Data ss:Type="String">${escapeXml(s.nisn || '-')}</Data></Cell>
+                    <Cell ss:StyleID="CellCenter"><Data ss:Type="String">${escapeXml(s.kelas)}</Data></Cell>
+                    <Cell ss:StyleID="CellCenter"><Data ss:Type="String">${escapeXml(s.level || 'Belum Ditentukan')}</Data></Cell>
+                    <Cell ss:StyleID="CellLeft"><Data ss:Type="String">${escapeXml(guruNama)}</Data></Cell>
+                    <Cell ss:StyleID="CellCenter"><Data ss:Type="String">${escapeXml(n.makhraj || '-')}</Data></Cell>
+                    <Cell ss:StyleID="CellCenter"><Data ss:Type="String">${escapeXml(n.hukum || '-')}</Data></Cell>
+                    <Cell ss:StyleID="CellCenter"><Data ss:Type="String">${escapeXml(n.lancar || '-')}</Data></Cell>
+                    <Cell ss:StyleID="CellLeft"><Data ss:Type="String">${escapeXml(hafalanStr)}</Data></Cell>
+                    <Cell ss:StyleID="CellLeft"><Data ss:Type="String">${escapeXml(n.catatan || '-')}</Data></Cell>
+                    <Cell ss:StyleID="CellCenter"><Data ss:Type="String">${escapeXml(keputusanStr)}</Data></Cell>
+                </Row>`;
+            });
+
+            const xml = `<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
+ <Styles>
+  <Style ss:ID="Header">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#000000"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#000000"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#000000"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#FFFFFF" ss:Bold="1"/>
+   <Interior ss:Color="#059669" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="CellLeft">
+   <Alignment ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="CellCenter">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D4D4D4"/>
+   </Borders>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Rekap Nilai Al-Quran">
+  <Table>
+   <Column ss:Width="35"/>
+   <Column ss:Width="180"/>
+   <Column ss:Width="90"/>
+   <Column ss:Width="105"/>
+   <Column ss:Width="55"/>
+   <Column ss:Width="90"/>
+   <Column ss:Width="160"/>
+   <Column ss:Width="65"/>
+   <Column ss:Width="65"/>
+   <Column ss:Width="65"/>
+   <Column ss:Width="260"/>
+   <Column ss:Width="200"/>
+   <Column ss:Width="130"/>
+   <Row ss:Height="28">
+    <Cell ss:StyleID="Header"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">Nama Santri</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">NIS</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">NISN</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">Kelas</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">Level</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">Guru Pembimbing</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">Makhraj</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">Tajwid</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">Kelancaran</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">Rincian Hafalan</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">Catatan</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">Keputusan</Data></Cell>
+   </Row>
+   ${rowsXml}
+  </Table>
+ </Worksheet>
+</Workbook>`;
+
+            const blob = new Blob([xml], { type: 'application/vnd.ms-excel;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = `Rekap_Nilai_AlQuran_${tahun.replace('/', '-')}_${semester}.xls`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            showToast("Export Berhasil", "File Excel rekap nilai berhasil diunduh.");
+        }
+
         // --- 3. CETAK RAPORT ---
         function getKategoriText(pred) {
             switch (pred) {
@@ -4490,6 +4912,7 @@ service cloud.firestore {
                         if (currentUser) {
                             if (!document.getElementById('sec-dashboard').classList.contains('hidden')) updateDashboard();
                             if (!document.getElementById('sec-data-siswa').classList.contains('hidden')) renderTableSiswa();
+                            if (!document.getElementById('sec-rekap-nilai').classList.contains('hidden')) renderTableRekapNilai();
                             if (!document.getElementById('sec-data-guru').classList.contains('hidden')) renderTableGuru();
                             if (!document.getElementById('sec-data-wali-kelas').classList.contains('hidden')) renderTableWali();
                         }
