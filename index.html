@@ -689,7 +689,9 @@
                         </div>
                         <h1 id="auth-heading-title"
                             class="text-base sm:text-lg font-black text-slate-800 tracking-tight uppercase leading-snug">
-                            RAPORT AL QUR'AN SMP GUNUNG JATI - KOTA TANGERANG</h1>
+                            <span class="block">RAPORT AL QUR'AN</span>
+                            <span class="block mt-0.5 text-sm sm:text-base">SMP GUNUNG JATI - KOTA TANGERANG</span>
+                        </h1>
                         <p id="auth-db-badge"
                             class="text-[11px] font-bold text-emerald-600 uppercase tracking-widest mt-1">DATABASE LOKAL
                         </p>
@@ -2168,6 +2170,9 @@ service cloud.firestore {
     <script>
         const STORAGE_KEY = 'TPQ_LOCAL_DB_V3';
         const FIREBASE_CONFIG_KEY = 'TPQ_FIREBASE_CONFIG_V1';
+        const SESSION_USER_KEY = 'TPQ_SESSION_USER';
+        const SESSION_PAGE_KEY = 'TPQ_SESSION_PAGE';
+
         // Konfigurasi Bawaan Firebase (Tertanam permanen agar semua guru langsung terhubung otomatis)
         const DEFAULT_FIREBASE_CONFIG = {
             apiKey: "AIzaSyAG8w1apKDPm9mmsug538WiYyizmDVOJso",
