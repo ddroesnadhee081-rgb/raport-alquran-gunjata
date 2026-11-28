@@ -2086,6 +2086,11 @@ service cloud.firestore {
                                         class="px-3.5 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-semibold text-xs rounded-xl transition flex items-center gap-1.5">
                                         <i class="ph-bold ph-cloud-arrow-up text-sm"></i> Upload Data Lokal
                                     </button>
+                                    <button type="button" onclick="handleCopyShareLink()"
+                                        class="px-3.5 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 font-semibold text-xs rounded-xl transition flex items-center gap-1.5"
+                                        title="Salin link web yang sudah otomatis terhubung ke Cloud Firebase untuk dibagikan ke guru">
+                                        <i class="ph-bold ph-share-network text-sm"></i> Salin Link Guru
+                                    </button>
                                     <button type="button" onclick="handleCopyConfigCode()"
                                         class="px-3.5 py-2 bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 font-semibold text-xs rounded-xl transition flex items-center gap-1.5"
                                         title="Salin kode konfigurasi untuk ditanam sebelum deploy agar semua perangkat langsung terhubung">
@@ -2163,17 +2168,41 @@ service cloud.firestore {
     <script>
         const STORAGE_KEY = 'TPQ_LOCAL_DB_V3';
         const FIREBASE_CONFIG_KEY = 'TPQ_FIREBASE_CONFIG_V1';
-        const SESSION_USER_KEY = 'TPQ_SESSION_USER';
-        const SESSION_PAGE_KEY = 'TPQ_SESSION_PAGE';
-
-        // Konfigurasi Bawaan Firebase (Isi agar semua guru yang membuka link langsung terhubung otomatis)
+        // Konfigurasi Bawaan Firebase (Tertanam permanen agar semua guru langsung terhubung otomatis)
         const DEFAULT_FIREBASE_CONFIG = {
-            apiKey: "",
-            projectId: "",
-            authDomain: "",
-            appId: "",
+            apiKey: "AIzaSyAG8w1apKDPm9mmsug538WiYyizmDVOJso",
+            projectId: "raport-alquran-gunjata",
+            authDomain: "raport-alquran-gunjata.firebaseapp.com",
+            databaseURL: "https://raport-alquran-gunjata-default-rtdb.asia-southeast1.firebasedatabase.app",
+            storageBucket: "raport-alquran-gunjata.firebasestorage.app",
+            messagingSenderId: "656581558019",
+            appId: "1:656581558019:web:190995f2b11b4149f4b336",
             docId: "tpq_gunung_jati"
         };
+
+        // Membaca konfigurasi Firebase dari URL Parameter (?fb=...), LocalStorage, atau DEFAULT_FIREBASE_CONFIG
+        function getActiveFirebaseConfig() {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const fbParam = params.get('fb');
+                if (fbParam) {
+                    const decoded = JSON.parse(atob(decodeURIComponent(fbParam)));
+                    if (decoded && decoded.apiKey && decoded.projectId) {
+                        localStorage.setItem(FIREBASE_CONFIG_KEY, JSON.stringify(decoded));
+                        return decoded;
+                    }
+                }
+            } catch (e) {
+                console.warn("Gagal membaca parameter link Firebase:", e);
+            }
+            try {
+                const savedFb = JSON.parse(localStorage.getItem(FIREBASE_CONFIG_KEY) || '{}');
+                if (savedFb && savedFb.apiKey && savedFb.projectId) {
+                    return savedFb;
+                }
+            } catch (e) { }
+            return DEFAULT_FIREBASE_CONFIG;
+        }
 
         function saveSession(user) {
             try {
@@ -2600,14 +2629,46 @@ service cloud.firestore {
         // --- AUTH & NAVIGASI ---
         async function handleLogin(e) {
             e.preventDefault();
-            if (fbInitialSyncPromise) {
-                try {
-                    await fbInitialSyncPromise;
-                } catch (err) { }
-            }
             const rawUser = document.getElementById('login-user').value.trim();
             const pass = document.getElementById('login-pass').value.trim();
             const user = rawUser.toLowerCase();
+
+            // Pastikan koneksi & data terbaru dari Firebase ditarik lebih dulu sebelum validasi akun
+            const activeCfg = getActiveFirebaseConfig();
+            if (activeCfg && activeCfg.apiKey && activeCfg.projectId) {
+                showLoading(true);
+                try {
+                    if (!fbConnected || !fbDb) {
+                        await initFirebaseConnection(activeCfg, false);
+                    }
+                    if (fbInitialSyncPromise) {
+                        await fbInitialSyncPromise;
+                    }
+                    // Tarik ulang paksa dari Firestore jika user belum ketemu di cache lokal
+                    const adminUserCheck = (APP_STATE.admin?.user || 'admin').toLowerCase();
+                    const foundLocal = (user === adminUserCheck) || (APP_STATE.guru || []).some(g => (g.user || '').trim().toLowerCase() === user);
+                    if (!foundLocal && fbDb && window.firebaseFirestoreModule) {
+                        const { doc, getDoc } = window.firebaseFirestoreModule;
+                        const docRef = doc(fbDb, 'raport_tpq', activeCfg.docId || 'tpq_gunung_jati');
+                        const snap = await Promise.race([
+                            getDoc(docRef),
+                            new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 6000))
+                        ]);
+                        if (snap && snap.exists()) {
+                            fbSyncingFromCloud = true;
+                            APP_STATE = { ...DEFAULT_STATE, ...snap.data() };
+                            saveDatabase(false);
+                            renderLogo();
+                            renderLoginBg();
+                            fbSyncingFromCloud = false;
+                        }
+                    }
+                } catch (err) {
+                    console.warn("Sinkronisasi saat login:", err);
+                } finally {
+                    showLoading(false);
+                }
+            }
 
             const adminUser = (APP_STATE.admin?.user || 'admin').toLowerCase();
             const adminPass = APP_STATE.admin?.pass || 'admin123';
@@ -2622,8 +2683,10 @@ service cloud.firestore {
                     const exists = (user === adminUser) || (APP_STATE.guru || []).some(g => (g.user || '').trim().toLowerCase() === user);
                     if (exists) {
                         showToast("Login Gagal", "Password salah! Silakan coba lagi.", "error");
+                    } else if (!activeCfg || !activeCfg.apiKey) {
+                        showToast("Database Belum Terhubung", `Username "${rawUser}" tidak ditemukan. Perangkat ini masih dalam Mode Lokal (belum terhubung ke Cloud Firebase).`, "error", 5500);
                     } else {
-                        showToast("Login Gagal", `Username "${rawUser}" tidak terdaftar. Silakan hubungi Administrator.`, "error");
+                        showToast("Login Gagal", `Username "${rawUser}" tidak terdaftar di Cloud. Pastikan Admin sudah menekan "Upload Data Lokal".`, "error", 5500);
                     }
                     return;
                 }
@@ -4608,8 +4671,6 @@ service cloud.firestore {
                     pesan = "Izin ditolak (Permission Denied). Buka Firebase Console > Firestore Database > Rules, ubah menjadi 'allow read, write: if true;'.";
                 } else if (err.code === 'not-found') {
                     pesan = "Database Firestore tidak ditemukan. Pastikan Anda sudah mengklik 'Create Database' di menu Firestore Database.";
-                } else if (pesan.includes('exceeds the maximum') || pesan.includes('invalid nested entity')) {
-                    pesan = "Ukuran data melebihi batas 1 MB Firestore. Coba reset gambar background/logo kustom atau gunakan tautan URL gambar.";
                 }
                 showToast("Gagal Upload", pesan, "error");
             }
@@ -4627,6 +4688,33 @@ service cloud.firestore {
             document.getElementById('fb-app-id').value = '';
             updateFirebaseBadge();
             showToast("Terputus", "Koneksi Firebase dinonaktifkan.");
+        }
+
+        function handleCopyShareLink() {
+            const apiKey = document.getElementById('fb-api-key').value.trim();
+            const projectId = document.getElementById('fb-project-id').value.trim();
+            const authDomain = document.getElementById('fb-auth-domain').value.trim() || (projectId ? `${projectId}.firebaseapp.com` : '');
+            const appId = document.getElementById('fb-app-id').value.trim();
+            const docId = document.getElementById('fb-doc-id').value.trim() || 'tpq_gunung_jati';
+
+            if (!apiKey || !projectId) {
+                showToast("Isi Konfigurasi Dahulu", "Masukkan API Key dan Project ID terlebih dahulu lalu klik Simpan & Hubungkan.", "error");
+                return;
+            }
+
+            const cfgObj = { apiKey, projectId, authDomain, appId, docId };
+            const encoded = encodeURIComponent(btoa(JSON.stringify(cfgObj)));
+            const baseUrl = window.location.origin + window.location.pathname;
+            const shareUrl = `${baseUrl}?fb=${encoded}`;
+
+            const tempArea = document.createElement('textarea');
+            tempArea.value = shareUrl;
+            document.body.appendChild(tempArea);
+            tempArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempArea);
+
+            showToast("Link Guru Berhasil Disalin", "Bagikan link ini ke grup WA guru! Guru yang membuka link ini akan otomatis terhubung ke Cloud & bisa langsung login.", "success", 6000);
         }
 
         function handleCopyConfigCode() {
@@ -4707,6 +4795,11 @@ service cloud.firestore {
             renderLogo();
             renderLoginBg();
 
+            const fbConfig = getActiveFirebaseConfig();
+            if (fbConfig && fbConfig.apiKey && fbConfig.projectId) {
+                initFirebaseConnection(fbConfig, false);
+            }
+
             if (restoreUserSession()) {
                 document.documentElement.classList.add('has-session');
                 const authEl = document.getElementById('auth-container');
@@ -4724,14 +4817,6 @@ service cloud.firestore {
                 const appEl = document.getElementById('app-container');
                 if (appEl) appEl.classList.add('hidden');
             }
-
-            try {
-                const savedFb = JSON.parse(localStorage.getItem(FIREBASE_CONFIG_KEY) || '{}');
-                const fbConfig = (savedFb.apiKey && savedFb.projectId) ? savedFb : DEFAULT_FIREBASE_CONFIG;
-                if (fbConfig.apiKey && fbConfig.projectId) {
-                    initFirebaseConnection(fbConfig, false);
-                }
-            } catch (err) { }
         });
     </script>
 </body>
